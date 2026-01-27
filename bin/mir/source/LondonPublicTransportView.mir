@@ -1,0 +1,1380 @@
+[ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Graphics,1,14,22]; ]
+import Toybox.Graphics;
+[ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [WatchUi,2,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [Lang,3,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 5; @symbol_classdef = [StatusListView,5,6,20]; @symbol_extends<0> = [WatchUi,5,29,36]; @symbol_extends<1> = [View,5,37,41]; ]
+class StatusListView extends WatchUi.View {
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 5; ]
+    <init> {
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 7 16 ]
+        symbol [ TflApi %tmp.4 7 30 36 ];
+        %tmp.4 = getv ? :TflApi;
+        %tmp.1 = newc %tmp.4 ();
+        putv self :_tflApi %tmp.1;
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 5; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 7; @position = 16; @symbol_vardef = [_tflApi,7,16,23]; ]
+    private
+    var _tflApi;
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 8; @position = 16; @symbol_vardef = [_lineStatuses,8,16,29]; @symbol_type<0> = [Array,8,33,38]; @symbol_type<1> = [Dictionary,8,39,49]; ]
+    private
+    var _lineStatuses as Array<Dictionary>;
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 9; @position = 16; @symbol_vardef = [_scrollOffset,9,16,29]; @symbol_type<0> = [Number,9,33,39]; ]
+    private
+    var _scrollOffset as Number;
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 10; @position = 16; @symbol_vardef = [_selectedIndex,10,16,30]; @symbol_type<0> = [Number,10,34,40]; ]
+    private
+    var _selectedIndex as Number;
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 11; @position = 16; @symbol_vardef = [_cardHeight,11,16,27]; @symbol_type<0> = [Number,11,31,37]; ]
+    private
+    var _cardHeight as Number;
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 13; @symbol_functiondef = [initialize,13,13,23]; ]
+    function initialize() as Void {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_13_26_19_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 14 8 ]
+        symbol [ View %tmp.2 14 8 12 ];
+        %tmp.2 = getv ? :View;
+        symbol [ initialize %tmp.3 14 13 23 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 15 8 ]
+        %tmp.4 = newa 0;
+        symbol [ _lineStatuses ? 15 8 21 ];
+        putv self :_lineStatuses %tmp.4;
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 16 8 ]
+        %tmp.5 = 0;
+        symbol [ _scrollOffset ? 16 8 21 ];
+        putv self :_scrollOffset %tmp.5;
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 17 8 ]
+        %tmp.6 = 0;
+        symbol [ _selectedIndex ? 17 8 22 ];
+        putv self :_selectedIndex %tmp.6;
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 18 8 ]
+        %tmp.7 = 80;
+        symbol [ _cardHeight ? 18 8 19 ];
+        putv self :_cardHeight %tmp.7;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_13_26_19_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 21; @symbol_functiondef = [drawStatusCard,21,13,27]; @symbol_param<0> = [dc,21,28,30]; @symbol_param<0>_type<0> = [Dc,21,34,36]; @symbol_param<1> = [idx,21,38,41]; @symbol_param<1>_type<0> = [Number,21,45,51]; ]
+    function drawStatusCard(dc as Dc, idx as Number) {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 22 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %padding.1 = local;
+        symbol [ padding %padding.1 22 12 19 ];
+        %tmp.1 = 10;
+        lputv %padding.1 %tmp.1;
+        symbol [ padding %padding.1 22 12 19 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 23 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %width.2 = local;
+        symbol [ width %width.2 23 12 17 ];
+        %tmp.2 = lgetv %dc;
+        symbol [ dc %tmp.2 23 20 22 ];
+        symbol [ getWidth %tmp.3 23 23 31 ];
+        %tmp.3 = getv function %tmp.2 :getWidth;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        lputv %width.2 %tmp.4;
+        symbol [ width %width.2 23 12 17 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 24 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %height.3 = local;
+        symbol [ height %height.3 24 12 18 ];
+        %tmp.5 = lgetv %dc;
+        symbol [ dc %tmp.5 24 21 23 ];
+        symbol [ getHeight %tmp.6 24 24 33 ];
+        %tmp.6 = getv function %tmp.5 :getHeight;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        lputv %height.3 %tmp.7;
+        symbol [ height %height.3 24 12 18 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 25 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %cardWidth.4 = local;
+        symbol [ cardWidth %cardWidth.4 25 12 21 ];
+        %tmp.8 = lgetv %width.2;
+        symbol [ width %tmp.8 25 24 29 ];
+        %tmp.9 = 2;
+        %tmp.10 = lgetv %padding.1;
+        symbol [ padding %tmp.10 25 37 44 ];
+        %tmp.11 = mul %tmp.9 %tmp.10;
+        %tmp.12 = sub %tmp.8 %tmp.11;
+        lputv %cardWidth.4 %tmp.12;
+        symbol [ cardWidth %cardWidth.4 25 12 21 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 26 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %yPos.5 = local;
+        symbol [ yPos %yPos.5 26 12 16 ];
+        %tmp.13 = lgetv %idx;
+        symbol [ idx %tmp.13 26 20 23 ];
+        symbol [ _cardHeight %tmp.15 26 27 38 ];
+        %tmp.15 = getv ? :_cardHeight;
+        %tmp.16 = lgetv %padding.1;
+        symbol [ padding %tmp.16 26 41 48 ];
+        %tmp.17 = add %tmp.15 %tmp.16;
+        %tmp.18 = mul %tmp.13 %tmp.17;
+        symbol [ _scrollOffset %tmp.20 26 53 66 ];
+        %tmp.20 = getv ? :_scrollOffset;
+        %tmp.21 = sub %tmp.18 %tmp.20;
+        %tmp.22 = 10;
+        %tmp.23 = add %tmp.21 %tmp.22;
+        lputv %yPos.5 %tmp.23;
+        symbol [ yPos %yPos.5 26 12 16 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 29 8 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_8_31_8_if_stmt:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_12_29_45_begin:
+        %tmp.24 = lgetv %yPos.5;
+        symbol [ yPos %tmp.24 29 12 16 ];
+        symbol [ _cardHeight %tmp.26 29 19 30 ];
+        %tmp.26 = getv ? :_cardHeight;
+        %tmp.27 = add %tmp.24 %tmp.26;
+        %tmp.28 = 0;
+        %tmp.29 = lt %tmp.27 %tmp.28;
+        bt %tmp.29 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_8_31_8_if_true;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_38_29_45_false:
+        %tmp.30 = lgetv %yPos.5;
+        symbol [ yPos %tmp.30 29 38 42 ];
+        %tmp.31 = lgetv %height.3;
+        symbol [ height %tmp.31 29 45 51 ];
+        %tmp.32 = gt %tmp.30 %tmp.31;
+        push %tmp.32;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_38_29_45_end:
+        %tmp.33 = phi [%tmp.29 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_12_29_45_begin] [%tmp.32 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_38_29_45_false] [%tmp.33 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_38_29_45_end];
+        bf %tmp.33 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_8_31_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_8_31_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_53_31_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 30 12 ]
+        ret ?;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_53_31_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_8_31_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_29_8_31_8_if_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 33 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %statusDict.6 = local;
+        symbol [ statusDict %statusDict.6 33 12 22 ];
+        symbol [ _lineStatuses %tmp.35 33 25 38 ];
+        %tmp.35 = getv ? :_lineStatuses;
+        %tmp.36 = lgetv %idx;
+        symbol [ idx %tmp.36 33 39 42 ];
+        %tmp.37 = agetv %tmp.35 %tmp.36;
+        %tmp.38 = as %tmp.37 Dictionary;
+        symbol [ Dictionary %tmp.38 33 47 57 ];
+        lputv %statusDict.6 %tmp.38;
+        symbol [ statusDict %statusDict.6 33 12 22 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 34 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %isSelected.7 = local;
+        symbol [ isSelected %isSelected.7 34 12 22 ];
+        %tmp.39 = lgetv %idx;
+        symbol [ idx %tmp.39 34 26 29 ];
+        symbol [ _selectedIndex %tmp.41 34 33 47 ];
+        %tmp.41 = getv ? :_selectedIndex;
+        %tmp.42 = eq %tmp.39 %tmp.41;
+        lputv %isSelected.7 %tmp.42;
+        symbol [ isSelected %isSelected.7 34 12 22 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 37 8 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_37_8_41_8_if_stmt:
+        %tmp.43 = lgetv %isSelected.7;
+        symbol [ isSelected %tmp.43 37 12 22 ];
+        bf %tmp.43 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_37_8_41_8_if_else_false;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_37_8_41_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_37_24_39_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 38 12 ]
+        %tmp.44 = lgetv %dc;
+        symbol [ dc %tmp.44 38 12 14 ];
+        symbol [ setColor %tmp.45 38 15 23 ];
+        %tmp.45 = getv function %tmp.44 :setColor;
+        symbol [ Graphics %tmp.46 38 24 32 ];
+        %tmp.46 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLUE %tmp.47 38 33 43 ];
+        %tmp.47 = getv %tmp.46 :COLOR_BLUE;
+        symbol [ Graphics %tmp.48 38 45 53 ];
+        %tmp.48 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLUE %tmp.49 38 54 64 ];
+        %tmp.49 = getv %tmp.48 :COLOR_BLUE;
+        invoke %tmp.44 %tmp.45(%tmp.47, %tmp.49);
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_37_24_39_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_37_8_41_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_37_8_41_8_if_else_false:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_39_15_41_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 40 12 ]
+        %tmp.50 = lgetv %dc;
+        symbol [ dc %tmp.50 40 12 14 ];
+        symbol [ setColor %tmp.51 40 15 23 ];
+        %tmp.51 = getv function %tmp.50 :setColor;
+        symbol [ Graphics %tmp.52 40 24 32 ];
+        %tmp.52 = getm $.Toybox.Graphics;
+        symbol [ COLOR_DK_GRAY %tmp.53 40 33 46 ];
+        %tmp.53 = getv %tmp.52 :COLOR_DK_GRAY;
+        symbol [ Graphics %tmp.54 40 48 56 ];
+        %tmp.54 = getm $.Toybox.Graphics;
+        symbol [ COLOR_DK_GRAY %tmp.55 40 57 70 ];
+        %tmp.55 = getv %tmp.54 :COLOR_DK_GRAY;
+        invoke %tmp.50 %tmp.51(%tmp.53, %tmp.55);
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_39_15_41_8_stop:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_37_8_41_8_if_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 42 8 ]
+        %tmp.56 = lgetv %dc;
+        symbol [ dc %tmp.56 42 8 10 ];
+        symbol [ fillRoundedRectangle %tmp.57 42 11 31 ];
+        %tmp.57 = getv function %tmp.56 :fillRoundedRectangle;
+        %tmp.58 = lgetv %padding.1;
+        symbol [ padding %tmp.58 42 32 39 ];
+        %tmp.59 = lgetv %yPos.5;
+        symbol [ yPos %tmp.59 42 41 45 ];
+        %tmp.60 = lgetv %cardWidth.4;
+        symbol [ cardWidth %tmp.60 42 47 56 ];
+        symbol [ _cardHeight %tmp.62 42 58 69 ];
+        %tmp.62 = getv ? :_cardHeight;
+        %tmp.63 = 8;
+        invoke %tmp.56 %tmp.57(%tmp.58, %tmp.59, %tmp.60, %tmp.62, %tmp.63);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 45 8 ]
+        %tmp.64 = lgetv %dc;
+        symbol [ dc %tmp.64 45 8 10 ];
+        symbol [ setColor %tmp.65 45 11 19 ];
+        %tmp.65 = getv function %tmp.64 :setColor;
+        symbol [ Graphics %tmp.66 45 20 28 ];
+        %tmp.66 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.67 45 29 40 ];
+        %tmp.67 = getv %tmp.66 :COLOR_WHITE;
+        symbol [ Graphics %tmp.68 45 42 50 ];
+        %tmp.68 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.69 45 51 68 ];
+        %tmp.69 = getv %tmp.68 :COLOR_TRANSPARENT;
+        invoke %tmp.64 %tmp.65(%tmp.67, %tmp.69);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 46 8 ]
+        %tmp.70 = lgetv %dc;
+        symbol [ dc %tmp.70 46 8 10 ];
+        symbol [ drawRoundedRectangle %tmp.71 46 11 31 ];
+        %tmp.71 = getv function %tmp.70 :drawRoundedRectangle;
+        %tmp.72 = lgetv %padding.1;
+        symbol [ padding %tmp.72 46 32 39 ];
+        %tmp.73 = lgetv %yPos.5;
+        symbol [ yPos %tmp.73 46 41 45 ];
+        %tmp.74 = lgetv %cardWidth.4;
+        symbol [ cardWidth %tmp.74 46 47 56 ];
+        symbol [ _cardHeight %tmp.76 46 58 69 ];
+        %tmp.76 = getv ? :_cardHeight;
+        %tmp.77 = 8;
+        invoke %tmp.70 %tmp.71(%tmp.72, %tmp.73, %tmp.74, %tmp.76, %tmp.77);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 49 8 ]
+        %tmp.78 = lgetv %dc;
+        symbol [ dc %tmp.78 49 8 10 ];
+        symbol [ setColor %tmp.79 49 11 19 ];
+        %tmp.79 = getv function %tmp.78 :setColor;
+        symbol [ Graphics %tmp.80 49 20 28 ];
+        %tmp.80 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.81 49 29 40 ];
+        %tmp.81 = getv %tmp.80 :COLOR_WHITE;
+        symbol [ Graphics %tmp.82 49 42 50 ];
+        %tmp.82 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.83 49 51 68 ];
+        %tmp.83 = getv %tmp.82 :COLOR_TRANSPARENT;
+        invoke %tmp.78 %tmp.79(%tmp.81, %tmp.83);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 50 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %title.8 = local;
+        symbol [ title %title.8 50 12 17 ];
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_begin:
+        %tmp.84 = lgetv %statusDict.6;
+        symbol [ statusDict %tmp.84 50 20 30 ];
+        %tmp.85 = "name";
+        %tmp.86 = agetv %tmp.84 %tmp.85;
+        %tmp.87 = null;
+        %tmp.88 = ne %tmp.86 %tmp.87;
+        bf %tmp.88 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_else_false;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_true:
+        %tmp.89 = lgetv %statusDict.6;
+        symbol [ statusDict %tmp.89 50 49 59 ];
+        %tmp.90 = "name";
+        %tmp.91 = agetv %tmp.89 %tmp.90;
+        push %tmp.91;
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_else_false:
+        %tmp.92 = lgetv %statusDict.6;
+        symbol [ statusDict %tmp.92 50 70 80 ];
+        %tmp.93 = "title";
+        %tmp.94 = agetv %tmp.92 %tmp.93;
+        push %tmp.94;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_end:
+        %tmp.95 = phi [%tmp.88 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_begin] [%tmp.91 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_true] [%tmp.94 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_else_false] [%tmp.95 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_50_20_50_88_end];
+        lputv %title.8 %tmp.95;
+        symbol [ title %title.8 50 12 17 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 51 8 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_51_8_59_8_if_stmt:
+        %tmp.96 = lgetv %title.8;
+        symbol [ title %tmp.96 51 12 17 ];
+        %tmp.97 = null;
+        %tmp.98 = ne %tmp.96 %tmp.97;
+        bf %tmp.98 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_51_8_59_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_51_8_59_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_51_27_59_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 52 12 ]
+        %tmp.99 = lgetv %dc;
+        symbol [ dc %tmp.99 52 12 14 ];
+        symbol [ drawText %tmp.100 52 15 23 ];
+        %tmp.100 = getv function %tmp.99 :drawText;
+        %tmp.101 = lgetv %width.2;
+        symbol [ width %tmp.101 53 16 21 ];
+        %tmp.102 = 2;
+        %tmp.103 = div %tmp.101 %tmp.102;
+        %tmp.104 = lgetv %yPos.5;
+        symbol [ yPos %tmp.104 54 16 20 ];
+        %tmp.105 = 20;
+        %tmp.106 = add %tmp.104 %tmp.105;
+        symbol [ Graphics %tmp.107 55 16 24 ];
+        %tmp.107 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.108 55 25 35 ];
+        %tmp.108 = getv %tmp.107 :FONT_SMALL;
+        %tmp.109 = lgetv %title.8;
+        symbol [ title %tmp.109 56 16 21 ];
+        %tmp.110 = as %tmp.109 { (!Null) };
+        symbol [ Graphics %tmp.111 57 16 24 ];
+        %tmp.111 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.112 57 25 44 ];
+        %tmp.112 = getv %tmp.111 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.99 %tmp.100(%tmp.103, %tmp.106, %tmp.108, %tmp.110, %tmp.112);
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_51_27_59_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_51_8_59_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_51_8_59_8_if_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 61 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %statuses.9 = local;
+        symbol [ statuses %statuses.9 61 12 20 ];
+        %tmp.113 = lgetv %statusDict.6;
+        symbol [ statusDict %tmp.113 61 23 33 ];
+        %tmp.114 = "lineStatuses";
+        %tmp.115 = agetv %tmp.113 %tmp.114;
+        %tmp.116 = as %tmp.115 Array<Dictionary>;
+        symbol [ Array %tmp.116 61 53 58 ];
+        symbol [ Dictionary %tmp.116 61 59 69 ];
+        lputv %statuses.9 %tmp.116;
+        symbol [ statuses %statuses.9 61 12 20 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 64 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop" ]
+        %description.10 = local;
+        symbol [ description %description.10 64 12 23 ];
+        %tmp.117 = lgetv %statuses.9;
+        symbol [ statuses %tmp.117 64 26 34 ];
+        %tmp.118 = 0;
+        %tmp.119 = agetv %tmp.117 %tmp.118;
+        %tmp.120 = "statusSeverityDescription";
+        %tmp.121 = agetv %tmp.119 %tmp.120;
+        lputv %description.10 %tmp.121;
+        symbol [ description %description.10 64 12 23 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 65 8 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_65_8_79_8_if_stmt:
+        %tmp.122 = lgetv %description.10;
+        symbol [ description %tmp.122 65 12 23 ];
+        %tmp.123 = null;
+        %tmp.124 = ne %tmp.122 %tmp.123;
+        bf %tmp.124 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_65_8_79_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_65_8_79_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_65_33_79_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 66 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_65_33_79_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_65_33_79_8_stop" ]
+        %descText.11 = local;
+        symbol [ descText %descText.11 66 16 24 ];
+        %tmp.125 = lgetv %description.10;
+        symbol [ description %tmp.125 66 27 38 ];
+        %tmp.126 = as %tmp.125 { (!Null) };
+        symbol [ toString %tmp.127 66 39 47 ];
+        %tmp.127 = getv function %tmp.126 :toString;
+        %tmp.128 = invoke %tmp.126 %tmp.127();
+        lputv %descText.11 %tmp.128;
+        symbol [ descText %descText.11 66 16 24 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 68 12 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_68_12_70_12_if_stmt:
+        %tmp.129 = lgetv %descText.11;
+        symbol [ descText %tmp.129 68 16 24 ];
+        symbol [ length %tmp.130 68 25 31 ];
+        %tmp.130 = getv function %tmp.129 :length;
+        %tmp.131 = invoke %tmp.129 %tmp.130();
+        %tmp.132 = 25;
+        %tmp.133 = gt %tmp.131 %tmp.132;
+        bf %tmp.133 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_68_12_70_12_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_68_12_70_12_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_68_40_70_12_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 69 16 ]
+        %tmp.134 = lgetv %descText.11;
+        symbol [ descText %tmp.134 69 27 35 ];
+        symbol [ substring %tmp.135 69 36 45 ];
+        %tmp.135 = getv function %tmp.134 :substring;
+        %tmp.136 = 0;
+        %tmp.137 = 22;
+        %tmp.138 = invoke %tmp.134 %tmp.135(%tmp.136, %tmp.137);
+        %tmp.139 = "...";
+        %tmp.140 = add %tmp.138 %tmp.139;
+        lputv %descText.11 %tmp.140;
+        symbol [ descText %descText.11 69 16 24 ];
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_68_40_70_12_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_68_12_70_12_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_68_12_70_12_if_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 71 12 ]
+        %tmp.141 = lgetv %dc;
+        symbol [ dc %tmp.141 71 12 14 ];
+        symbol [ setColor %tmp.142 71 15 23 ];
+        %tmp.142 = getv function %tmp.141 :setColor;
+        symbol [ Graphics %tmp.143 71 24 32 ];
+        %tmp.143 = getm $.Toybox.Graphics;
+        symbol [ COLOR_LT_GRAY %tmp.144 71 33 46 ];
+        %tmp.144 = getv %tmp.143 :COLOR_LT_GRAY;
+        symbol [ Graphics %tmp.145 71 48 56 ];
+        %tmp.145 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.146 71 57 74 ];
+        %tmp.146 = getv %tmp.145 :COLOR_TRANSPARENT;
+        invoke %tmp.141 %tmp.142(%tmp.144, %tmp.146);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 72 12 ]
+        %tmp.147 = lgetv %dc;
+        symbol [ dc %tmp.147 72 12 14 ];
+        symbol [ drawText %tmp.148 72 15 23 ];
+        %tmp.148 = getv function %tmp.147 :drawText;
+        %tmp.149 = lgetv %width.2;
+        symbol [ width %tmp.149 73 16 21 ];
+        %tmp.150 = 2;
+        %tmp.151 = div %tmp.149 %tmp.150;
+        %tmp.152 = lgetv %yPos.5;
+        symbol [ yPos %tmp.152 74 16 20 ];
+        %tmp.153 = 45;
+        %tmp.154 = add %tmp.152 %tmp.153;
+        symbol [ Graphics %tmp.155 75 16 24 ];
+        %tmp.155 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.156 75 25 35 ];
+        %tmp.156 = getv %tmp.155 :FONT_XTINY;
+        %tmp.157 = lgetv %descText.11;
+        symbol [ descText %tmp.157 76 16 24 ];
+        symbol [ Graphics %tmp.158 77 16 24 ];
+        %tmp.158 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.159 77 25 44 ];
+        %tmp.159 = getv %tmp.158 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.147 %tmp.148(%tmp.151, %tmp.154, %tmp.156, %tmp.157, %tmp.159);
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_65_33_79_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_65_8_79_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_65_8_79_8_if_end:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_21_53_80_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 83; @symbol_functiondef = [onLayout,83,13,21]; @symbol_param<0> = [dc,83,22,24]; ]
+    function onLayout(dc) as Void {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_83_34_85_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 84 8 ]
+        %tmp.1 = self;
+        symbol [ setLayout %tmp.2 84 8 17 ];
+        %tmp.2 = getv function %tmp.1 :setLayout;
+        symbol [ Rez %tmp.4 84 18 21 ];
+        %tmp.4 = getv ? :Rez;
+        symbol [ Layouts %tmp.5 84 22 29 ];
+        %tmp.5 = getv %tmp.4 :Layouts;
+        symbol [ MainLayout %tmp.6 84 30 40 ];
+        %tmp.6 = getv function %tmp.5 :MainLayout;
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 84 41 43 ];
+        %tmp.8 = invoke %tmp.5 %tmp.6(%tmp.7);
+        invoke %tmp.1 %tmp.2(%tmp.8);
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_83_34_85_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 90; @symbol_functiondef = [onShow,90,13,19]; ]
+    function onShow() as Void {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_90_30_92_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 91 8 ]
+        symbol [ _tflApi %tmp.2 91 8 15 ];
+        %tmp.2 = getv ? :_tflApi;
+        symbol [ getModeLineStatuses %tmp.3 91 16 35 ];
+        %tmp.3 = getv function %tmp.2 :getModeLineStatuses;
+        %tmp.4 = newa 1;
+        %tmp.5 = "tube";
+        %tmp.6 = dup %tmp.4;
+        %tmp.7 = aputv %tmp.6 0 %tmp.5;
+        invoke %tmp.2 %tmp.3(%tmp.7);
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_90_30_92_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 94; @symbol_functiondef = [onUpdate,94,13,21]; @symbol_param<0> = [dc,94,22,24]; ]
+    function onUpdate(dc) {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 95 8 ]
+        symbol [ _tflApi %tmp.2 95 24 31 ];
+        %tmp.2 = getv ? :_tflApi;
+        symbol [ lineStatuses %tmp.3 95 32 44 ];
+        %tmp.3 = getv %tmp.2 :lineStatuses;
+        %tmp.4 = as %tmp.3 Array<Dictionary>;
+        symbol [ Array %tmp.4 95 48 53 ];
+        symbol [ Dictionary %tmp.4 95 54 64 ];
+        symbol [ _lineStatuses ? 95 8 21 ];
+        putv self :_lineStatuses %tmp.4;
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 96 8 ]
+        %tmp.5 = lgetv %dc;
+        symbol [ dc %tmp.5 96 8 10 ];
+        symbol [ setColor %tmp.6 96 11 19 ];
+        %tmp.6 = getv function %tmp.5 :setColor;
+        symbol [ Graphics %tmp.7 96 20 28 ];
+        %tmp.7 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.8 96 29 40 ];
+        %tmp.8 = getv %tmp.7 :COLOR_BLACK;
+        symbol [ Graphics %tmp.9 96 42 50 ];
+        %tmp.9 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.10 96 51 62 ];
+        %tmp.10 = getv %tmp.9 :COLOR_BLACK;
+        invoke %tmp.5 %tmp.6(%tmp.8, %tmp.10);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 97 8 ]
+        %tmp.11 = lgetv %dc;
+        symbol [ dc %tmp.11 97 8 10 ];
+        symbol [ clear %tmp.12 97 11 16 ];
+        %tmp.12 = getv function %tmp.11 :clear;
+        invoke %tmp.11 %tmp.12();
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 99 8 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_8_109_8_if_stmt:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_12_99_61_begin:
+        symbol [ _lineStatuses %tmp.14 99 12 25 ];
+        %tmp.14 = getv ? :_lineStatuses;
+        %tmp.15 = null;
+        %tmp.16 = eq %tmp.14 %tmp.15;
+        bt %tmp.16 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_8_109_8_if_true;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_37_99_61_false:
+        symbol [ _lineStatuses %tmp.18 99 37 50 ];
+        %tmp.18 = getv ? :_lineStatuses;
+        %tmp.19 = as %tmp.18 { (!Null) };
+        symbol [ size %tmp.20 99 51 55 ];
+        %tmp.20 = getv function %tmp.19 :size;
+        %tmp.21 = invoke %tmp.19 %tmp.20();
+        %tmp.22 = 0;
+        %tmp.23 = eq %tmp.21 %tmp.22;
+        push %tmp.23;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_37_99_61_end:
+        %tmp.24 = phi [%tmp.16 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_12_99_61_begin] [%tmp.23 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_37_99_61_false] [%tmp.24 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_37_99_61_end];
+        bf %tmp.24 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_8_109_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_8_109_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_64_109_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 100 12 ]
+        %tmp.25 = lgetv %dc;
+        symbol [ dc %tmp.25 100 12 14 ];
+        symbol [ setColor %tmp.26 100 15 23 ];
+        %tmp.26 = getv function %tmp.25 :setColor;
+        symbol [ Graphics %tmp.27 100 24 32 ];
+        %tmp.27 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.28 100 33 44 ];
+        %tmp.28 = getv %tmp.27 :COLOR_WHITE;
+        symbol [ Graphics %tmp.29 100 46 54 ];
+        %tmp.29 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.30 100 55 72 ];
+        %tmp.30 = getv %tmp.29 :COLOR_TRANSPARENT;
+        invoke %tmp.25 %tmp.26(%tmp.28, %tmp.30);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 101 12 ]
+        %tmp.31 = lgetv %dc;
+        symbol [ dc %tmp.31 101 12 14 ];
+        symbol [ drawText %tmp.32 101 15 23 ];
+        %tmp.32 = getv function %tmp.31 :drawText;
+        %tmp.33 = lgetv %dc;
+        symbol [ dc %tmp.33 102 16 18 ];
+        symbol [ getWidth %tmp.34 102 19 27 ];
+        %tmp.34 = getv function %tmp.33 :getWidth;
+        %tmp.35 = invoke %tmp.33 %tmp.34();
+        %tmp.36 = 2;
+        %tmp.37 = div %tmp.35 %tmp.36;
+        %tmp.38 = lgetv %dc;
+        symbol [ dc %tmp.38 103 16 18 ];
+        symbol [ getHeight %tmp.39 103 19 28 ];
+        %tmp.39 = getv function %tmp.38 :getHeight;
+        %tmp.40 = invoke %tmp.38 %tmp.39();
+        %tmp.41 = 2;
+        %tmp.42 = div %tmp.40 %tmp.41;
+        symbol [ Graphics %tmp.43 104 16 24 ];
+        %tmp.43 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.44 104 25 36 ];
+        %tmp.44 = getv %tmp.43 :FONT_MEDIUM;
+        %tmp.45 = "No statuses to display";
+        symbol [ Graphics %tmp.46 106 16 24 ];
+        %tmp.46 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.47 106 25 44 ];
+        %tmp.47 = getv %tmp.46 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.48 106 47 55 ];
+        %tmp.48 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.49 106 56 76 ];
+        %tmp.49 = getv %tmp.48 :TEXT_JUSTIFY_VCENTER;
+        %tmp.50 = bitor %tmp.47 %tmp.49;
+        invoke %tmp.31 %tmp.32(%tmp.37, %tmp.42, %tmp.44, %tmp.45, %tmp.50);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 108 12 ]
+        ret ?;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_64_109_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_8_109_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_99_8_109_8_if_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 111 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_stop" ]
+        %width.1 = local;
+        symbol [ width %width.1 111 12 17 ];
+        %tmp.51 = lgetv %dc;
+        symbol [ dc %tmp.51 111 20 22 ];
+        symbol [ getWidth %tmp.52 111 23 31 ];
+        %tmp.52 = getv function %tmp.51 :getWidth;
+        %tmp.53 = invoke %tmp.51 %tmp.52();
+        lputv %width.1 %tmp.53;
+        symbol [ width %width.1 111 12 17 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 112 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_stop" ]
+        %height.2 = local;
+        symbol [ height %height.2 112 12 18 ];
+        %tmp.54 = lgetv %dc;
+        symbol [ dc %tmp.54 112 21 23 ];
+        symbol [ getHeight %tmp.55 112 24 33 ];
+        %tmp.55 = getv function %tmp.54 :getHeight;
+        %tmp.56 = invoke %tmp.54 %tmp.55();
+        lputv %height.2 %tmp.56;
+        symbol [ height %height.2 112 12 18 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 113 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_stop" ]
+        %padding.3 = local;
+        symbol [ padding %padding.3 113 12 19 ];
+        %tmp.57 = 10;
+        lputv %padding.3 %tmp.57;
+        symbol [ padding %padding.3 113 12 19 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 117 8 ]
+        for @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_test @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_incr @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_init:
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_begin" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_end" ]
+        %i.4 = local;
+        symbol [ i %i.4 117 17 18 ];
+        %tmp.58 = 0;
+        lputv %i.4 %tmp.58;
+        symbol [ i %i.4 117 17 18 ];
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_test:
+        %tmp.59 = lgetv %i.4;
+        symbol [ i %tmp.59 117 24 25 ];
+        symbol [ _lineStatuses %tmp.61 117 28 41 ];
+        %tmp.61 = getv ? :_lineStatuses;
+        symbol [ size %tmp.62 117 42 46 ];
+        %tmp.62 = getv function %tmp.61 :size;
+        %tmp.63 = invoke %tmp.61 %tmp.62();
+        %tmp.64 = lt %tmp.59 %tmp.63;
+        bf %tmp.64 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_begin:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_55_119_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 118 12 ]
+        %tmp.65 = self;
+        symbol [ drawStatusCard %tmp.66 118 12 26 ];
+        %tmp.66 = getv function %tmp.65 :drawStatusCard;
+        %tmp.67 = lgetv %dc;
+        symbol [ dc %tmp.67 118 27 29 ];
+        %tmp.68 = lgetv %i.4;
+        symbol [ i %tmp.68 118 31 32 ];
+        invoke %tmp.65 %tmp.66(%tmp.67, %tmp.68);
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_55_119_8_stop:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_incr:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 117 ]
+        %tmp.71 = lgetv %i.4;
+        symbol [ i %tmp.71 117 50 51 ];
+        %tmp.72 = add %tmp.71 1;
+        lputv %i.4 %tmp.72;
+        symbol [ i %i.4 117 50 51 ];
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_test;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_117_8_119_8_for_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 122 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_stop" ]
+        %totalHeight.5 = local;
+        symbol [ totalHeight %totalHeight.5 122 12 23 ];
+        symbol [ _lineStatuses %tmp.74 122 26 39 ];
+        %tmp.74 = getv ? :_lineStatuses;
+        symbol [ size %tmp.75 122 40 44 ];
+        %tmp.75 = getv function %tmp.74 :size;
+        %tmp.76 = invoke %tmp.74 %tmp.75();
+        symbol [ _cardHeight %tmp.78 122 50 61 ];
+        %tmp.78 = getv ? :_cardHeight;
+        %tmp.79 = lgetv %padding.3;
+        symbol [ padding %tmp.79 122 64 71 ];
+        %tmp.80 = add %tmp.78 %tmp.79;
+        %tmp.81 = mul %tmp.76 %tmp.80;
+        lputv %totalHeight.5 %tmp.81;
+        symbol [ totalHeight %totalHeight.5 122 12 23 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 123 8 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_8_138_8_if_stmt:
+        %tmp.82 = lgetv %totalHeight.5;
+        symbol [ totalHeight %tmp.82 123 12 23 ];
+        %tmp.83 = lgetv %height.2;
+        symbol [ height %tmp.83 123 26 32 ];
+        %tmp.84 = gt %tmp.82 %tmp.83;
+        bf %tmp.84 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_8_138_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_8_138_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 124 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_stop" ]
+        %scrollBarHeight.6 = local;
+        symbol [ scrollBarHeight %scrollBarHeight.6 124 16 31 ];
+        %tmp.85 = lgetv %height.2;
+        symbol [ height %tmp.85 124 34 40 ];
+        %tmp.86 = 20;
+        %tmp.87 = sub %tmp.85 %tmp.86;
+        lputv %scrollBarHeight.6 %tmp.87;
+        symbol [ scrollBarHeight %scrollBarHeight.6 124 16 31 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 125 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_stop" ]
+        %scrollBarY.7 = local;
+        symbol [ scrollBarY %scrollBarY.7 125 16 26 ];
+        %tmp.88 = 10;
+        lputv %scrollBarY.7 %tmp.88;
+        symbol [ scrollBarY %scrollBarY.7 125 16 26 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 126 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_stop" ]
+        %scrollBarX.8 = local;
+        symbol [ scrollBarX %scrollBarX.8 126 16 26 ];
+        %tmp.89 = lgetv %width.1;
+        symbol [ width %tmp.89 126 29 34 ];
+        %tmp.90 = 5;
+        %tmp.91 = sub %tmp.89 %tmp.90;
+        lputv %scrollBarX.8 %tmp.91;
+        symbol [ scrollBarX %scrollBarX.8 126 16 26 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 129 12 ]
+        %tmp.92 = lgetv %dc;
+        symbol [ dc %tmp.92 129 12 14 ];
+        symbol [ setColor %tmp.93 129 15 23 ];
+        %tmp.93 = getv function %tmp.92 :setColor;
+        symbol [ Graphics %tmp.94 129 24 32 ];
+        %tmp.94 = getm $.Toybox.Graphics;
+        symbol [ COLOR_DK_GRAY %tmp.95 129 33 46 ];
+        %tmp.95 = getv %tmp.94 :COLOR_DK_GRAY;
+        symbol [ Graphics %tmp.96 129 48 56 ];
+        %tmp.96 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.97 129 57 74 ];
+        %tmp.97 = getv %tmp.96 :COLOR_TRANSPARENT;
+        invoke %tmp.92 %tmp.93(%tmp.95, %tmp.97);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 130 12 ]
+        %tmp.98 = lgetv %dc;
+        symbol [ dc %tmp.98 130 12 14 ];
+        symbol [ drawLine %tmp.99 130 15 23 ];
+        %tmp.99 = getv function %tmp.98 :drawLine;
+        %tmp.100 = lgetv %scrollBarX.8;
+        symbol [ scrollBarX %tmp.100 130 24 34 ];
+        %tmp.101 = lgetv %scrollBarY.7;
+        symbol [ scrollBarY %tmp.101 130 36 46 ];
+        %tmp.102 = lgetv %scrollBarX.8;
+        symbol [ scrollBarX %tmp.102 130 48 58 ];
+        %tmp.103 = lgetv %scrollBarY.7;
+        symbol [ scrollBarY %tmp.103 130 60 70 ];
+        %tmp.104 = lgetv %scrollBarHeight.6;
+        symbol [ scrollBarHeight %tmp.104 130 73 88 ];
+        %tmp.105 = add %tmp.103 %tmp.104;
+        invoke %tmp.98 %tmp.99(%tmp.100, %tmp.101, %tmp.102, %tmp.105);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 133 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_stop" ]
+        %thumbHeight.9 = local;
+        symbol [ thumbHeight %thumbHeight.9 133 16 27 ];
+        %tmp.106 = lgetv %height.2;
+        symbol [ height %tmp.106 133 31 37 ];
+        symbol [ toFloat %tmp.107 133 38 45 ];
+        %tmp.107 = getv function %tmp.106 :toFloat;
+        %tmp.108 = invoke %tmp.106 %tmp.107();
+        %tmp.109 = lgetv %totalHeight.5;
+        symbol [ totalHeight %tmp.109 133 50 61 ];
+        symbol [ toFloat %tmp.110 133 62 69 ];
+        %tmp.110 = getv function %tmp.109 :toFloat;
+        %tmp.111 = invoke %tmp.109 %tmp.110();
+        %tmp.112 = div %tmp.108 %tmp.111;
+        %tmp.113 = lgetv %scrollBarHeight.6;
+        symbol [ scrollBarHeight %tmp.113 133 75 90 ];
+        %tmp.114 = mul %tmp.112 %tmp.113;
+        lputv %thumbHeight.9 %tmp.114;
+        symbol [ thumbHeight %thumbHeight.9 133 16 27 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 134 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_stop" ]
+        %thumbY.10 = local;
+        symbol [ thumbY %thumbY.10 134 16 22 ];
+        %tmp.115 = lgetv %scrollBarY.7;
+        symbol [ scrollBarY %tmp.115 134 25 35 ];
+        symbol [ _scrollOffset %tmp.117 134 40 53 ];
+        %tmp.117 = getv ? :_scrollOffset;
+        symbol [ toFloat %tmp.118 134 54 61 ];
+        %tmp.118 = getv function %tmp.117 :toFloat;
+        %tmp.119 = invoke %tmp.117 %tmp.118();
+        %tmp.120 = lgetv %totalHeight.5;
+        symbol [ totalHeight %tmp.120 134 66 77 ];
+        symbol [ toFloat %tmp.121 134 78 85 ];
+        %tmp.121 = getv function %tmp.120 :toFloat;
+        %tmp.122 = invoke %tmp.120 %tmp.121();
+        %tmp.123 = div %tmp.119 %tmp.122;
+        %tmp.124 = lgetv %scrollBarHeight.6;
+        symbol [ scrollBarHeight %tmp.124 134 91 106 ];
+        %tmp.125 = mul %tmp.123 %tmp.124;
+        %tmp.126 = add %tmp.115 %tmp.125;
+        lputv %thumbY.10 %tmp.126;
+        symbol [ thumbY %thumbY.10 134 16 22 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 136 12 ]
+        %tmp.127 = lgetv %dc;
+        symbol [ dc %tmp.127 136 12 14 ];
+        symbol [ setColor %tmp.128 136 15 23 ];
+        %tmp.128 = getv function %tmp.127 :setColor;
+        symbol [ Graphics %tmp.129 136 24 32 ];
+        %tmp.129 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.130 136 33 44 ];
+        %tmp.130 = getv %tmp.129 :COLOR_WHITE;
+        symbol [ Graphics %tmp.131 136 46 54 ];
+        %tmp.131 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.132 136 55 72 ];
+        %tmp.132 = getv %tmp.131 :COLOR_TRANSPARENT;
+        invoke %tmp.127 %tmp.128(%tmp.130, %tmp.132);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 137 12 ]
+        %tmp.133 = lgetv %dc;
+        symbol [ dc %tmp.133 137 12 14 ];
+        symbol [ fillRectangle %tmp.134 137 15 28 ];
+        %tmp.134 = getv function %tmp.133 :fillRectangle;
+        %tmp.135 = lgetv %scrollBarX.8;
+        symbol [ scrollBarX %tmp.135 137 29 39 ];
+        %tmp.136 = 1;
+        %tmp.137 = sub %tmp.135 %tmp.136;
+        %tmp.138 = lgetv %thumbY.10;
+        symbol [ thumbY %tmp.138 137 45 51 ];
+        %tmp.139 = 3;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_begin:
+        %tmp.140 = lgetv %thumbHeight.9;
+        symbol [ thumbHeight %tmp.140 137 56 67 ];
+        %tmp.141 = 5;
+        %tmp.142 = gt %tmp.140 %tmp.141;
+        bf %tmp.142 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_else_false;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_true:
+        %tmp.143 = lgetv %thumbHeight.9;
+        symbol [ thumbHeight %tmp.143 137 74 85 ];
+        push %tmp.143;
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_else_false:
+        %tmp.144 = 5;
+        push %tmp.144;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_end:
+        %tmp.145 = phi [%tmp.142 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_begin] [%tmp.143 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_true] [%tmp.144 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_else_false] [%tmp.145 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_137_56_137_88_end];
+        invoke %tmp.133 %tmp.134(%tmp.137, %tmp.138, %tmp.139, %tmp.145);
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_34_138_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_8_138_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_123_8_138_8_if_end:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_94_26_139_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 141; @symbol_functiondef = [scroll,141,13,19]; @symbol_param<0> = [amount,141,20,26]; ]
+    function scroll(amount) {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_141_28_163_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 142 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_141_28_163_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_141_28_163_4_stop" ]
+        %height.1 = local;
+        symbol [ height %height.1 142 12 18 ];
+        symbol [ System %tmp.2 142 21 27 ];
+        %tmp.2 = getv ? :System;
+        symbol [ getDeviceSettings %tmp.3 142 28 45 ];
+        %tmp.3 = getv function %tmp.2 :getDeviceSettings;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        symbol [ screenHeight %tmp.5 142 48 60 ];
+        %tmp.5 = getv %tmp.4 :screenHeight;
+        lputv %height.1 %tmp.5;
+        symbol [ height %height.1 142 12 18 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 143 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_141_28_163_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_141_28_163_4_stop" ]
+        %maxScroll.2 = local;
+        symbol [ maxScroll %maxScroll.2 143 12 21 ];
+        symbol [ _lineStatuses %tmp.7 143 25 38 ];
+        %tmp.7 = getv ? :_lineStatuses;
+        symbol [ size %tmp.8 143 39 43 ];
+        %tmp.8 = getv function %tmp.7 :size;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        symbol [ _cardHeight %tmp.11 143 49 60 ];
+        %tmp.11 = getv ? :_cardHeight;
+        %tmp.12 = 10;
+        %tmp.13 = add %tmp.11 %tmp.12;
+        %tmp.14 = mul %tmp.9 %tmp.13;
+        %tmp.15 = lgetv %height.1;
+        symbol [ height %tmp.15 143 70 76 ];
+        %tmp.16 = sub %tmp.14 %tmp.15;
+        %tmp.17 = 20;
+        %tmp.18 = add %tmp.16 %tmp.17;
+        lputv %maxScroll.2 %tmp.18;
+        symbol [ maxScroll %maxScroll.2 143 12 21 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 145 8 ]
+        symbol [ System %tmp.20 145 8 14 ];
+        %tmp.20 = getv ? :System;
+        symbol [ println %tmp.21 145 15 22 ];
+        %tmp.21 = getv function %tmp.20 :println;
+        %tmp.22 = "Scroll offset before scroll: ";
+        symbol [ _scrollOffset %tmp.24 145 57 70 ];
+        %tmp.24 = getv ? :_scrollOffset;
+        %tmp.25 = add %tmp.22 %tmp.24;
+        invoke %tmp.20 %tmp.21(%tmp.25);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 147 8 ]
+        symbol [ _scrollOffset %tmp.26 147 8 21 ];
+        %tmp.26 = getv self :_scrollOffset;
+        %tmp.27 = lgetv %amount;
+        symbol [ amount %tmp.27 147 25 31 ];
+        %tmp.28 = add %tmp.26 %tmp.27;
+        symbol [ _scrollOffset ? 147 8 21 ];
+        putv self :_scrollOffset dup %tmp.28;
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 150 8 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_150_8_152_8_if_stmt:
+        symbol [ _scrollOffset %tmp.30 150 12 25 ];
+        %tmp.30 = getv ? :_scrollOffset;
+        %tmp.31 = 0;
+        %tmp.32 = lt %tmp.30 %tmp.31;
+        bf %tmp.32 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_150_8_152_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_150_8_152_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_150_31_152_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 151 12 ]
+        %tmp.33 = 0;
+        symbol [ _scrollOffset ? 151 12 25 ];
+        putv self :_scrollOffset %tmp.33;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_150_31_152_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_150_8_152_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_150_8_152_8_if_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 153 8 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_153_8_155_8_if_stmt:
+        symbol [ _scrollOffset %tmp.35 153 12 25 ];
+        %tmp.35 = getv ? :_scrollOffset;
+        %tmp.36 = lgetv %maxScroll.2;
+        symbol [ maxScroll %tmp.36 153 28 37 ];
+        %tmp.37 = gt %tmp.35 %tmp.36;
+        bf %tmp.37 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_153_8_155_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_153_8_155_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_153_39_155_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 154 12 ]
+        %tmp.38 = lgetv %maxScroll.2;
+        symbol [ maxScroll %tmp.38 154 28 37 ];
+        symbol [ _scrollOffset ? 154 12 25 ];
+        putv self :_scrollOffset %tmp.38;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_153_39_155_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_153_8_155_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_153_8_155_8_if_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 157 8 ]
+        symbol [ System %tmp.40 157 8 14 ];
+        %tmp.40 = getv ? :System;
+        symbol [ println %tmp.41 157 15 22 ];
+        %tmp.41 = getv function %tmp.40 :println;
+        %tmp.42 = "Scroll offset after scroll: ";
+        symbol [ _scrollOffset %tmp.44 157 56 69 ];
+        %tmp.44 = getv ? :_scrollOffset;
+        %tmp.45 = add %tmp.42 %tmp.44;
+        invoke %tmp.40 %tmp.41(%tmp.45);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 160 8 ]
+        %tmp.46 = self;
+        symbol [ updateSelectedFromScroll %tmp.47 160 8 32 ];
+        %tmp.47 = getv function %tmp.46 :updateSelectedFromScroll;
+        %tmp.48 = lgetv %height.1;
+        symbol [ height %tmp.48 160 33 39 ];
+        invoke %tmp.46 %tmp.47(%tmp.48);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 162 8 ]
+        symbol [ WatchUi %tmp.49 162 8 15 ];
+        %tmp.49 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.50 162 16 29 ];
+        %tmp.50 = getv function %tmp.49 :requestUpdate;
+        invoke %tmp.49 %tmp.50();
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_141_28_163_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 165; @symbol_functiondef = [updateSelectedFromScroll,165,13,37]; @symbol_param<0> = [height,165,38,44]; ]
+    function updateSelectedFromScroll(height) {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_165_46_186_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 167 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_165_46_186_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_165_46_186_4_stop" ]
+        %centerY.1 = local;
+        symbol [ centerY %centerY.1 167 12 19 ];
+        %tmp.1 = lgetv %height;
+        symbol [ height %tmp.1 167 22 28 ];
+        %tmp.2 = 2;
+        %tmp.3 = div %tmp.1 %tmp.2;
+        lputv %centerY.1 %tmp.3;
+        symbol [ centerY %centerY.1 167 12 19 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 168 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_165_46_186_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_165_46_186_4_stop" ]
+        %bestIndex.2 = local;
+        symbol [ bestIndex %bestIndex.2 168 12 21 ];
+        %tmp.4 = 0;
+        lputv %bestIndex.2 %tmp.4;
+        symbol [ bestIndex %bestIndex.2 168 12 21 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 169 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_165_46_186_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_165_46_186_4_stop" ]
+        %bestDistance.3 = local;
+        symbol [ bestDistance %bestDistance.3 169 12 24 ];
+        %tmp.5 = 99999;
+        lputv %bestDistance.3 %tmp.5;
+        symbol [ bestDistance %bestDistance.3 169 12 24 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 171 8 ]
+        for @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_test @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_incr @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_init:
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_begin" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_end" ]
+        %i.4 = local;
+        symbol [ i %i.4 171 17 18 ];
+        %tmp.6 = 0;
+        lputv %i.4 %tmp.6;
+        symbol [ i %i.4 171 17 18 ];
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_test:
+        %tmp.7 = lgetv %i.4;
+        symbol [ i %tmp.7 171 24 25 ];
+        symbol [ _lineStatuses %tmp.9 171 28 41 ];
+        %tmp.9 = getv ? :_lineStatuses;
+        symbol [ size %tmp.10 171 42 46 ];
+        %tmp.10 = getv function %tmp.9 :size;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        %tmp.12 = lt %tmp.7 %tmp.11;
+        bf %tmp.12 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_begin:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_55_183_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 172 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_55_183_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_55_183_8_stop" ]
+        %cardY.5 = local;
+        symbol [ cardY %cardY.5 172 16 21 ];
+        %tmp.13 = lgetv %i.4;
+        symbol [ i %tmp.13 172 25 26 ];
+        symbol [ _cardHeight %tmp.15 172 30 41 ];
+        %tmp.15 = getv ? :_cardHeight;
+        %tmp.16 = 10;
+        %tmp.17 = add %tmp.15 %tmp.16;
+        %tmp.18 = mul %tmp.13 %tmp.17;
+        symbol [ _scrollOffset %tmp.20 172 51 64 ];
+        %tmp.20 = getv ? :_scrollOffset;
+        %tmp.21 = sub %tmp.18 %tmp.20;
+        %tmp.22 = 10;
+        %tmp.23 = add %tmp.21 %tmp.22;
+        lputv %cardY.5 %tmp.23;
+        symbol [ cardY %cardY.5 172 16 21 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 173 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_55_183_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_55_183_8_stop" ]
+        %cardCenterY.6 = local;
+        symbol [ cardCenterY %cardCenterY.6 173 16 27 ];
+        %tmp.24 = lgetv %cardY.5;
+        symbol [ cardY %tmp.24 173 30 35 ];
+        symbol [ _cardHeight %tmp.26 173 39 50 ];
+        %tmp.26 = getv ? :_cardHeight;
+        %tmp.27 = 2;
+        %tmp.28 = div %tmp.26 %tmp.27;
+        %tmp.29 = add %tmp.24 %tmp.28;
+        lputv %cardCenterY.6 %tmp.29;
+        symbol [ cardCenterY %cardCenterY.6 173 16 27 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 174 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_55_183_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_55_183_8_stop" ]
+        %distance.7 = local;
+        symbol [ distance %distance.7 174 16 24 ];
+        %tmp.30 = lgetv %cardCenterY.6;
+        symbol [ cardCenterY %tmp.30 174 27 38 ];
+        %tmp.31 = lgetv %centerY.1;
+        symbol [ centerY %tmp.31 174 41 48 ];
+        %tmp.32 = sub %tmp.30 %tmp.31;
+        lputv %distance.7 %tmp.32;
+        symbol [ distance %distance.7 174 16 24 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 175 12 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_175_12_177_12_if_stmt:
+        %tmp.33 = lgetv %distance.7;
+        symbol [ distance %tmp.33 175 16 24 ];
+        %tmp.34 = 0;
+        %tmp.35 = lt %tmp.33 %tmp.34;
+        bf %tmp.35 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_175_12_177_12_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_175_12_177_12_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_175_30_177_12_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 176 16 ]
+        %tmp.36 = lgetv %distance.7;
+        symbol [ distance %tmp.36 176 28 36 ];
+        %tmp.37 = sub 0 %tmp.36;
+        lputv %distance.7 %tmp.37;
+        symbol [ distance %distance.7 176 16 24 ];
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_175_30_177_12_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_175_12_177_12_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_175_12_177_12_if_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 179 12 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_179_12_182_12_if_stmt:
+        %tmp.38 = lgetv %distance.7;
+        symbol [ distance %tmp.38 179 16 24 ];
+        %tmp.39 = lgetv %bestDistance.3;
+        symbol [ bestDistance %tmp.39 179 27 39 ];
+        %tmp.40 = lt %tmp.38 %tmp.39;
+        bf %tmp.40 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_179_12_182_12_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_179_12_182_12_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_179_41_182_12_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 180 16 ]
+        %tmp.41 = lgetv %distance.7;
+        symbol [ distance %tmp.41 180 31 39 ];
+        lputv %bestDistance.3 %tmp.41;
+        symbol [ bestDistance %bestDistance.3 180 16 28 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 181 16 ]
+        %tmp.42 = lgetv %i.4;
+        symbol [ i %tmp.42 181 28 29 ];
+        lputv %bestIndex.2 %tmp.42;
+        symbol [ bestIndex %bestIndex.2 181 16 25 ];
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_179_41_182_12_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_179_12_182_12_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_179_12_182_12_if_end:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_55_183_8_stop:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_incr:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 171 ]
+        %tmp.45 = lgetv %i.4;
+        symbol [ i %tmp.45 171 50 51 ];
+        %tmp.46 = add %tmp.45 1;
+        lputv %i.4 %tmp.46;
+        symbol [ i %i.4 171 50 51 ];
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_test;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_171_8_183_8_for_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 185 8 ]
+        %tmp.47 = lgetv %bestIndex.2;
+        symbol [ bestIndex %tmp.47 185 25 34 ];
+        symbol [ _selectedIndex ? 185 8 22 ];
+        putv self :_selectedIndex %tmp.47;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_165_46_186_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 242; @symbol_functiondef = [getSelectedItem,242,13,28]; ]
+    function getSelectedItem() {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_242_31_244_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 243 8 ]
+        symbol [ _lineStatuses %tmp.2 243 15 28 ];
+        %tmp.2 = getv ? :_lineStatuses;
+        symbol [ _selectedIndex %tmp.4 243 29 43 ];
+        %tmp.4 = getv ? :_selectedIndex;
+        %tmp.5 = agetv %tmp.2 %tmp.4;
+        ret %tmp.5;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_242_31_244_4_stop:
+    }
+}
+[ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 247; @symbol_classdef = [StatusListBehaviorDelegate,247,6,32]; @symbol_extends<0> = [WatchUi,247,41,48]; @symbol_extends<1> = [BehaviorDelegate,247,49,65]; ]
+class StatusListBehaviorDelegate extends WatchUi.BehaviorDelegate {
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 247; ]
+    <init> {
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 247; ]
+    static
+    <init> {
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 248; @position = 16; @symbol_vardef = [_view,248,16,21]; ]
+    private
+    var _view;
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 249; @position = 16; @symbol_vardef = [_lastDragY,249,16,26]; ]
+    private
+    var _lastDragY;
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 251; @symbol_functiondef = [initialize,251,13,23]; @symbol_param<0> = [view,251,24,28]; ]
+    function initialize(view) as Void {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_251_30_255_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 252 8 ]
+        symbol [ BehaviorDelegate %tmp.2 252 8 24 ];
+        %tmp.2 = getv ? :BehaviorDelegate;
+        symbol [ initialize %tmp.3 252 25 35 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 253 8 ]
+        %tmp.4 = lgetv %view;
+        symbol [ view %tmp.4 253 16 20 ];
+        symbol [ _view ? 253 8 13 ];
+        putv self :_view %tmp.4;
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 254 8 ]
+        %tmp.5 = null;
+        symbol [ _lastDragY ? 254 8 18 ];
+        putv self :_lastDragY %tmp.5;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_251_30_255_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 257; @symbol_functiondef = [onTap,257,13,18]; @symbol_param<0> = [clickEvent,257,19,29]; ]
+    function onTap(clickEvent) {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_257_31_264_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 258 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_257_31_264_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_257_31_264_4_stop" ]
+        %selectedItem.1 = local;
+        symbol [ selectedItem %selectedItem.1 258 12 24 ];
+        symbol [ _view %tmp.2 258 27 32 ];
+        %tmp.2 = getv ? :_view;
+        symbol [ getSelectedItem %tmp.3 258 33 48 ];
+        %tmp.3 = getv function %tmp.2 :getSelectedItem;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        %tmp.5 = as %tmp.4 Dictionary or Null;
+        symbol [ Dictionary %tmp.5 258 54 64 ];
+        lputv %selectedItem.1 %tmp.5;
+        symbol [ selectedItem %selectedItem.1 258 12 24 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 259 8 ]
+        symbol [ System %tmp.7 259 8 14 ];
+        %tmp.7 = getv ? :System;
+        symbol [ println %tmp.8 259 15 22 ];
+        %tmp.8 = getv function %tmp.7 :println;
+        %tmp.9 = "Selected: ";
+        %tmp.10 = lgetv %selectedItem.1;
+        symbol [ selectedItem %tmp.10 259 38 50 ];
+        %tmp.11 = "name";
+        %tmp.12 = agetv %tmp.10 %tmp.11;
+        %tmp.13 = add %tmp.9 %tmp.12;
+        invoke %tmp.7 %tmp.8(%tmp.13);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 263 8 ]
+        %tmp.14 = true;
+        ret %tmp.14;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_257_31_264_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 266; @symbol_functiondef = [onDrag,266,13,19]; @symbol_param<0> = [dragEvent,266,20,29]; ]
+    function onDrag(dragEvent) {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_266_31_292_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 267 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_266_31_292_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_266_31_292_4_stop" ]
+        %coords.1 = local;
+        symbol [ coords %coords.1 267 12 18 ];
+        %tmp.1 = lgetv %dragEvent;
+        symbol [ dragEvent %tmp.1 267 21 30 ];
+        symbol [ getCoordinates %tmp.2 267 31 45 ];
+        %tmp.2 = getv function %tmp.1 :getCoordinates;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %coords.1 %tmp.3;
+        symbol [ coords %coords.1 267 12 18 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 268 8 ]
+        symbol [ System %tmp.5 268 8 14 ];
+        %tmp.5 = getv ? :System;
+        symbol [ println %tmp.6 268 15 22 ];
+        %tmp.6 = getv function %tmp.5 :println;
+        %tmp.7 = "Drag event initiated at ";
+        %tmp.8 = lgetv %coords.1;
+        symbol [ coords %tmp.8 268 52 58 ];
+        %tmp.9 = add %tmp.7 %tmp.8;
+        invoke %tmp.5 %tmp.6(%tmp.9);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 269 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_266_31_292_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_266_31_292_4_stop" ]
+        %currentY.2 = local;
+        symbol [ currentY %currentY.2 269 12 20 ];
+        %tmp.10 = lgetv %coords.1;
+        symbol [ coords %tmp.10 269 23 29 ];
+        %tmp.11 = 1;
+        %tmp.12 = agetv %tmp.10 %tmp.11;
+        lputv %currentY.2 %tmp.12;
+        symbol [ currentY %currentY.2 269 12 20 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 270 8 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_266_31_292_4_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_266_31_292_4_stop" ]
+        %eventType.3 = local;
+        symbol [ eventType %eventType.3 270 12 21 ];
+        %tmp.13 = lgetv %dragEvent;
+        symbol [ dragEvent %tmp.13 270 24 33 ];
+        symbol [ getType %tmp.14 270 34 41 ];
+        %tmp.14 = getv function %tmp.13 :getType;
+        %tmp.15 = invoke %tmp.13 %tmp.14();
+        lputv %eventType.3 %tmp.15;
+        symbol [ eventType %eventType.3 270 12 21 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 272 8 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_8_290_8_if_stmt:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_12_272_58_begin:
+        %tmp.16 = lgetv %eventType.3;
+        symbol [ eventType %tmp.16 272 12 21 ];
+        symbol [ DRAG_TYPE_START %tmp.18 272 25 40 ];
+        %tmp.18 = getv ? :DRAG_TYPE_START;
+        %tmp.19 = eq %tmp.16 %tmp.18;
+        bt %tmp.19 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_8_290_8_if_true;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_44_272_58_false:
+        symbol [ _lastDragY %tmp.21 272 44 54 ];
+        %tmp.21 = getv ? :_lastDragY;
+        %tmp.22 = null;
+        %tmp.23 = eq %tmp.21 %tmp.22;
+        push %tmp.23;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_44_272_58_end:
+        %tmp.24 = phi [%tmp.19 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_12_272_58_begin] [%tmp.23 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_44_272_58_false] [%tmp.24 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_44_272_58_end];
+        bf %tmp.24 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_8_290_8_if_false;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_8_290_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_64_274_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 273 12 ]
+        %tmp.25 = lgetv %currentY.2;
+        symbol [ currentY %tmp.25 273 25 33 ];
+        symbol [ _lastDragY ? 273 12 22 ];
+        putv self :_lastDragY %tmp.25;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_64_274_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_8_290_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_8_290_8_if_false:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 274 15 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_15_290_8_if_stmt:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_19_274_67_begin:
+        %tmp.26 = lgetv %eventType.3;
+        symbol [ eventType %tmp.26 274 19 28 ];
+        symbol [ DRAG_TYPE_CONTINUE %tmp.28 274 32 50 ];
+        %tmp.28 = getv ? :DRAG_TYPE_CONTINUE;
+        %tmp.29 = eq %tmp.26 %tmp.28;
+        bt %tmp.29 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_15_290_8_if_true;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_54_274_67_false:
+        %tmp.30 = lgetv %eventType.3;
+        symbol [ eventType %tmp.30 274 54 63 ];
+        symbol [ DRAG_TYPE_STOP %tmp.32 274 67 81 ];
+        %tmp.32 = getv ? :DRAG_TYPE_STOP;
+        %tmp.33 = eq %tmp.30 %tmp.32;
+        push %tmp.33;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_54_274_67_end:
+        %tmp.34 = phi [%tmp.29 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_19_274_67_begin] [%tmp.33 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_54_274_67_false] [%tmp.34 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_54_274_67_end];
+        bf %tmp.34 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_15_290_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_15_290_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_83_290_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 276 12 ]
+        [ "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_83_290_8_start" "_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_83_290_8_stop" ]
+        %deltaY.4 = local;
+        symbol [ deltaY %deltaY.4 276 16 22 ];
+        %tmp.35 = lgetv %currentY.2;
+        symbol [ currentY %tmp.35 276 25 33 ];
+        symbol [ _lastDragY %tmp.37 276 36 46 ];
+        %tmp.37 = getv ? :_lastDragY;
+        %tmp.38 = as %tmp.37 { (!Null) };
+        %tmp.39 = sub %tmp.35 %tmp.38;
+        lputv %deltaY.4 %tmp.39;
+        symbol [ deltaY %deltaY.4 276 16 22 ];
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 279 12 ]
+        symbol [ System %tmp.41 279 12 18 ];
+        %tmp.41 = getv ? :System;
+        symbol [ println %tmp.42 279 19 26 ];
+        %tmp.42 = getv function %tmp.41 :println;
+        %tmp.43 = "currentY: ";
+        %tmp.44 = lgetv %currentY.2;
+        symbol [ currentY %tmp.44 279 42 50 ];
+        %tmp.45 = add %tmp.43 %tmp.44;
+        %tmp.46 = ", lastY: ";
+        %tmp.47 = add %tmp.45 %tmp.46;
+        symbol [ _lastDragY %tmp.49 279 67 77 ];
+        %tmp.49 = getv ? :_lastDragY;
+        %tmp.50 = as %tmp.49 { (!Null) };
+        %tmp.51 = add %tmp.47 %tmp.50;
+        %tmp.52 = ", delta: ";
+        %tmp.53 = add %tmp.51 %tmp.52;
+        %tmp.54 = lgetv %deltaY.4;
+        symbol [ deltaY %tmp.54 279 94 100 ];
+        %tmp.55 = add %tmp.53 %tmp.54;
+        invoke %tmp.41 %tmp.42(%tmp.55);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 283 12 ]
+        symbol [ _view %tmp.57 283 12 17 ];
+        %tmp.57 = getv ? :_view;
+        symbol [ scroll %tmp.58 283 18 24 ];
+        %tmp.58 = getv function %tmp.57 :scroll;
+        %tmp.59 = lgetv %deltaY.4;
+        symbol [ deltaY %tmp.59 283 26 32 ];
+        %tmp.60 = sub 0 %tmp.59;
+        invoke %tmp.57 %tmp.58(%tmp.60);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 285 12 ]
+        %tmp.61 = lgetv %currentY.2;
+        symbol [ currentY %tmp.61 285 25 33 ];
+        symbol [ _lastDragY ? 285 12 22 ];
+        putv self :_lastDragY %tmp.61;
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 287 12 ]
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_287_12_289_12_if_stmt:
+        %tmp.62 = lgetv %eventType.3;
+        symbol [ eventType %tmp.62 287 16 25 ];
+        symbol [ DRAG_TYPE_STOP %tmp.64 287 29 43 ];
+        %tmp.64 = getv ? :DRAG_TYPE_STOP;
+        %tmp.65 = eq %tmp.62 %tmp.64;
+        bf %tmp.65 @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_287_12_289_12_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_287_12_289_12_if_true:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_287_45_289_12_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 288 16 ]
+        %tmp.66 = null;
+        symbol [ _lastDragY ? 288 16 26 ];
+        putv self :_lastDragY %tmp.66;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_287_45_289_12_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_287_12_289_12_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_287_12_289_12_if_end:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_83_290_8_stop:
+        goto @_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_15_290_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_274_15_290_8_if_end:
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_272_8_290_8_if_end:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 291 8 ]
+        %tmp.67 = true;
+        ret %tmp.67;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_266_31_292_4_stop:
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 294; @symbol_functiondef = [onRelease,294,13,22]; @symbol_param<0> = [clickEvent,294,23,33]; ]
+    function onRelease(clickEvent) {
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_294_35_299_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 296 8 ]
+        symbol [ System %tmp.2 296 8 14 ];
+        %tmp.2 = getv ? :System;
+        symbol [ println %tmp.3 296 15 22 ];
+        %tmp.3 = getv function %tmp.2 :println;
+        %tmp.4 = "Release detected!";
+        invoke %tmp.2 %tmp.3(%tmp.4);
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 297 8 ]
+        %tmp.5 = null;
+        symbol [ _lastDragY ? 297 8 18 ];
+        putv self :_lastDragY %tmp.5;
+[ "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc" 298 8 ]
+        %tmp.6 = true;
+        ret %tmp.6;
+_home_alan_bin_LondonPublicTransport_source_LondonPublicTransportView_mc_294_35_299_4_stop:
+    }
+}
+[ @file = "/home/alan/bin/LondonPublicTransport/source/LondonPublicTransportView.mc"; @line = 1; ]
+<init> {
+}

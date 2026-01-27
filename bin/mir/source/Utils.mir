@@ -1,0 +1,260 @@
+[ @file = "/home/alan/bin/LondonPublicTransport/source/Utils.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/alan/bin/LondonPublicTransport/source/Utils.mc"; @line = 3; @symbol_functiondef = [joinArray,3,9,18]; @symbol_param<0> = [arr,3,19,22]; @symbol_param<0>_type<0> = [Array,3,26,31]; @symbol_param<0>_type<1> = [String,3,32,38]; @symbol_param<1> = [delim,3,41,46]; @symbol_param<1>_type<0> = [String,3,50,56]; @symbol_param<1>_type<1> = [Char,3,60,64]; @symbol_return<0> = [String,3,69,75]; ]
+function joinArray(arr as Array<String>, delim as String or Char) as String {
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_3_76_12_0_start:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 4 4 ]
+    [ "_home_alan_bin_LondonPublicTransport_source_Utils_mc_3_76_12_0_start" "_home_alan_bin_LondonPublicTransport_source_Utils_mc_3_76_12_0_stop" ]
+    %s.1 = local;
+    symbol [ s %s.1 4 8 9 ];
+    %tmp.1 = "";
+    lputv %s.1 %tmp.1;
+    symbol [ s %s.1 4 8 9 ];
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 5 4 ]
+    for @_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_test @_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_incr @_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_end;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_init:
+    [ "_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_begin" "_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_end" ]
+    %i.2 = local;
+    symbol [ i %i.2 5 13 14 ];
+    %tmp.2 = 0;
+    lputv %i.2 %tmp.2;
+    symbol [ i %i.2 5 13 14 ];
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_test:
+    %tmp.3 = lgetv %i.2;
+    symbol [ i %tmp.3 5 20 21 ];
+    %tmp.4 = lgetv %arr;
+    symbol [ arr %tmp.4 5 24 27 ];
+    symbol [ size %tmp.5 5 28 32 ];
+    %tmp.5 = getv function %tmp.4 :size;
+    %tmp.6 = invoke %tmp.4 %tmp.5();
+    %tmp.7 = lt %tmp.3 %tmp.6;
+    bf %tmp.7 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_end;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_begin:
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_41_10_4_start:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 6 8 ]
+    %tmp.8 = lgetv %s.1;
+    symbol [ s %tmp.8 6 8 9 ];
+    %tmp.9 = lgetv %arr;
+    symbol [ arr %tmp.9 6 13 16 ];
+    %tmp.10 = lgetv %i.2;
+    symbol [ i %tmp.10 6 17 18 ];
+    %tmp.11 = agetv %tmp.9 %tmp.10;
+    %tmp.12 = add %tmp.8 %tmp.11;
+    lputv %s.1 %tmp.12;
+    symbol [ s %s.1 6 8 9 ];
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 7 8 ]
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_7_8_9_8_if_stmt:
+    %tmp.13 = lgetv %i.2;
+    symbol [ i %tmp.13 7 12 13 ];
+    %tmp.14 = lgetv %arr;
+    symbol [ arr %tmp.14 7 16 19 ];
+    symbol [ size %tmp.15 7 20 24 ];
+    %tmp.15 = getv function %tmp.14 :size;
+    %tmp.16 = invoke %tmp.14 %tmp.15();
+    %tmp.17 = 1;
+    %tmp.18 = sub %tmp.16 %tmp.17;
+    %tmp.19 = lt %tmp.13 %tmp.18;
+    bf %tmp.19 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_7_8_9_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_7_8_9_8_if_true:
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_7_30_9_8_start:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 8 12 ]
+    %tmp.20 = lgetv %s.1;
+    symbol [ s %tmp.20 8 12 13 ];
+    %tmp.21 = lgetv %delim;
+    symbol [ delim %tmp.21 8 17 22 ];
+    %tmp.22 = add %tmp.20 %tmp.21;
+    lputv %s.1 %tmp.22;
+    symbol [ s %s.1 8 12 13 ];
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_7_30_9_8_stop:
+    goto @_home_alan_bin_LondonPublicTransport_source_Utils_mc_7_8_9_8_if_end;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_7_8_9_8_if_end:
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_41_10_4_stop:
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_incr:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 5 ]
+    %tmp.25 = lgetv %i.2;
+    symbol [ i %tmp.25 5 36 37 ];
+    %tmp.26 = add %tmp.25 1;
+    lputv %i.2 %tmp.26;
+    symbol [ i %i.2 5 36 37 ];
+    goto @_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_test;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_5_4_10_4_for_end:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 11 4 ]
+    %tmp.27 = lgetv %s.1;
+    symbol [ s %tmp.27 11 11 12 ];
+    ret %tmp.27;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_3_76_12_0_stop:
+}
+[ @file = "/home/alan/bin/LondonPublicTransport/source/Utils.mc"; @line = 14; @symbol_functiondef = [typeOf,14,9,15]; @symbol_param<0> = [obj,14,16,19]; ]
+function typeOf(obj) {
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_14_21_34_0_start:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 15 4 ]
+    %tmp.1 = lgetv %obj;
+    symbol [ obj %tmp.1 15 12 15 ];
+    push %tmp.1;
+    switch %tmp.1 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_15_4_33_4_switchStmtEnd;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_15_4_33_4_switchStmtBegin:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 16 8 ]
+    %tmp.2 = dup %tmp.1;
+    symbol [ Array %tmp.5 16 24 29 ];
+    %tmp.5 = getv ? :Array;
+    %tmp.6 = isa %tmp.2 %tmp.5;
+    bt %tmp.6 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_16_8_16_45_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 17 8 ]
+    %tmp.7 = dup %tmp.1;
+    symbol [ Boolean %tmp.10 17 24 31 ];
+    %tmp.10 = getv ? :Boolean;
+    %tmp.11 = isa %tmp.7 %tmp.10;
+    bt %tmp.11 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_17_8_17_49_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 18 8 ]
+    %tmp.12 = dup %tmp.1;
+    symbol [ ByteArray %tmp.15 18 24 33 ];
+    %tmp.15 = getv ? :ByteArray;
+    %tmp.16 = isa %tmp.12 %tmp.15;
+    bt %tmp.16 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_18_8_18_53_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 19 8 ]
+    %tmp.17 = dup %tmp.1;
+    symbol [ Char %tmp.20 19 24 28 ];
+    %tmp.20 = getv ? :Char;
+    %tmp.21 = isa %tmp.17 %tmp.20;
+    bt %tmp.21 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_19_8_19_43_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 20 8 ]
+    %tmp.22 = dup %tmp.1;
+    symbol [ Dictionary %tmp.25 20 24 34 ];
+    %tmp.25 = getv ? :Dictionary;
+    %tmp.26 = isa %tmp.22 %tmp.25;
+    bt %tmp.26 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_20_8_20_55_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 21 8 ]
+    %tmp.27 = dup %tmp.1;
+    symbol [ Double %tmp.30 21 24 30 ];
+    %tmp.30 = getv ? :Double;
+    %tmp.31 = isa %tmp.27 %tmp.30;
+    bt %tmp.31 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_21_8_21_47_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 22 8 ]
+    %tmp.32 = dup %tmp.1;
+    symbol [ Float %tmp.35 22 24 29 ];
+    %tmp.35 = getv ? :Float;
+    %tmp.36 = isa %tmp.32 %tmp.35;
+    bt %tmp.36 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_22_8_22_45_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 23 8 ]
+    %tmp.37 = dup %tmp.1;
+    symbol [ InvalidOptionsException %tmp.40 23 24 47 ];
+    %tmp.40 = getv ? :InvalidOptionsException;
+    %tmp.41 = isa %tmp.37 %tmp.40;
+    bt %tmp.41 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_23_8_23_81_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 24 8 ]
+    %tmp.42 = dup %tmp.1;
+    symbol [ InvalidValueException %tmp.45 24 24 45 ];
+    %tmp.45 = getv ? :InvalidValueException;
+    %tmp.46 = isa %tmp.42 %tmp.45;
+    bt %tmp.46 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_24_8_24_77_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 25 8 ]
+    %tmp.47 = dup %tmp.1;
+    symbol [ Long %tmp.50 25 24 28 ];
+    %tmp.50 = getv ? :Long;
+    %tmp.51 = isa %tmp.47 %tmp.50;
+    bt %tmp.51 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_25_8_25_43_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 26 8 ]
+    %tmp.52 = dup %tmp.1;
+    symbol [ Method %tmp.55 26 24 30 ];
+    %tmp.55 = getv ? :Method;
+    %tmp.56 = isa %tmp.52 %tmp.55;
+    bt %tmp.56 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_26_8_26_47_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 27 8 ]
+    %tmp.57 = dup %tmp.1;
+    symbol [ Number %tmp.60 27 24 30 ];
+    %tmp.60 = getv ? :Number;
+    %tmp.61 = isa %tmp.57 %tmp.60;
+    bt %tmp.61 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_27_8_27_47_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 28 8 ]
+    %tmp.62 = dup %tmp.1;
+    symbol [ String %tmp.65 28 24 30 ];
+    %tmp.65 = getv ? :String;
+    %tmp.66 = isa %tmp.62 %tmp.65;
+    bt %tmp.66 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_28_8_28_47_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 30 8 ]
+    %tmp.67 = dup %tmp.1;
+    symbol [ Exception %tmp.70 30 24 33 ];
+    %tmp.70 = getv ? :Exception;
+    %tmp.71 = isa %tmp.67 %tmp.70;
+    bt %tmp.71 @_home_alan_bin_LondonPublicTransport_source_Utils_mc_30_8_30_53_switchCase;
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 31 8 ]
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_15_4_33_4_switchStmtDefault:
+    goto @_home_alan_bin_LondonPublicTransport_source_Utils_mc_15_4_33_4_defaultCodeBegin;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_16_8_16_45_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 16 31 ]
+    %tmp.72 = "Array";
+    ret %tmp.72;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_17_8_17_49_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 17 33 ]
+    %tmp.73 = "Boolean";
+    ret %tmp.73;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_18_8_18_53_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 18 35 ]
+    %tmp.74 = "ByteArray";
+    ret %tmp.74;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_19_8_19_43_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 19 30 ]
+    %tmp.75 = "Char";
+    ret %tmp.75;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_20_8_20_55_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 20 36 ]
+    %tmp.76 = "Dictionary";
+    ret %tmp.76;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_21_8_21_47_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 21 32 ]
+    %tmp.77 = "Double";
+    ret %tmp.77;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_22_8_22_45_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 22 31 ]
+    %tmp.78 = "Float";
+    ret %tmp.78;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_23_8_23_81_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 23 49 ]
+    %tmp.79 = "InvalidOptionsException";
+    ret %tmp.79;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_24_8_24_77_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 24 47 ]
+    %tmp.80 = "InvalidValueException";
+    ret %tmp.80;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_25_8_25_43_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 25 30 ]
+    %tmp.81 = "Long";
+    ret %tmp.81;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_26_8_26_47_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 26 32 ]
+    %tmp.82 = "Method";
+    ret %tmp.82;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_27_8_27_47_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 27 32 ]
+    %tmp.83 = "Number";
+    ret %tmp.83;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_28_8_28_47_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 28 32 ]
+    %tmp.84 = "String";
+    ret %tmp.84;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_30_8_30_53_switchCase:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 30 35 ]
+    %tmp.85 = "Exception";
+    ret %tmp.85;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_31_8_31_28_switchCase:
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_15_4_33_4_defaultCodeBegin:
+[ "/home/alan/bin/LondonPublicTransport/source/Utils.mc" 31 17 ]
+    %tmp.86 = null;
+    ret %tmp.86;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_15_4_33_4_switchStmtEnd:
+    pop;
+_home_alan_bin_LondonPublicTransport_source_Utils_mc_14_21_34_0_stop:
+}
+[ @file = "/home/alan/bin/LondonPublicTransport/source/Utils.mc"; @line = 36; @symbol_classdef = [Iter,36,6,10]; ]
+class Iter {
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/Utils.mc"; @line = 36; ]
+    <init> {
+    }
+    [ @file = "/home/alan/bin/LondonPublicTransport/source/Utils.mc"; @line = 36; ]
+    static
+    <init> {
+    }
+}
+[ @file = "/home/alan/bin/LondonPublicTransport/source/Utils.mc"; @line = 1; ]
+<init> {
+}
