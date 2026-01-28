@@ -1,4 +1,5 @@
 import Toybox.Lang;
+import Toybox.Time;
 
 function joinArray(arr as Array<String>, delim as String or Char) as String {
     var s = "";
@@ -33,6 +34,14 @@ function typeOf(obj) {
     }
 }
 
-class Iter {
-    
+// Parse a string in a format line "2026-01-27T19:04:19Z" to a `Moment`.
+function parseDateTime(dt as String) as Moment {
+    return Gregorian.moment({
+        :year => dt.substring(0, 4).toNumber(),
+        :month => dt.substring(5, 7).toNumber(),
+        :day => dt.substring(8, 10).toNumber(),
+        :hour => dt.substring(11, 13).toNumber(),
+        :minute => dt.substring(14, 16).toNumber(),
+        :second => dt.substring(17, 19).toNumber()
+    });
 }

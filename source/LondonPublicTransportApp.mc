@@ -18,9 +18,10 @@ class LondonPublicTransportApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        var view = new StatusListView();
-        var delegate = new StatusListBehaviorDelegate(view);
-        return [ view, delegate ];
+        var view = new StatusListLoadingView();
+        //var delegate = new StatusListBehaviorDelegate(view);
+        //return [ view, delegate ];
+        return [view];
     }
 
 }
