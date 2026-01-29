@@ -25,7 +25,7 @@ class StatusListLoadingView extends WatchUi.View {
 
     function onReceive(responseCode, data) {
         var lineStatusData = [];
-        var errorMessage;
+        var errorMessage = null;
         if (responseCode == 200) {
             if (data != null) {
                 data = data as Array<Dictionary>;
@@ -34,11 +34,16 @@ class StatusListLoadingView extends WatchUi.View {
                 errorMessage = "No data received.";
             }
         } else {
-            errorMessage = "Error: " + responseCode;
+            errorMessage = "Bad HTTP response: " + responseCode;
+        }
+
+        if (errorMessage != null) {
+            System.println("Error: " + errorMessage);
         }
 
         var listView = new StatusListView(lineStatusData);
-        WatchUi.switchToView(listView, null, WatchUi.SLIDE_IMMEDIATE);
+        var delegate = new StatusListDelegate(lineStatusData);
+        WatchUi.switchToView(listView, delegate, WatchUi.SLIDE_IMMEDIATE);
 
         WatchUi.requestUpdate();
     }

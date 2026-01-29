@@ -17,11 +17,11 @@ class StatusListView extends WatchUi.Menu2 {
 
     private var _data as Array<LineStatusData>;
 
-    function initialize(lineStatuses as Array<LineStatusData>) {
+    function initialize(data as Array<LineStatusData>) {
         Menu2.initialize({ :title => "Line Status"});
-        _data = lineStatuses;
+        _data = data;
         for (var i = 0; i < _data.size(); i++) {
-            var item = lineStatuses[i];
+            var item = data[i];
             Menu2.addItem(
                 new MenuItem(
                     item.name,
@@ -34,3 +34,19 @@ class StatusListView extends WatchUi.Menu2 {
     }
 }
 
+class StatusListDelegate extends WatchUi.Menu2InputDelegate {
+
+    private var _data as Array<LineStatusData>;
+
+    function initialize(data) {
+        Menu2InputDelegate.initialize();
+        _data = data;
+    }
+
+    function onSelect(item) {
+        var id = item.getId() as Number;
+        var factory = new DetailedStatusViewFactory(_data[id]);
+        var viewLoop = new WatchUi.ViewLoop(factory, {:wrap => true});
+        WatchUi.switchToView(viewLoop, null, WatchUi.SLIDE_LEFT);
+    }
+}
