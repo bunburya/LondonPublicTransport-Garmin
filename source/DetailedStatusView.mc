@@ -35,44 +35,48 @@ class DetailedStatusView extends WatchUi.View {
     function onUpdate(dc) {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
+
+        var maxWidth = dc.getWidth();
+        var maxHeight = dc.getHeight();
+
+        var header = getHeader(maxWidth, maxHeight);
+        var body = getBody(maxWidth, maxHeight);
         
-        var textArea = new WatchUi.TextArea({
-            :text => _status.description + "\n\n" + _status.reason,
+        header.draw(dc);
+        body.draw(dc);
+    }
+
+    function getHeader(width as Number, height as Number) as WatchUi.Text {
+        var color;
+        if (_status.internalSeverity < 9) {
+            color = Graphics.COLOR_RED;
+        } else if (_status.internalSeverity < 17) {
+            color = Graphics.COLOR_ORANGE;
+        } else {
+            color = Graphics.COLOR_GREEN;
+        }
+        return new WatchUi.Text({
+            :text => "\n" + _status.description,
+            :color => color,
+            :locX => WatchUi.LAYOUT_HALIGN_CENTER,
+            :locY => WatchUi.LAYOUT_VALIGN_TOP,
+            :width => width,
+            :height => height,
+            :justification => Graphics.TEXT_JUSTIFY_CENTER
+        });
+    }
+
+    function getBody(width as Number, height as Number) as WatchUi.TextArea {
+        return new TextArea({
+            :text => _status.reason,
             :color => Graphics.COLOR_WHITE,
             :font => [Graphics.FONT_MEDIUM, Graphics.FONT_SMALL, Graphics.FONT_XTINY],
             :locX => WatchUi.LAYOUT_HALIGN_LEFT,
             :locY => WatchUi.LAYOUT_VALIGN_TOP,
-            :width => dc.getWidth(),
-            :height => dc.getHeight()
+            :width => width,
+            :height => height,
+            :justification => Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         });
-        textArea.draw(dc);
-    }
-
-    // Helper function to draw text with word wrapping
-    function drawWrappedText(dc, text, x, y, maxWidth, font) {
-        var words = splitString(text, " ") as Array<String>;
-        var line = "";
-        var lineHeight = dc.getFontHeight(font);
-        var currentY = y;
-        
-        for (var i = 0; i < words.size(); i++) {
-            var testLine = line.length() > 0 ? line + " " + words[i] : words[i];
-            var testWidth = dc.getTextWidthInPixels(testLine, font);
-            
-            if (testWidth > maxWidth && line.length() > 0) {
-                // Line is too long, draw current line and start new one
-                dc.drawText(x, currentY, font, line, Graphics.TEXT_JUSTIFY_LEFT);
-                line = words[i];
-                currentY += lineHeight;
-            } else {
-                line = testLine;
-            }
-        }
-        
-        // Draw the last line
-        if (line.length() > 0) {
-            dc.drawText(x, currentY, font, line, Graphics.TEXT_JUSTIFY_LEFT);
-        }
     }
 
 
