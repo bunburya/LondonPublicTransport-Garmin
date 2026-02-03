@@ -5,7 +5,7 @@ import Toybox.Lang;
 function statusDescription(lineStatusData as LineStatusData) as String {
     var mostSevere = lineStatusData.mostSevereStatus();
     if (mostSevere == null) {
-        return "No Status Available";
+        return "No status available";
     }
     if (lineStatusData.statuses.size() == 1) {
         return mostSevere.description;
@@ -47,6 +47,7 @@ class StatusListDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId() as Number;
         var factory = new DetailedStatusViewFactory(_data[id]);
         var viewLoop = new WatchUi.ViewLoop(factory, {:wrap => true});
-        WatchUi.switchToView(viewLoop, null, WatchUi.SLIDE_LEFT);
+        var viewLoopDelegate = new WatchUi.ViewLoopDelegate(viewLoop);
+        WatchUi.pushView(viewLoop, viewLoopDelegate, WatchUi.SLIDE_LEFT);
     }
 }

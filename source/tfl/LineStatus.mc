@@ -1,11 +1,6 @@
-import Toybox.System;
-import Toybox.Communications;
 import Toybox.Lang;
-import Toybox.PersistedContent;
-import Toybox.WatchUi;
 import Toybox.Time;
-
-const BASE_URL = "https://api.tfl.gov.uk/";
+import Toybox.Graphics;
 
 // The TfL API assigns numerical codes to each status severity, and it seems like you could *mostly* get by just
 // treating lower numbers as being more severe, but that may not necessarily work in all cases. So below is a list of
@@ -14,25 +9,25 @@ const BASE_URL = "https://api.tfl.gov.uk/";
 const SEVERITIES = {
 	"Closed" => 0,
     "Service Closed" => 0,
-	"No Service" => 1,
-	"Not Running" => 2,
-	"Planned Closure" => 3,
-	"Suspended" => 4,
-	"Part Closure" => 5,
-	"Part Closed" => 6,
-	"Part Suspended" => 7,
-	"Severe Delays" => 8,
+	"No Service" => 0,
+	"Not Running" => 0,
+	"Planned Closure" => 0,
+	"Suspended" => 1,
+	"Part Closure" => 2,
+	"Part Closed" => 2,
+	"Part Suspended" => 3,
+	"Severe Delays" => 4,
 	// Special Service is used differently on different lines and can mean anything from minor delays to suspended.
-	"Special Service" => 9,
-	"Reduced Service" => 10,
-	"Bus Service" => 11,
-	"Change of frequency" => 12,
-	"Diverted" => 13,
-	"Issues Reported" => 14,
-	"Minor Delays" => 16,
-	"Information" => 16,
-	"No Issues" => 17,
-	"Good Service" => 18,
+	"Special Service" => 5,
+	"Reduced Service" => 6,
+	"Bus Service" => 7,
+	"Change of frequency" => 8,
+	"Diverted" => 9,
+	"Issues Reported" => 10,
+	"Minor Delays" => 11,
+	"Information" => 12,
+	"No Issues" => 13,
+	"Good Service" => 14,
 };
 
 // A route (or part thereof) that is affected by a disruption. 
@@ -90,6 +85,16 @@ class LineStatus {
             }
         }
     }
+
+    function color() as Graphics.ColorType {
+        if (internalSeverity < 5) {
+            return TFL_RED;
+        } else if (internalSeverity < 13) {
+            return TFL_YELLOW;
+        } else {
+            return TFL_GREEN;
+        }
+    }
 }
 
 class LineStatusData {
@@ -113,11 +118,6 @@ class LineStatusData {
         var mostSevere = null;
         for (var i = 0; i < statuses.size(); i++) {
             var s = statuses[i];
-            System.println("s: " + s);
-            System.println("ms: " + mostSevere);
-            System.println("s.sev: " + s.internalSeverity);
-            System.println("s.desc: " + s.description);
-            //System.println("ms.sev: " + mostSevere.internalSeverity);
             if (mostSevere == null || s.internalSeverity < mostSevere.internalSeverity) {
                 mostSevere = s;
             }
@@ -132,52 +132,4 @@ function lineStatusDataArray(data as Array<Dictionary>) as Array<LineStatusData>
         arr.add(new LineStatusData(data[i]));
     }
     return arr;
-}
-
-class TflApi {
-
-    public var statusMessage = "";
-    public var errorMessage = "";
-    var lineStatuses as Array<LineStatusData> = [];
-
-    // Get the status of the given lines.
-    function getLineStatuses(lines as Array<String>, callback as Method) {
-        var ids = joinArray(lines, ',');
-        var url = BASE_URL + "/Line/" + ids + "/Status";
-        var params = {};
-        var options = {
-            :method => Communications.HTTP_REQUEST_METHOD_GET,
-            :headers => {
-                "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON,
-                "User-Agent" => "LondonPublicTransport App for Garmin v0.0.1"
-            },
-            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
-        };
-
-        Communications.makeWebRequest(url, params, options, callback);
-
-        statusMessage = "Requesting...";
-        WatchUi.requestUpdate();
-    }
-
-    // Get the status of all lines for the given modes.
-    function getModeLineStatuses(modes as Array<String>, callback as Method) {
-        var modeIds = joinArray(modes, ',');
-        var url = BASE_URL + "/Line/Mode/" + modeIds + "/Status";
-        var params = {};
-                var options = {
-            :method => Communications.HTTP_REQUEST_METHOD_GET,
-            :headers => {
-                "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON,
-                "User-Agent" => "LondonPublicTransport App for Garmin v0.0.1"
-            },
-            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
-        };
-
-        Communications.makeWebRequest(url, params, options, callback);
-
-        statusMessage = "Requesting...";
-        WatchUi.requestUpdate();
-    }
-
 }

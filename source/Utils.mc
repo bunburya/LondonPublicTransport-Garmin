@@ -1,5 +1,6 @@
 import Toybox.Lang;
 import Toybox.Time;
+import Toybox.Graphics;
 
 function joinArray(arr as Array<String>, delim as String or Char) as String {
     var s = "";
@@ -46,23 +47,29 @@ function parseDateTime(dt as String) as Moment {
     });
 }
 
-    // Helper function to split string by delimiter
-    function splitString(str as String, delimiter as String) {
-        var result = [];
-        var delimiterPos = str.find(delimiter);
-        
-        while (delimiterPos != null) {
-            var word = str.substring(0, delimiterPos);
-            if (word.length() > 0) {
-                result.add(word);
-            }
-            str = str.substring(delimiterPos+delimiter.length(), str.length());
-            delimiterPos = str.find(delimiter);
+// Helper function to split string by delimiter
+function splitString(str as String, delimiter as String) as Array<String> {
+    var result = [];
+    var delimiterPos = str.find(delimiter);
+    
+    while (delimiterPos != null) {
+        var word = str.substring(0, delimiterPos);
+        if (word.length() > 0) {
+            result.add(word);
         }
-
-        if (str.length() > 0) {
-            result.add(str);
-        }
-        
-        return result;
+        str = str.substring(delimiterPos+delimiter.length(), str.length());
+        delimiterPos = str.find(delimiter);
     }
+
+    if (str.length() > 0) {
+        result.add(str);
+    }
+    
+    return result;
+}
+
+enum TflColor {
+    TFL_RED = Graphics.createColor(255, 220, 36, 31),
+    TFL_YELLOW = Graphics.createColor(255, 255, 200, 10),
+    TFL_GREEN = Graphics.createColor(255, 0, 125, 50)
+}
