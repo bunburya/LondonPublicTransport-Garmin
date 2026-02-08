@@ -1,7 +1,9 @@
 import Toybox.Lang;
 import Toybox.Time;
 import Toybox.Graphics;
+import Toybox.Math;
 
+// Create a string from an array by joining the array's elements with the given delimiter
 function joinArray(arr as Array<String>, delim as String or Char) as String {
     var s = "";
     for (var i = 0; i < arr.size(); i++) {
@@ -47,7 +49,7 @@ function parseDateTime(dt as String) as Moment {
     });
 }
 
-// Helper function to split string by delimiter
+// Split a string on a delimiter
 function splitString(str as String, delimiter as String) as Array<String> {
     var result = [];
     var delimiterPos = str.find(delimiter);
@@ -66,6 +68,14 @@ function splitString(str as String, delimiter as String) as Array<String> {
     }
     
     return result;
+}
+
+// Convert number of seconds to a human-readable string communicating minutes
+// and seconds, eg, 72 -> "1m12s".
+function secsToStr(totalSecs as Number) as String {
+    var mins = Math.floor(totalSecs / 60) as Number;
+    var secs = totalSecs % 60;
+    return mins + "m" + secs + "s";
 }
 
 enum TflColor {

@@ -26,7 +26,7 @@ class TflApi {
     function getLineStatuses(lines as Array<String>, callback as Method) {
         var ids = joinArray(lines, ',');
         var url = BASE_URL + "/Line/" + ids + "/Status";
-        var params = { "details" => true };
+        var params = { "detail" => true };
         makeRequest(url, params, callback);
     }
 
@@ -34,13 +34,18 @@ class TflApi {
     function getModeLineStatuses(modes as Array<String>, callback as Method) {
         var modeIds = joinArray(modes, ',');
         var url = BASE_URL + "/Line/Mode/" + modeIds + "/Status";
-        var params = { "details" => true };
+        //var params = { "detail" => true };
+        var params = {};
         makeRequest(url, params, callback);
     }
 
     // Get arrival predictions for the given stop point.
+    // `id`: The NAPTAN ID of the stop point.
+    // `name`: The common name of the stop point.
+    // `callback`: Function to be called with the data fetched from the API.
     function getStopPointArrivals(id as String, callback as Method) {
-        var url = BASE_URL + "/" + id + "/Arrivals";
+        var url = BASE_URL + "StopPoint/" + id + "/Arrivals";
+        System.println("Calling url: " + url);
         var params = {};
         makeRequest(url, params, callback);
     }

@@ -1,22 +1,26 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 
-class StatusListLoadingView extends BaseLoadingView {
+// View the arrival predictions for a single stop.
+class StopPointArrivalsLoadingView extends BaseLoadingView {
     private var _tflApi as TflApi;
+    private var _stopId as String;
+    private var _stopName as String;
 
-    function initialize() {
+    function initialize(stopId as String, stopName as String) {
         BaseLoadingView.initialize();
         _tflApi = new TflApi();
-        _tflApi.getModeLineStatuses(["tube"], method(:onReceive));
+        _stopId = stopId;
+        _stopName = stopName;
+        _tflApi.getStopPointArrivals(_stopId, method(:onReceive));
     }
 
     function onReceive(responseCode, data) {
-        var lineStatusData = [];
+        var arrivalsData = [];
         var errorMessage = null;
         if (responseCode == 200) {
             if (data != null) {
-                data = data as Array<Dictionary>;
-                lineStatusData = lineStatusDataArray(data);
+                arrivalsData = data as Array<Dictionary>;
             } else {
                 errorMessage = "No data received.";
             }
@@ -26,12 +30,10 @@ class StatusListLoadingView extends BaseLoadingView {
 
         if (errorMessage != null) {
             System.println("Error: " + errorMessage);
-            System.println(data);
         }
 
-        var listView = new StatusListView(lineStatusData);
-        var delegate = new StatusListDelegate(lineStatusData);
-        WatchUi.switchToView(listView, delegate, WatchUi.SLIDE_IMMEDIATE);
+        var listView = new StopPointArrivalsView(_stopId,_stopName, arrivalsData);
+        WatchUi.switchToView(listView, null, WatchUi.SLIDE_IMMEDIATE);
 
         WatchUi.requestUpdate();
     }
