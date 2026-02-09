@@ -1,18 +1,17 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 
-// View the arrival predictions for a single stop.
+// Display a loading screen and load the list of arrival predictions
+// for a single stop.
 class StopPointArrivalsLoadingView extends BaseLoadingView {
     private var _tflApi as TflApi;
-    private var _stopId as String;
-    private var _stopName as String;
+    private var _stopPoint as StopPoint;
 
-    function initialize(stopId as String, stopName as String) {
+    function initialize(stopPoint as StopPoint) {
         BaseLoadingView.initialize();
         _tflApi = new TflApi();
-        _stopId = stopId;
-        _stopName = stopName;
-        _tflApi.getStopPointArrivals(_stopId, method(:onReceive));
+        _stopPoint = stopPoint;
+        _tflApi.getStopPointArrivals(_stopPoint.id, method(:onReceive));
     }
 
     function onReceive(responseCode, data) {
@@ -32,8 +31,10 @@ class StopPointArrivalsLoadingView extends BaseLoadingView {
             System.println("Error: " + errorMessage);
         }
 
-        var listView = new StopPointArrivalsView(_stopId,_stopName, arrivalsData);
-        WatchUi.switchToView(listView, null, WatchUi.SLIDE_IMMEDIATE);
+        var stopPointArrivals = new StopPointArrivals(_stopPoint, arrivalsData);
+
+        var listView = new StopPointArrivalListView(stopPointArrivals);
+        WatchUi.switchToView(listView, new WatchUi.Menu2InputDelegate(), WatchUi.SLIDE_IMMEDIATE);
 
         WatchUi.requestUpdate();
     }

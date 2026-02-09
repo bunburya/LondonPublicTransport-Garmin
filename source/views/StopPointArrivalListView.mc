@@ -1,0 +1,24 @@
+import Toybox.WatchUi;
+import Toybox.Lang;
+
+// List the predicted arrivals for a single stop.
+class StopPointArrivalListView extends WatchUi.Menu2 {
+
+    private var _data as StopPointArrivals;
+
+    function initialize(data as StopPointArrivals) {
+        Menu2.initialize({ :title => data.stopPoint.name});
+        _data = data;
+        for (var i = 0; i < _data.arrivals.size(); i++) {
+            var arrival = data.arrivals[i];
+            Menu2.addItem(
+                new MenuItem(
+                    arrival.lineName + " in " + secsToStr(arrival.timeToStation),
+                    arrival.destinationName,
+                    i,
+                    {}
+                )
+            );
+        }
+    }
+}

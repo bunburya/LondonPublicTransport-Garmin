@@ -4,12 +4,8 @@ import Toybox.System;
 
 class ArrivalTtsComparator {
     function compare(arr1 as Lang.Object, arr2 as Lang.Object) as Lang.Number {
-        System.println("arr1: " + arr1);
-        System.println("arr2: " + arr2);
-
         var a = arr1 as Arrival;
         var b = arr2 as Arrival;
-
         return (a.timeToStation - b.timeToStation);
     }
 }
@@ -45,18 +41,25 @@ class Arrival {
     }
 }
 
+class StopPoint {
+    var id as String;
+    var name as String;
+
+    function initialize(stopId as String, stopName as String) {
+        id = stopId;
+        name = stopName;
+    } 
+}
+
 class StopPointArrivals {
-    var stopPointId as String;
-    var stationName as String;
+    var stopPoint as StopPoint;
     var arrivals as Array<Arrival> = [];
 
-    function initialize(id as String, name as String, data as Array<Dictionary>) {
-        stopPointId = id;
-        stationName = name;
+    function initialize(sp as StopPoint, data as Array<Dictionary>) {
+        stopPoint = sp;
         for (var i = 0; i < data.size(); i++) {
             arrivals.add(new Arrival(data[i]));
         }
-        System.println("About to sort.");
         arrivals.sort(new ArrivalTtsComparator());
     }
 

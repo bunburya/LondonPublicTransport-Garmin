@@ -40,8 +40,8 @@ class DetailedStatusView extends WatchUi.View {
     // Additional margin to apply to sides of body text
     private var _bodySideMargin as Lang.Number = 10;
 
-    private var _headerFontSize as Graphics.FontType = Graphics.FONT_TINY;
-    private var _bodyFontSize as Graphics.FontType = Graphics.FONT_XTINY;
+    private var _headerFontSize as Graphics.FontType = Graphics.FONT_SYSTEM_TINY;
+    private var _bodyFontSize as Graphics.FontType = Graphics.FONT_SYSTEM_XTINY;
 
 
     // Below values are initialised later
