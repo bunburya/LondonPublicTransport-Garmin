@@ -1,5 +1,5 @@
 <menu2 id="MainMenu" title="Welcome">
-    <menu-item id="line_status" label="Line Status" />
-    <menu-item id="stop_arrivals" label="Arrivals" />
-    <menu-item id="bike_points" label="Bike Stations" />
+    <menu-item id="line_status" label="@Strings.LineStatusMenuLabel" />
+    <menu-item id="stop_arrivals" label="@Strings.StopPointArrivalsMenuLabel" />
+    <menu-item id="bike_points" label="@Strings.BikePointsMenuLabel" />
 </menu2>

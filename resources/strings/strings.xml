@@ -1,3 +1,9 @@
 <strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
     <string id="AppName">LondonPublicTransport</string>
+    <string id="AppVersionLabel">App Version</string>
+    <string id="ApiKeyLabel">TFL API Key</string>
+
+    <string id="LineStatusMenuLabel">Line Statuses</string>
+    <string id="StopPointArrivalsMenuLabel">Stop Arrivals</string>
+    <string id="BikePointsMenuLabel">Bike Points</string>
 </strings>
