@@ -250,48 +250,36 @@ class DetailedStatusViewDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onNextPage() {
-        System.print("onNextPage ");
         if (_view.canScrollDown()) {
             _view.pageDown();
-            System.println("handled");
             return true;
         } else {
-            System.println("not handled");
             return false;
         }
     }
 
     function onPreviousPage() {
-        System.print("onPreviousPage ");
         if (_view.canScrollUp()) {
             _view.pageUp();
-            System.println("handled");
             return true;
         } else {
-            System.println("not handled");
             return false;
         }
     }
 
     function onSwipe(swipeEvent) {
         var direction = swipeEvent.getDirection();
-
-        System.print("onSwipe ");
         
         if (direction == WatchUi.SWIPE_UP && _view.canScrollDown()) {
             _view.pageDown();
-            System.println("handled");
             return true;
         } else if (direction == WatchUi.SWIPE_DOWN && _view.canScrollUp()) {
             _view.pageUp();
-            System.println("handled");
             return true;
         } else if (direction == WatchUi.SWIPE_RIGHT) {
             WatchUi.popView(WatchUi.SLIDE_RIGHT);
-            System.println("handled");
             return true;
         }
-        System.println("not handled");
         return false;
     }
 
