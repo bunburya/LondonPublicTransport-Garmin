@@ -1,15 +1,13 @@
 import Toybox.Communications;
 import Toybox.Lang;
 
-const BASE_URL = "https://api.tfl.gov.uk/";
-const USER_AGENT = "LondonPublicTransport App for Garmin v0.0.1";
 
 
 class TflApi {
 
-    var lineStatuses as Array<LineStatusData> = [];
-
-    function makeRequest(url as String, params as Dictionary, callback as Method) {
+    // Generic function to make a GET request to the TFL API, which is used by the
+    // other endpoint-specific methods.
+    private function makeRequest(url as String, params as Dictionary, callback as Method) {
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
             :headers => {
@@ -26,7 +24,8 @@ class TflApi {
     function getLineStatuses(lines as Array<String>, callback as Method) {
         var ids = joinArray(lines, ',');
         var url = BASE_URL + "/Line/" + ids + "/Status";
-        var params = { "detail" => true };
+        //var params = { "detail" => true };
+        var params = {};
         makeRequest(url, params, callback);
     }
 
