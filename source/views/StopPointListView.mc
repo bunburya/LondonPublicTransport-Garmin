@@ -4,13 +4,9 @@ import Toybox.Lang;
 
 // Show a list of stops.
 class StopPointListView extends WatchUi.Menu2 {
-
-    private var _stopPoints as Array<StopPoint>;
-
     function initialize(stopPoints as Array<StopPoint>) {
         Menu2.initialize({ :title => "Choose Stop"});
-        _stopPoints = stopPoints;
-        for (var i = 0; i < _stopPoints.size(); i++) {
+        for (var i = 0; i < stopPoints.size(); i++) {
             var item = stopPoints[i];
             Menu2.addItem(
                 new MenuItem(
