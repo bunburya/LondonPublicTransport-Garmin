@@ -2,6 +2,7 @@ import Toybox.Lang;
 import Toybox.Time;
 import Toybox.Graphics;
 import Toybox.Math;
+import Toybox.System;
 
 // Create a string from an array by joining the array's elements with the given delimiter
 function joinArray(arr as Array<String>, delim as String or Char) as String {
@@ -76,6 +77,24 @@ function secsToStr(totalSecs as Number) as String {
     var mins = Math.floor(totalSecs / 60) as Number;
     var secs = totalSecs % 60;
     return mins + "m" + secs + "s";
+}
+
+// Compare two arrays by value
+function arrayEq(arr1 as Array, arr2 as Array) as Boolean {
+    System.println("Comparing " + arr1.toString() + " vs " + arr2.toString());
+    if (arr1.size() != arr2.size()) {
+        System.println("Different lengths: not equal");
+        return false;
+    }
+    for (var i = 0; i < arr1.size(); i++) {
+        System.println("Checking element " + i);
+        if (!arr1[i].equals(arr2[i])) {
+            System.println(arr1[i].toString() + " != " + arr2[i].toString() + ": not equal");
+            return false;
+        }
+    }
+    System.println("Arrays equal");
+    return true;
 }
 
 enum TflColor {

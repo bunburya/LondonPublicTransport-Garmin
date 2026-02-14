@@ -17,10 +17,10 @@ function getOtherLines(lines as Dictionary<String, Line>) as Dictionary<String, 
 }
 
 // Menu that allows user to add other lines to the line status feature.
-class AddLineStatusMenu extends WatchUi.Menu2 {
+class AddLineStatusView extends WatchUi.Menu2 {
 
-    function initialize() {
-        var selectedIds = Application.Storage.getValue("lineStatusSelection") as Array<String>;
+    function initialize(selectedIds as Array<String>) {
+        System.println(selectedIds);
         var selectedLines = lineIdsToLines(selectedIds);
         var unselectedLines = getOtherLines(selectedLines);
         var unselectedIds = unselectedLines.keys();
@@ -42,14 +42,18 @@ class AddLineStatusMenu extends WatchUi.Menu2 {
 
 class AddLineStatusDelegate extends WatchUi.Menu2InputDelegate {
     
-    function initialize() {
+    private var _selectedIds as Array<String>;
+
+    function initialize(selectedIds as Array<String>) {
         WatchUi.Menu2InputDelegate.initialize();
+        _selectedIds = selectedIds;
     }
 
     function onSelect(item as MenuItem) as Void {
-        var selection = Application.Storage.getValue("lineStatusSelection") as Array<String>;
-        selection.add(item.getId() as String);
-        Application.Storage.setValue("lineStatusSelection", selection);
+        System.println("item:");
+        System.println(item.getId());
+        _selectedIds.add(item.getId() as String);
+        Application.Storage.setValue("lineStatusSelection", _selectedIds);
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
     }
 

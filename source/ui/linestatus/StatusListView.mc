@@ -50,4 +50,14 @@ class StatusListDelegate extends WatchUi.Menu2InputDelegate {
         var viewLoopDelegate = new WatchUi.ViewLoopDelegate(viewLoop);
         WatchUi.pushView(viewLoop, viewLoopDelegate, WatchUi.SLIDE_LEFT);
     }
+
+    function onTitle() as Void {
+        var selectedIds = Application.Storage.getValue("lineStatusSelection");
+        if (selectedIds == null) {
+            selectedIds = [];
+        }
+        var view = new LineStatusConfigView(selectedIds);
+        var delegate = new LineStatusConfigDelegate(selectedIds);
+        pushView(view, delegate, SLIDE_LEFT);
+    }
 }
