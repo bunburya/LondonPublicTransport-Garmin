@@ -10,14 +10,6 @@ class StatusListLoadingView extends BaseLoadingView {
         BaseLoadingView.initialize();
         _tflApi = new TflApi();
         _lineIds = Application.Storage.getValue("lineStatusSelection");
-        if (_lineIds == null) {
-            // If no lines configured, switch straight to the config view.
-            var view = new LineStatusConfigView([]);
-            var delegate = new LineStatusConfigDelegate([]);
-            WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
-        } else {
-            _tflApi.getLineStatuses(_lineIds, method(:onReceive));
-        }
     }
 
     function onReceive(responseCode, data) {
@@ -44,6 +36,19 @@ class StatusListLoadingView extends BaseLoadingView {
         } else {
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
             WatchUi.showToast(errorMessage, null);
+        }
+        WatchUi.requestUpdate();
+    }
+
+    function onShow() {
+        if (_lineIds == null || _lineIds.size() == 0) {
+            // If no lines configured, switch straight to the config view.
+            var view = new LineStatusConfigView([]);
+            var delegate = new LineStatusConfigDelegate([]);
+            System.println("Switching to config view.");
+            WatchUi.switchToView(view, delegate, WatchUi.SLIDE_IMMEDIATE);
+        } else {
+            _tflApi.getLineStatuses(_lineIds, method(:onReceive));
         }
         WatchUi.requestUpdate();
     }

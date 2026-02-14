@@ -12,46 +12,46 @@ const ADD_NEW = 1;
 
 class MoveOrDeleteLineDelegate extends WatchUi.Menu2InputDelegate {
     private var _lineId as String;
-    private var _selected as Array<String>;
+    private var _selectedLineIds as Array<String>;
 
-    function initialize(lineId as String, selected as Array<String>) {
+    function initialize(lineId as String, selectedLineIds as Array<String>) {
         WatchUi.Menu2InputDelegate.initialize();
         _lineId = lineId;
-        _selected = selected;
+        _selectedLineIds = selectedLineIds;
     }
 
     function onSelect(item as MenuItem) as Void {
         var id = item.getId() as Action;
-        var idx = _selected.indexOf(_lineId);
+        var idx = _selectedLineIds.indexOf(_lineId);
         if (id == MOVE_UP) {
             if (idx <= 0) {
                 // Move item to end of list
-                _selected = _selected.slice(1, null);
-                _selected.add(_lineId);
+                _selectedLineIds = _selectedLineIds.slice(1, null);
+                _selectedLineIds.add(_lineId);
             } else {
                 // Switch item with previous item
                 var prevIdx = idx - 1;
-                var prev = _selected[prevIdx];
-                _selected[prevIdx] = _lineId;
-                _selected[idx] = prev;
+                var prev = _selectedLineIds[prevIdx];
+                _selectedLineIds[prevIdx] = _lineId;
+                _selectedLineIds[idx] = prev;
             }
         } else if (id == MOVE_DOWN) {
-            if (idx >= _selected.size() - 1) {
+            if (idx >= _selectedLineIds.size() - 1) {
                 // Move item to start of list
-                var toAdd = _selected.slice(0, -1);
-                _selected = [_lineId];
-                _selected.addAll(toAdd);
+                var toAdd = _selectedLineIds.slice(0, -1);
+                _selectedLineIds = [_lineId];
+                _selectedLineIds.addAll(toAdd);
             } else {
                 // Switch item with next item
                 var nextIdx = idx + 1;
-                var next = _selected[nextIdx];
-                _selected[nextIdx] = _lineId;
-                _selected[idx] = next;
+                var next = _selectedLineIds[nextIdx];
+                _selectedLineIds[nextIdx] = _lineId;
+                _selectedLineIds[idx] = next;
             }
         } else if (id == DELETE) {
-            _selected.remove(_lineId);
+            _selectedLineIds.remove(_lineId);
         }
-        Application.Storage.setValue("lineStatusSelection", _selected);
+        Application.Storage.setValue("lineStatusSelection", _selectedLineIds);
         WatchUi.popView(SLIDE_LEFT);
     }
 }
@@ -109,7 +109,8 @@ class LineStatusConfigDelegate extends WatchUi.Menu2InputDelegate {
             var delegate = new AddLineStatusDelegate(_selectedIds);
             WatchUi.pushView(view, delegate, SLIDE_LEFT);
         } else {
-            var menu = new WatchUi.Menu2(null);
+            var lineName = getLineById(id).name;
+            var menu = new WatchUi.Menu2({:title => lineName});
             menu.addItem(new MenuItem(
                 "Move Up",
                 null,

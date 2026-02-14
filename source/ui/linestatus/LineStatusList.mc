@@ -2,7 +2,7 @@ import Toybox.Graphics;
 import Toybox.WatchUi;
 import Toybox.Lang;
 
-function statusDescription(lineStatusData as LineStatusData) as String {
+function lineStatusDescription(lineStatusData as LineStatusData) as String {
     var mostSevere = lineStatusData.mostSevereStatus();
     if (mostSevere == null) {
         return "No status available";
@@ -25,7 +25,7 @@ class LineStatusListView extends WatchUi.Menu2 {
             Menu2.addItem(
                 new MenuItem(
                     item.name,
-                    statusDescription(item),
+                    lineStatusDescription(item),
                     i,
                     {}
                 )
