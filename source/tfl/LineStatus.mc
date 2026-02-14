@@ -21,36 +21,53 @@ class Line {
 }
 
 // Line which are supported for the line status feature. Hard-coded to avoid
-// having to make additional requests to the API. Bus routes are excluded as
+// having to make additional requests to the API. Both as an array to preserve
+// order and a dictionary for quick look-up. Bus routes are excluded as
 // there are hundreds of them which makes configuration difficult, and they
 // typically only show "Good Service" or "Special Service" so a short status
 // report is less useful.
-const SUPPORTED_LINES = {
-    "bakerloo" => new Line("bakerloo", "Bakerloo", "Tube"),
-    "central" => new Line("central", "Central", "Tube"),
-    "circle" => new Line("circle", "Circle", "Tube"),
-    "hammersmith-city" => new Line("hammersmith-city", "Hammersmith & City", "Tube"),
-    "jubilee" => new Line("jubilee", "Jubilee", "Tube"),
-    "metropolitan" => new Line("metropolitan", "Metropolitan", "Tube"),
-    "northern" => new Line("northern", "Northern", "Tube"),
-    "piccadilly" => new Line("piccadilly", "Piccadilly", "Tube"),
-    "victoria" => new Line("victoria", "Victoria", "Tube"),
-    "waterloo-city" => new Line("waterloo-city", "Waterloo & City", "Tube"),
-    "dlr" => new Line("dlr", "DLR", null),
-    "elizabeth" => new Line("elizabeth", "Elizabeth Line", null),
-    "liberty" => new Line("liberty", "Liberty", "Overground"),
-    "lioness" => new Line("lioness", "Lioness", "Overground"),
-    "mildmay" => new Line("mildmay", "Mildmay", "Overground"),
-    "suffragette" => new Line("suffragette", "Sufragette", "Overground"),
-    "weaver" => new Line("weaver", "Weaver", "Overground"),
-    "windrush" => new Line("windrush", "Windrush", "Overground"),
-    "london-cable-car" => new Line("london-cable-car", "Cable Car", null),
-    "tram" => new Line("tram", "Tram", null),
-    "rb1" => new Line("rb1", "RB1", "River Bus"),
-    "rb4" => new Line("rb4", "RB4", "River Bus"),
-    "rb6" => new Line("rb6", "RB6", "River Bus"),
-    "woolwich-ferry" => new Line("woolwich-ferry", "Woolwich Ferry", "River Bus")
-};
+const SUPPORTED_LINES_ARRAY = [
+    new Line("bakerloo", "Bakerloo", "Tube"),
+    new Line("central", "Central", "Tube"),
+    new Line("circle", "Circle", "Tube"),
+    new Line("hammersmith-city", "Hammersmith & City", "Tube"),
+    new Line("jubilee", "Jubilee", "Tube"),
+    new Line("metropolitan", "Metropolitan", "Tube"),
+    new Line("northern", "Northern", "Tube"),
+    new Line("piccadilly", "Piccadilly", "Tube"),
+    new Line("victoria", "Victoria", "Tube"),
+    new Line("waterloo-city", "Waterloo & City", "Tube"),
+    new Line("dlr", "DLR", null),
+    new Line("elizabeth", "Elizabeth Line", null),
+    new Line("liberty", "Liberty", "Overground"),
+    new Line("lioness", "Lioness", "Overground"),
+    new Line("mildmay", "Mildmay", "Overground"),
+    new Line("suffragette", "Sufragette", "Overground"),
+    new Line("weaver", "Weaver", "Overground"),
+    new Line("windrush", "Windrush", "Overground"),
+    new Line("london-cable-car", "Cable Car", null),
+    new Line("tram", "Tram", null),
+    new Line("rb1", "RB1", "River Bus"),
+    new Line("rb4", "RB4", "River Bus"),
+    new Line("rb6", "RB6", "River Bus"),
+    new Line("woolwich-ferry", "Woolwich Ferry", "River Bus")
+];
+
+var _supportedLinesDict = null;
+function getSupportedLinesDict() as Dictionary<String, Line> {
+    if (_supportedLinesDict == null) {
+        _supportedLinesDict = {};
+        for (var i = 0; i < SUPPORTED_LINES_ARRAY.size(); i++) {
+            var line = SUPPORTED_LINES_ARRAY[i];
+            _supportedLinesDict[line.id] = line;
+        }
+    }
+    return _supportedLinesDict;
+}
+
+function getLineById(id as String) as Line? {
+    return getSupportedLinesDict()[id];
+}
 
 // Convert a list of line IDs to a dictionary mapping those IDs to the
 // relevant `Line` objects
@@ -58,7 +75,7 @@ function lineIdsToLines(lineIds as Array<String>) as Dictionary<String, Line> {
     var dict = {};
     for (var i = 0; i < lineIds.size(); i++) {
         var lineId = lineIds[i];
-        var line = SUPPORTED_LINES[lineId];
+        var line = getSupportedLinesDict()[lineId];
         if (line != null) {
             dict[lineId] = line;
         }
@@ -191,10 +208,11 @@ class LineStatusData {
     }
 }
 
-function lineStatusDataArray(data as Array<Dictionary>) as Array<LineStatusData> {
-    var arr = [];
+function lineStatusDataDict(data as Array<Dictionary>) as Dictionary<String, Line> {
+    var dict = {};
     for (var i = 0; i < data.size(); i++) {
-        arr.add(new LineStatusData(data[i]));
+        var lineStatusData = new LineStatusData(data[i]);
+        dict[lineStatusData.id] = lineStatusData;
     }
-    return arr;
+    return dict;
 }

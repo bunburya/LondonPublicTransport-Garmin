@@ -3,14 +3,14 @@ import Toybox.Lang;
 import Toybox.Application;
 
 // Get all supported lines other than the ones in the dictionary provided.
-// Input and output are dictionaries mapping line ID to `Line` object.
-function getOtherLines(lines as Dictionary<String, Line>) as Dictionary<String, Line> {
-    var others = {};
-    var allLineIds = SUPPORTED_LINES.keys() as Array<String>;
-    for (var i = 0; i < allLineIds.size(); i++) {
-        var lineId = allLineIds[i];
-        if (lines[lineId] == null) {
-            others[lineId] = SUPPORTED_LINES[lineId];
+// Input is a dictionary mapping line ID to `Line` object. Output is an array
+// of line IDs (so that order is preserved).
+function getOtherLines(lines as Dictionary<String, Line>) as Array<String> {
+    var others = [];
+    for (var i = 0; i < SUPPORTED_LINES_ARRAY.size(); i++) {
+        var line = SUPPORTED_LINES_ARRAY[i];
+        if (lines[line.id] == null) {
+            others.add(line.id);
         }
     }
     return others;
@@ -20,14 +20,13 @@ function getOtherLines(lines as Dictionary<String, Line>) as Dictionary<String, 
 class AddLineStatusView extends WatchUi.Menu2 {
 
     function initialize(selectedIds as Array<String>) {
-        System.println(selectedIds);
+        System.println("Selected: " + selectedIds.toString());
         var selectedLines = lineIdsToLines(selectedIds);
-        var unselectedLines = getOtherLines(selectedLines);
-        var unselectedIds = unselectedLines.keys();
+        var unselectedLineIds = getOtherLines(selectedLines);
         WatchUi.Menu2.initialize({:title => "Add Line"});
-        for (var i = 0; i < unselectedIds.size(); i++) {
-            var id = unselectedIds[i];
-            var line = unselectedLines[id];
+        for (var i = 0; i < unselectedLineIds.size(); i++) {
+            var id = unselectedLineIds[i];
+            var line = getLineById(id) as Line;
             addItem(new MenuItem(
                 line.name,
                 line.modeName,

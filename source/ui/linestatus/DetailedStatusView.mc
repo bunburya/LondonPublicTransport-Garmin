@@ -4,7 +4,7 @@ import Toybox.System;
 import Toybox.Lang;
 
 // Factory that creates text pages
-class DetailedStatusViewFactory extends WatchUi.ViewLoopFactory {
+class DetailedLineStatusViewFactory extends WatchUi.ViewLoopFactory {
     private var _statuses as Array<LineStatus>;
 
     function initialize(statusData as LineStatusData) {
@@ -19,13 +19,13 @@ class DetailedStatusViewFactory extends WatchUi.ViewLoopFactory {
     function getView(idx as Number) {
         var lineStatus = _statuses[idx];
         
-        var view = new DetailedStatusView(lineStatus);
-        var delegate = new DetailedStatusViewDelegate(view);
+        var view = new DetailedLineStatusView(lineStatus);
+        var delegate = new DetailedLineStatusViewDelegate(view);
         return [view, delegate];
     }
 }
 
-class DetailedStatusView extends WatchUi.View {
+class DetailedLineStatusView extends WatchUi.View {
     //private var _status as LineStatus;
     private var _header as Lang.String;
     private var _headerColor as Number;
@@ -241,8 +241,8 @@ class DetailedStatusView extends WatchUi.View {
     }
 }
 
-class DetailedStatusViewDelegate extends WatchUi.BehaviorDelegate {
-    private var _view as DetailedStatusView;
+class DetailedLineStatusViewDelegate extends WatchUi.BehaviorDelegate {
+    private var _view as DetailedLineStatusView;
 
     function initialize(view) {
         BehaviorDelegate.initialize();

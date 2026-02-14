@@ -25,20 +25,29 @@ class MoveOrDeleteLineDelegate extends WatchUi.Menu2InputDelegate {
         var idx = _selected.indexOf(_lineId);
         if (id == MOVE_UP) {
             if (idx <= 0) {
-                return;
+                // Move item to end of list
+                _selected = _selected.slice(1, null);
+                _selected.add(_lineId);
+            } else {
+                // Switch item with previous item
+                var prevIdx = idx - 1;
+                var prev = _selected[prevIdx];
+                _selected[prevIdx] = _lineId;
+                _selected[idx] = prev;
             }
-            var prevIdx = idx - 1;
-            var prev = _selected[prevIdx];
-            _selected[prevIdx] = _lineId;
-            _selected[idx] = prev;
         } else if (id == MOVE_DOWN) {
             if (idx >= _selected.size() - 1) {
-                return;
+                // Move item to start of list
+                var toAdd = _selected.slice(0, -1);
+                _selected = [_lineId];
+                _selected.addAll(toAdd);
+            } else {
+                // Switch item with next item
+                var nextIdx = idx + 1;
+                var next = _selected[nextIdx];
+                _selected[nextIdx] = _lineId;
+                _selected[idx] = next;
             }
-            var nextIdx = idx + 1;
-            var next = _selected[nextIdx];
-            _selected[nextIdx] = _lineId;
-            _selected[idx] = next;
         } else if (id == DELETE) {
             _selected.remove(_lineId);
         }
@@ -62,7 +71,7 @@ class LineStatusConfigView extends WatchUi.Menu2 {
         }
 
         for (var i = 0; i < _selectedIds.size(); i++) {
-            var line = SUPPORTED_LINES[_selectedIds[i]];
+            var line = getLineById(_selectedIds[i]) as Line;
             addItem(new MenuItem(
                 line.name,
                 line.modeName,

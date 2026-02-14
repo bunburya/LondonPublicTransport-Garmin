@@ -1,6 +1,8 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 
+// A base class for a basic "Loading..." screen. Other classes can extend
+// this class to add API requests and callbacks.
 class BaseLoadingView extends WatchUi.View {
 
     function initialize() {

@@ -13,7 +13,7 @@ function statusDescription(lineStatusData as LineStatusData) as String {
     return mostSevere.description + " (+" + (lineStatusData.statuses.size()-1) + ")";
 }
 
-class StatusListView extends WatchUi.Menu2 {
+class LineStatusListView extends WatchUi.Menu2 {
 
     private var _data as Array<LineStatusData>;
 
@@ -34,7 +34,7 @@ class StatusListView extends WatchUi.Menu2 {
     }
 }
 
-class StatusListDelegate extends WatchUi.Menu2InputDelegate {
+class LineStatusListDelegate extends WatchUi.Menu2InputDelegate {
 
     private var _data as Array<LineStatusData>;
 
@@ -45,7 +45,7 @@ class StatusListDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item) {
         var id = item.getId() as Number;
-        var factory = new DetailedStatusViewFactory(_data[id]);
+        var factory = new DetailedLineStatusViewFactory(_data[id]);
         var viewLoop = new WatchUi.ViewLoop(factory, {:wrap => true});
         var viewLoopDelegate = new WatchUi.ViewLoopDelegate(viewLoop);
         WatchUi.pushView(viewLoop, viewLoopDelegate, WatchUi.SLIDE_LEFT);
@@ -58,6 +58,8 @@ class StatusListDelegate extends WatchUi.Menu2InputDelegate {
         }
         var view = new LineStatusConfigView(selectedIds);
         var delegate = new LineStatusConfigDelegate(selectedIds);
-        pushView(view, delegate, SLIDE_LEFT);
+        // Switch, don't push, because after changing the config this view will
+        // no longer be current. 
+        WatchUi.switchToView(view, delegate, WatchUi.SLIDE_LEFT);
     }
 }

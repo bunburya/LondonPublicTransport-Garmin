@@ -16,28 +16,6 @@ function joinArray(arr as Array<String>, delim as String or Char) as String {
     return s;
 }
 
-function typeOf(obj) {
-    switch (obj) {
-        case instanceof Array: return "Array";
-        case instanceof Boolean: return "Boolean";
-        case instanceof ByteArray: return "ByteArray";
-        case instanceof Char: return "Char";
-        case instanceof Dictionary: return "Dictionary";
-        case instanceof Double: return "Double";
-        case instanceof Float: return "Float";
-        case instanceof InvalidOptionsException: return "InvalidOptionsException";
-        case instanceof InvalidValueException: return "InvalidValueException";
-        case instanceof Long: return "Long";
-        case instanceof Method: return "Method";
-        case instanceof Number: return "Number";
-        case instanceof String: return "String";
-
-        case instanceof Exception: return "Exception";
-        default: return null;
-        
-    }
-}
-
 // Parse a string in a format line "2026-01-27T19:04:19Z" to a `Moment`.
 function parseDateTime(dt as String) as Moment {
     return Gregorian.moment({
@@ -81,19 +59,14 @@ function secsToStr(totalSecs as Number) as String {
 
 // Compare two arrays by value
 function arrayEq(arr1 as Array, arr2 as Array) as Boolean {
-    System.println("Comparing " + arr1.toString() + " vs " + arr2.toString());
     if (arr1.size() != arr2.size()) {
-        System.println("Different lengths: not equal");
         return false;
     }
     for (var i = 0; i < arr1.size(); i++) {
-        System.println("Checking element " + i);
         if (!arr1[i].equals(arr2[i])) {
-            System.println(arr1[i].toString() + " != " + arr2[i].toString() + ": not equal");
             return false;
         }
     }
-    System.println("Arrays equal");
     return true;
 }
 
