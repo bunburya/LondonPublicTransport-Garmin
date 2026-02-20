@@ -70,8 +70,29 @@ function arrayEq(arr1 as Array, arr2 as Array) as Boolean {
     return true;
 }
 
-enum TflColor {
-    TFL_RED = Graphics.createColor(255, 220, 36, 31),
-    TFL_YELLOW = Graphics.createColor(255, 255, 200, 10),
-    TFL_GREEN = Graphics.createColor(255, 0, 125, 50)
+function copyArray(array as Array) as Array {
+    var copy = [];
+    for (var i = 0; i < array.size(); i++) {
+        copy.add(array[i]);
+    }
+    return copy;
+}
+
+function localTime() as Time.LocalMoment {
+    return Time.Gregorian.localMoment(LONDON, Time.now());
+}
+
+function localTimeToString(t as Time.LocalMoment) as String {
+    var info = Time.Gregorian.info(t, Time.FORMAT_SHORT);
+    return Lang.format("$1$:$2$:$3$", [
+        info.hour.format("%02u"),
+        info.min.format("%02u"),
+        info.sec.format("%02u"),
+    ]);
+}
+
+class NotImplementedException extends Lang.Exception {
+    function initialize() {
+        Lang.Exception.initialize();
+    }
 }

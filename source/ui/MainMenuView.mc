@@ -10,7 +10,6 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item as WatchUi.MenuItem) {
         var id = item.getId();
-        System.println(id);
         if (id == :line_status) {
             WatchUi.pushView(new StatusListLoadingView(), null, WatchUi.SLIDE_LEFT);
         } else if (id == :stop_arrivals) {

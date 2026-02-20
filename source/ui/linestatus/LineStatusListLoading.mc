@@ -45,7 +45,6 @@ class StatusListLoadingView extends BaseLoadingView {
             // If no lines configured, switch straight to the config view.
             var view = new LineStatusConfigView([]);
             var delegate = new LineStatusConfigDelegate([]);
-            System.println("Switching to config view.");
             WatchUi.switchToView(view, delegate, WatchUi.SLIDE_IMMEDIATE);
         } else {
             _tflApi.getLineStatuses(_lineIds, method(:onReceive));

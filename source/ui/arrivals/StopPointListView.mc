@@ -31,8 +31,6 @@ class StopPointListDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item) {
         var id = item.getId() as Number;
-        System.println("id = " + id);
-        System.println("stopPoint = " + _stopPoints[id].toString());
         var view = new StopPointArrivalsLoadingView(_stopPoints[id]);
         WatchUi.pushView(view, null, WatchUi.SLIDE_LEFT);
     }

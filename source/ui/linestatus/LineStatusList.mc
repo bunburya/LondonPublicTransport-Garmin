@@ -18,7 +18,8 @@ class LineStatusListView extends WatchUi.Menu2 {
     private var _data as Array<LineStatusData>;
 
     function initialize(data as Array<LineStatusData>) {
-        Menu2.initialize({ :title => "Line Status"});
+        var updateStr = "Updated " + localTimeToString(localTime());
+        Menu2.initialize({ :title => "Line Status", :footer => updateStr});
         _data = data;
         for (var i = 0; i < _data.size(); i++) {
             var item = data[i];
@@ -61,5 +62,9 @@ class LineStatusListDelegate extends WatchUi.Menu2InputDelegate {
         // Switch, don't push, because after changing the config this view will
         // no longer be current. 
         WatchUi.switchToView(view, delegate, WatchUi.SLIDE_LEFT);
+    }
+
+    function onFooter() as Void {
+        WatchUi.switchToView(new StatusListLoadingView(), null, SLIDE_IMMEDIATE);
     }
 }

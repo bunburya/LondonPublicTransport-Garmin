@@ -1,6 +1,7 @@
 import Toybox.Lang;
 import Toybox.Time;
 import Toybox.System;
+import Toybox.Application;
 
 class ArrivalTtsComparator {
     function compare(arr1 as Lang.Object, arr2 as Lang.Object) as Lang.Number {
@@ -48,7 +49,11 @@ class StopPoint {
     function initialize(stopId as String, stopName as String) {
         id = stopId;
         name = stopName;
-    } 
+    }
+
+    static function fromDict(data as Dictionary) as StopPoint {
+        return new StopPoint(data["stopId"], data["stopName"]);
+    }
 }
 
 class StopPointArrivals {
@@ -62,6 +67,18 @@ class StopPointArrivals {
         }
         arrivals.sort(new ArrivalTtsComparator());
     }
+}
 
-    
+function getStopPointById(id as String, storageKey as String) as StopPoint? {
+    var stopPoints = Application.Storage.getValue(storageKey) as Array<Dictionary>?;
+    if (stopPoints == null) {
+        return null;
+    }
+    for (var i = 0; i < stopPoints.size(); i++) {
+        var d = stopPoints[i];
+        if (d["stopId"] == id) {
+            return StopPoint.fromDict(d);
+        }
+    }
+    return null;
 }

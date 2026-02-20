@@ -20,7 +20,6 @@ function getOtherLines(lines as Dictionary<String, Line>) as Array<String> {
 class AddLineStatusView extends WatchUi.Menu2 {
 
     function initialize(selectedIds as Array<String>) {
-        System.println("Selected: " + selectedIds.toString());
         var selectedLines = lineIdsToLines(selectedIds);
         var unselectedLineIds = getOtherLines(selectedLines);
         WatchUi.Menu2.initialize({:title => "Add Line"});
@@ -49,8 +48,6 @@ class AddLineStatusDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item as MenuItem) as Void {
-        System.println("item:");
-        System.println(item.getId());
         _selectedIds.add(item.getId() as String);
         Application.Storage.setValue("lineStatusSelection", _selectedIds);
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
