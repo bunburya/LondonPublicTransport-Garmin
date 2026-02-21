@@ -13,9 +13,9 @@ const ADD_NEW = 1;
 class MoveOrDeleteMenuDelegate extends WatchUi.Menu2InputDelegate {
     private var _id as String;
     private var _selection as Array<String>;
-    private var _storageKey as String;
+    private var _storageKey as StorageKey;
 
-    function initialize(id as String, selection as Array<String>, storageKey as String) {
+    function initialize(id as String, selection as Array<String>, storageKey as StorageKey) {
         WatchUi.Menu2InputDelegate.initialize();
         _id = id;
         _selection = selection;
@@ -61,9 +61,9 @@ class MoveOrDeleteMenuDelegate extends WatchUi.Menu2InputDelegate {
 class DynamicMenuView extends WatchUi.Menu2 {
 
     private var _selectedIds as Array<String>;
-    private var _storageKey as String;
+    private var _storageKey as StorageKey;
 
-    function initialize(title as String, selectedIds as Array<String>, storageKey as String) {
+    function initialize(title as String, selectedIds as Array<String>, storageKey as StorageKey) {
         WatchUi.Menu2.initialize({:title => title});
         _selectedIds = selectedIds;
         _storageKey = storageKey;
@@ -72,13 +72,15 @@ class DynamicMenuView extends WatchUi.Menu2 {
             var menuItem = getMenuItemById(_selectedIds[i]);
             addItem(menuItem);
         }
+        System.println("Adding Add menu");
         addItem(new MenuItem("Add", null, ADD_NEW, null));
     }
 
     function onShow() {
         System.println("onShow called");
+        System.println("storageKey: " + _storageKey.toString());
         var sel = Application.Storage.getValue(_storageKey);
-        System.println("sel: " + sel.toString());
+        System.println("sel: " + sel);
         System.println("selectedIds: " + _selectedIds.toString());
         if (sel != null && !arrayEq(sel, _selectedIds)) {
             // If the selection has changed, reload the menu
@@ -103,19 +105,19 @@ class DynamicMenuView extends WatchUi.Menu2 {
 class DynamicMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     var _selectedIds as Array<String>;
-    private var _storageKey as String;
+    private var _storageKey as StorageKey;
 
-    function initialize(selected as Array<String>, storageKey as String) {
+    function initialize(selected as Array<String>, storageKey as StorageKey) {
         WatchUi.Menu2InputDelegate.initialize();
         _selectedIds = selected;
         _storageKey = storageKey;
     }
 
-    // Function to switch to a view to add a new item to the selection (ie,
-    // when the user clicks the "Add" button). This should be overridden by
-    // subclasses. It should construct the relevant view and delegate and call
-    // `WatchUi.switchToView`.
-    function switchToAddItemView(selectedIds as Array<String>) as Void {
+    // Function to switch to a view (or push a view) to add a new item to the
+    // selection (ie, when the user clicks the "Add" button). This should be
+    // overridden by subclasses. It should construct the relevant view and
+    // delegate and call `WatchUi.switchToView` or `WatchUi.pushView` if apt).
+    function goToAddItemView(selectedIds as Array<String>) as Void {
         throw new NotImplementedException();
     }
     
@@ -128,7 +130,7 @@ class DynamicMenuDelegate extends WatchUi.Menu2InputDelegate {
     function onSelect(item as MenuItem) as Void {
         var id = item.getId() as String?;
         if (id == ADD_NEW) {
-            switchToAddItemView(copyArray(_selectedIds));
+            goToAddItemView(copyArray(_selectedIds));
         } else {
             var title = getMoveOrDeleteTitleById(id);
             var menu = new WatchUi.Menu2({:title => title});

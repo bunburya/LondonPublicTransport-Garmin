@@ -48,4 +48,8 @@ class TflApi {
         makeRequest(url, params, callback);
     }
 
+    function searchStopPoints(query as String, callback as Method) {
+        // TODO
+    } 
+
 }

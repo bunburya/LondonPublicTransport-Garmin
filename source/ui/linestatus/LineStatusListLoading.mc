@@ -9,7 +9,7 @@ class StatusListLoadingView extends BaseLoadingView {
     function initialize() {
         BaseLoadingView.initialize();
         _tflApi = new TflApi();
-        _lineIds = Application.Storage.getValue("lineStatusSelection");
+        _lineIds = Application.Storage.getValue(LINE_STATUS_LINES);
     }
 
     function onReceive(responseCode, data) {

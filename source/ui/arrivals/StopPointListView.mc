@@ -4,7 +4,10 @@ import Toybox.Lang;
 
 // Show a list of stops.
 class StopPointListView extends WatchUi.Menu2 {
+    private var _stopPoints as Array<StopPoint>;
+
     function initialize(stopPoints as Array<StopPoint>) {
+        _stopPoints = stopPoints;
         Menu2.initialize({ :title => "Choose Stop"});
         for (var i = 0; i < stopPoints.size(); i++) {
             var item = stopPoints[i];
@@ -15,6 +18,16 @@ class StopPointListView extends WatchUi.Menu2 {
                     i,
                     {}
                 )
+            );
+        }
+    }
+
+    function onShow() as Void {
+        if (_stopPoints.size() == 0) {
+            WatchUi.switchToView(
+                new ArrivalsConfigView([]),
+                new ArrivalsConfigDelegate([]),
+                SLIDE_IMMEDIATE
             );
         }
     }

@@ -49,7 +49,7 @@ class AddLineStatusDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item as MenuItem) as Void {
         _selectedIds.add(item.getId() as String);
-        Application.Storage.setValue("lineStatusSelection", _selectedIds);
+        Application.Storage.setValue(LINE_STATUS_LINES, _selectedIds);
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
     }
 

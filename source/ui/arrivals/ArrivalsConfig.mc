@@ -3,16 +3,18 @@ import Toybox.Lang;
 
 
 class ArrivalsConfigView extends DynamicMenuView {
-    function initialize(selectedIds as Array<String>) {
-        DynamicMenuView.initialize("Configure Arrivals", selectedIds, "arrivalsStopPointSelection");
+
+    function initialize(stopPointIds as Array<String>) {
+        DynamicMenuView.initialize("Configure Arrivals", stopPointIds, ARRIVALS_STOPPOINTS);
+        System.println("ArrivalsConfigView initialized");
     }
 
     function getMenuItemById(id as String) as WatchUi.MenuItem {
-        var line = getLineById(id) as Line;
+        var stopPoint = getStopPointById(id, ARRIVALS_STOPPOINTS) as StopPoint;
         return new MenuItem(
-            line.name,
-            line.modeName,
-            line.id,
+            stopPoint.name,
+            stopPoint.indicator,
+            stopPoint.id,
             null
         );
     }
@@ -28,15 +30,17 @@ class ArrivalsConfigView extends DynamicMenuView {
 
 class ArrivalsConfigDelegate extends DynamicMenuDelegate {
     function initialize(selectedIds as Array<String>) {
-        DynamicMenuDelegate.initialize(selectedIds, "arrivalsStopPointSelection");
+        DynamicMenuDelegate.initialize(selectedIds, ARRIVALS_STOPPOINTS);
     }
 
-    function switchToAddItemView(selectedIds as Array<String>) as Void {
-        // TODO
+    function goToAddItemView(selectedIds as Array<String>) as Void {
+        var view = new WatchUi.TextPicker("test");
+        var delegate = new SearchStringInputDelegate();
+        WatchUi.pushView(view, delegate, SLIDE_IMMEDIATE);
     }
     
     function getMoveOrDeleteLabelById(id as String) as String {
-        return getStopPointById(id, "arrivalsStopPointSelection").name;
+        return getStopPointById(id, ARRIVALS_STOPPOINTS).name;
     }
 
 }

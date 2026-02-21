@@ -4,7 +4,7 @@ import Toybox.Lang;
 
 class LineStatusConfigView extends DynamicMenuView {
     function initialize(selectedIds as Array<String>) {
-        DynamicMenuView.initialize("Configure Line Statuses", selectedIds, "lineStatusSelection");
+        DynamicMenuView.initialize("Configure Line Statuses", selectedIds, LINE_STATUS_LINES);
     }
 
     function getMenuItemById(id as String) as WatchUi.MenuItem {
@@ -28,10 +28,10 @@ class LineStatusConfigView extends DynamicMenuView {
 
 class LineStatusConfigDelegate extends DynamicMenuDelegate {
     function initialize(selectedIds as Array<String>) {
-        DynamicMenuDelegate.initialize(selectedIds, "lineStatusSelection");
+        DynamicMenuDelegate.initialize(selectedIds, LINE_STATUS_LINES);
     }
 
-    function switchToAddItemView(selectedIds as Array<String>) as Void {
+    function goToAddItemView(selectedIds as Array<String>) as Void {
         var view = new AddLineStatusView(selectedIds);
         var delegate = new AddLineStatusDelegate(selectedIds);
         WatchUi.pushView(view, delegate, SLIDE_LEFT);

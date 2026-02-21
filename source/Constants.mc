@@ -10,6 +10,14 @@ const LONDON = new Position.Location({
     :longitude => 0,
     :format => :degrees
 });
+
+enum StorageKey {
+    LINE_STATUS_LINES,
+    ARRIVALS_STOPPOINTS,
+    DEPARTURES_STOPPOINTS,
+    BIKEPOINTS
+}
+
 enum TflColor {
     TFL_RED = Graphics.createColor(255, 220, 36, 31),
     TFL_YELLOW = Graphics.createColor(255, 255, 200, 10),
