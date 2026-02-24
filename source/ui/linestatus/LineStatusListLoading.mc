@@ -13,30 +13,18 @@ class StatusListLoadingView extends BaseLoadingView {
     }
 
     function onReceive(responseCode, data) {
+        if (!validateResponse(responseCode, data)) {
+            return;
+        }
         var lineStatusData = [];
-        var errorMessage = null;
-        if (responseCode == 200) {
-            if (data != null) {
-                data = data as Array<Dictionary>;
-                var lineStatusDict = lineStatusDataDict(data);
-                for (var i = 0; i < _lineIds.size(); i++) {
-                    lineStatusData.add(lineStatusDict[_lineIds[i]]);
-                }
-            } else {
-                errorMessage = "No data received.";
-            }
-        } else {
-            errorMessage = "Bad HTTP response: " + responseCode;
+        data = data as Array<Dictionary>;
+        var lineStatusDict = lineStatusDataDict(data);
+        for (var i = 0; i < _lineIds.size(); i++) {
+            lineStatusData.add(lineStatusDict[_lineIds[i]]);
         }
-
-        if (errorMessage == null) {
-            var listView = new LineStatusListView(lineStatusData);
-            var delegate = new LineStatusListDelegate(lineStatusData);
-            WatchUi.switchToView(listView, delegate, WatchUi.SLIDE_IMMEDIATE);
-        } else {
-            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
-            WatchUi.showToast(errorMessage, null);
-        }
+        var listView = new LineStatusListView(lineStatusData);
+        var delegate = new LineStatusListDelegate(lineStatusData);
+        WatchUi.switchToView(listView, delegate, WatchUi.SLIDE_IMMEDIATE);
         WatchUi.requestUpdate();
     }
 

@@ -34,8 +34,8 @@ class ArrivalsConfigDelegate extends DynamicMenuDelegate {
     }
 
     function goToAddItemView(selectedIds as Array<String>) as Void {
-        var view = new WatchUi.TextPicker("test");
-        var delegate = new SearchStringInputDelegate();
+        var view = new WatchUi.TextPicker("Tooting");
+        var delegate = new StopPointSearchDelegate();
         WatchUi.pushView(view, delegate, SLIDE_IMMEDIATE);
     }
     

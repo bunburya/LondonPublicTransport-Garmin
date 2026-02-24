@@ -46,15 +46,26 @@ class StopPoint {
     var id as String;
     var name as String;
     var indicator as String?;
+    var towards as String?;
 
-    function initialize(stopId as String, stopName as String, stopIndicator as String?) {
+    function initialize(
+        stopId as String,
+        stopName as String,
+        stopIndicator as String?,
+        stopTowards as String?
+    ) {
         id = stopId;
         name = stopName;
         indicator = stopIndicator;
+        towards = stopTowards;
     }
 
     static function fromDict(data as Dictionary) as StopPoint {
-        return new StopPoint(data["id"], data["commonName"], data["indicator"]);
+        var name = data["name"];
+        if (name == null) {
+            name = data["commonName"];
+        }
+        return new StopPoint(data["id"], name, data["indicator"], data["towards"]);
     }
 }
 

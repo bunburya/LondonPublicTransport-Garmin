@@ -53,7 +53,7 @@ class LineStatusListDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onTitle() as Void {
-        var selectedIds = Application.Storage.getValue("lineStatusSelection");
+        var selectedIds = Application.Storage.getValue(LINE_STATUS_LINES);
         if (selectedIds == null) {
             selectedIds = [];
         }
