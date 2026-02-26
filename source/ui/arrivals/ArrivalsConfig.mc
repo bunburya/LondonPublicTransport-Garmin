@@ -4,13 +4,13 @@ import Toybox.Lang;
 
 class ArrivalsConfigView extends DynamicMenuView {
 
-    function initialize(stopPointIds as Array<String>) {
-        DynamicMenuView.initialize("Configure Arrivals", stopPointIds, ARRIVALS_STOPPOINTS);
+    function initialize(stopPoints as Array) {
+        DynamicMenuView.initialize("Configure Arrivals", stopPoints, ARRIVALS_STOPPOINTS);
         System.println("ArrivalsConfigView initialized");
     }
 
-    function getMenuItemById(id as String) as WatchUi.MenuItem {
-        var stopPoint = getStopPointById(id, ARRIVALS_STOPPOINTS) as StopPoint;
+    function getMenuItem(key) as WatchUi.MenuItem {
+        var stopPoint = StopPoint.fromDict(key);
         return new MenuItem(
             stopPoint.name,
             stopPoint.indicator,
@@ -29,11 +29,11 @@ class ArrivalsConfigView extends DynamicMenuView {
 }
 
 class ArrivalsConfigDelegate extends DynamicMenuDelegate {
-    function initialize(selectedIds as Array<String>) {
-        DynamicMenuDelegate.initialize(selectedIds, ARRIVALS_STOPPOINTS);
+    function initialize(selection as Array) {
+        DynamicMenuDelegate.initialize(selection, ARRIVALS_STOPPOINTS);
     }
 
-    function goToAddItemView(selectedIds as Array<String>) as Void {
+    function goToAddItemView(selection as Array) as Void {
         var view = new WatchUi.TextPicker("Tooting");
         var delegate = new StopPointSearchDelegate();
         WatchUi.pushView(view, delegate, SLIDE_IMMEDIATE);

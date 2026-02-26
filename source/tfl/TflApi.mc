@@ -48,16 +48,20 @@ class TflApi {
         makeRequest(url, params, callback);
     }
 
+    // Search stop points by common name.
     function searchStopPoints(query as String, callback as Method) {
-        // TODO
-        // Note: for buses we will need to drill down into the stop children if present:
-        // https://techforum.tfl.gov.uk/t/n00b-question-regarding-stoppoint-id-arrivals/3254
-
         var url = BASE_URL + "StopPoint/Search/" + query;
         System.println("Calling url: " + url);
         var params = {};
         makeRequest(url, params, callback);
     } 
+
+    // Get detailed information for the stop point identified by the given ID.
+    function getStopPoint(id as String, callback as Method) {
+        var url = BASE_URL + "StopPoint/" + id;
+        var params = {};
+        makeRequest(url, params, callback);
+    }
 
 }
 

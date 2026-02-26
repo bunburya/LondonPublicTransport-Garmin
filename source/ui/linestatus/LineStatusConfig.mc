@@ -7,7 +7,7 @@ class LineStatusConfigView extends DynamicMenuView {
         DynamicMenuView.initialize("Configure Line Statuses", selectedIds, LINE_STATUS_LINES);
     }
 
-    function getMenuItemById(id as String) as WatchUi.MenuItem {
+    function getMenuItem(id) as WatchUi.MenuItem {
         var line = getLineById(id) as Line;
         return new MenuItem(
             line.name,
@@ -31,13 +31,13 @@ class LineStatusConfigDelegate extends DynamicMenuDelegate {
         DynamicMenuDelegate.initialize(selectedIds, LINE_STATUS_LINES);
     }
 
-    function goToAddItemView(selectedIds as Array<String>) as Void {
+    function goToAddItemView(selectedIds as Array) as Void {
         var view = new AddLineStatusView(selectedIds);
         var delegate = new AddLineStatusDelegate(selectedIds);
         WatchUi.pushView(view, delegate, SLIDE_LEFT);
     }
     
-    function getMoveOrDeleteTitleById(id as String) as String {
+    function getMoveOrDeleteTitle(id as String) as String {
         return getLineById(id).name;
     }
 

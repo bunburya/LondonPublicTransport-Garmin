@@ -10,7 +10,6 @@ class BaseStopPointListView extends WatchUi.Menu2 {
         Menu2.initialize({ :title => title});
         for (var i = 0; i < stopPoints.size(); i++) {
             var item = stopPoints[i];
-            System.println("Adding: " + item.toString());
             var subLabel = item.indicator;
             if (subLabel == null && item.towards != null) {
                 subLabel = "towards " + item.towards;

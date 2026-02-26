@@ -60,16 +60,16 @@ class MoveOrDeleteMenuDelegate extends WatchUi.Menu2InputDelegate {
 
 class DynamicMenuView extends WatchUi.Menu2 {
 
-    private var _selectedIds as Array<String>;
+    private var _selection as Array<String or Dictionary>;
     private var _storageKey as StorageKey;
 
-    function initialize(title as String, selectedIds as Array<String>, storageKey as StorageKey) {
+    function initialize(title as String, selection as Array, storageKey as StorageKey) {
         WatchUi.Menu2.initialize({:title => title});
-        _selectedIds = selectedIds;
+        _selection = selection;
         _storageKey = storageKey;
 
-        for (var i = 0; i < _selectedIds.size(); i++) {
-            var menuItem = getMenuItemById(_selectedIds[i]);
+        for (var i = 0; i < _selection.size(); i++) {
+            var menuItem = getMenuItem(_selection[i]);
             addItem(menuItem);
         }
         System.println("Adding Add menu");
@@ -77,21 +77,20 @@ class DynamicMenuView extends WatchUi.Menu2 {
     }
 
     function onShow() {
-        System.println("onShow called");
+        System.println("DynamicMenuView onShow called");
         System.println("storageKey: " + _storageKey.toString());
         var sel = Application.Storage.getValue(_storageKey);
-        System.println("sel: " + sel);
-        System.println("selectedIds: " + _selectedIds.toString());
-        if (sel != null && !arrayEq(sel, _selectedIds)) {
+        System.println("new selection: " + sel);
+        System.println("previous selection: " + _selection.toString());
+        if (sel != null && !arrayEq(sel, _selection)) {
             // If the selection has changed, reload the menu
             System.println("calling reloadWithSelection");
             reloadWithSelection(sel);
         }
     }
 
-    // Function to generate a `MenuItem` from an id (which should be present in
-    // the stored selection). This should be overridden by subclasses.
-    function getMenuItemById(id as String) as WatchUi.MenuItem {
+    // Function to generate a `MenuItem` from a key. This should be overridden by subclasses.
+    function getMenuItem(key) as WatchUi.MenuItem {
         throw new NotImplementedException();
     }
 
@@ -104,12 +103,12 @@ class DynamicMenuView extends WatchUi.Menu2 {
 
 class DynamicMenuDelegate extends WatchUi.Menu2InputDelegate {
 
-    var _selectedIds as Array<String>;
+    var _selection as Array;
     private var _storageKey as StorageKey;
 
-    function initialize(selected as Array<String>, storageKey as StorageKey) {
+    function initialize(selection as Array, storageKey as StorageKey) {
         WatchUi.Menu2InputDelegate.initialize();
-        _selectedIds = selected;
+        _selection = selection;
         _storageKey = storageKey;
     }
 
@@ -117,7 +116,7 @@ class DynamicMenuDelegate extends WatchUi.Menu2InputDelegate {
     // selection (ie, when the user clicks the "Add" button). This should be
     // overridden by subclasses. It should construct the relevant view and
     // delegate and call `WatchUi.switchToView` or `WatchUi.pushView` if apt).
-    function goToAddItemView(selectedIds as Array<String>) as Void {
+    function goToAddItemView(selection as Array) as Void {
         throw new NotImplementedException();
     }
     
@@ -130,7 +129,7 @@ class DynamicMenuDelegate extends WatchUi.Menu2InputDelegate {
     function onSelect(item as MenuItem) as Void {
         var id = item.getId() as String?;
         if (id == ADD_NEW) {
-            goToAddItemView(copyArray(_selectedIds));
+            goToAddItemView(copyArray(_selection));
         } else {
             var title = getMoveOrDeleteTitleById(id);
             var menu = new WatchUi.Menu2({:title => title});
@@ -152,7 +151,7 @@ class DynamicMenuDelegate extends WatchUi.Menu2InputDelegate {
                 DELETE,
                 null
             ));
-            var delegate = new MoveOrDeleteMenuDelegate(id, copyArray(_selectedIds), _storageKey);
+            var delegate = new MoveOrDeleteMenuDelegate(id, copyArray(_selection), _storageKey);
             WatchUi.pushView(menu, delegate, SLIDE_LEFT);
         }
     }

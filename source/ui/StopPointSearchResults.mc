@@ -11,6 +11,7 @@ class StopPointSearchResultsDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item as MenuItem) as Void {
         var sp = _stopPoints[item.getId() as Number];
-        // TODO: search for more detail and display.
+        var view = new AddStopPointConfirmLoadingView(ARRIVALS_STOPPOINTS, sp);
+        WatchUi.pushView(view, null, SLIDE_IMMEDIATE);
     }
 }

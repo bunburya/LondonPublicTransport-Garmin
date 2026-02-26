@@ -15,7 +15,7 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
         } else if (id == :stop_arrivals) {
             var stopPoints = loadStopPoints(ARRIVALS_STOPPOINTS);
             var view = new StopPointListOrConfigView(stopPoints);
-            var delegate = new StopPointListOrConfigDelegate(stopPoints);
+            var delegate = new StopPointListOrConfigDelegate(stopPoints, ARRIVALS_STOPPOINTS);
             WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
         }
     }

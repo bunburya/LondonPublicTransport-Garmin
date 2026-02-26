@@ -61,11 +61,26 @@ class StopPoint {
     }
 
     static function fromDict(data as Dictionary) as StopPoint {
+        System.println("data: " + data.toString());
         var name = data["name"];
         if (name == null) {
             name = data["commonName"];
         }
         return new StopPoint(data["id"], name, data["indicator"], data["towards"]);
+    }
+
+    function toDict() as Dictionary {
+        var dict = {
+            "id" => id,
+            "name" => name,
+        };
+        if (indicator != null) {
+            dict["indicator"] = indicator;
+        }
+        if (towards != null) {
+            dict["towards"] = towards;
+        }
+        return dict;
     }
 }
 
@@ -120,4 +135,13 @@ function loadStopPoints(storageKey as StorageKey) as Array<StopPoint> {
         }
         return stopPoints;
     }
+}
+
+function addStopPoint(stopPoint as StopPoint, storageKey as StorageKey) {
+    var data = Application.Storage.getValue(storageKey) as Array<Dictionary>?;
+    if (data == null) {
+        data = [];
+    }
+    data.add(stopPoint.toDict());
+    Application.Storage.setValue(storageKey, data);
 }
