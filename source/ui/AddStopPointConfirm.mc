@@ -5,11 +5,23 @@ import Toybox.Application;
 class AddStopPointConfirmLoadingView extends BaseLoadingView {
     private var _storageKey as StorageKey;
     private var _stopPoint as StopPoint;
+    // If _isLeaf is true, this stop point will be considered as a "leaf node",
+    // and we will always just prompt to add it rather than displaying a
+    // sub-menu of its children to add.
+    private var _isLeaf as Boolean;
+    private var _modes as Array<String>;
     
-    function initialize(storageKey as StorageKey, stopPoint as StopPoint) {
+    function initialize(
+        storageKey as StorageKey,
+        stopPoint as StopPoint,
+        isLeaf as Boolean,
+        modes as Array<String>
+    ) {
         BaseLoadingView.initialize();
         _storageKey = storageKey;
         _stopPoint = stopPoint;
+        _isLeaf = isLeaf;
+        _modes = modes;
     }
 
     function onShow() {
@@ -21,11 +33,25 @@ class AddStopPointConfirmLoadingView extends BaseLoadingView {
         if (!validateResponse(responseCode, data)) {
             return;
         }
-        var sp = StopPoint.fromDict(data);
-        var text = sp.name + " " + sp.id;
-        var view = new WatchUi.Confirmation(text);
-        var delegate = new AddStopPointConfirmDelegate(_storageKey, sp);
-        WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
+        var children = data["children"];
+        if ((!_isLeaf) && (children != null) && (children.size() != 0)) {
+            // We have a "parent" StopPoint which is just a grouping of "child"
+            // StopPoints, which are the ones we actually want. Show show a new
+            // menu to display the children to the user and allow them to choose.
+            var stopPoints = filterStopPointsByModes(StopPoint.fromDictArray(children), _modes);
+            var view = new BaseStopPointListView("Choose Stop", stopPoints);
+            var delegate = new StopPointSearchResultsDelegate(stopPoints, true, _modes);
+            WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
+        } else {
+            var sp = StopPoint.fromDict(data);
+            var text = sp.name;
+            if (sp.indicator != null) {
+                text += "\n" + sp.indicator;
+            }
+            var view = new WatchUi.Confirmation(text);
+            var delegate = new AddStopPointConfirmDelegate(_storageKey, sp);
+            WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
+        }
     }
 
 

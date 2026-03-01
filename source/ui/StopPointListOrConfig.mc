@@ -32,7 +32,7 @@ class StopPointListOrConfigDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item) {
         var id = item.getId() as Number;
-        var view = new StopPointArrivalsLoadingView(_stopPoints[id]);
+        var view = new ArrivalsListLoadingView(_stopPoints[id]);
         WatchUi.pushView(view, null, WatchUi.SLIDE_LEFT);
     }
 

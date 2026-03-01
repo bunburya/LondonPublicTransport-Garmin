@@ -57,17 +57,55 @@ function secsToStr(totalSecs as Number) as String {
     return mins + "m" + secs + "s";
 }
 
-// Compare two arrays by value
-function arrayEq(arr1 as Array, arr2 as Array) as Boolean {
-    if (arr1.size() != arr2.size()) {
-        return false;
+
+function eq(obj1, obj2) as Boolean {
+    //System.println("Comparing " + obj1.toString() + " vs " + obj2.toString() + "... ");
+    if (obj1 == obj2) {
+        // If objects are identical, return true
+        //System.println("EQUAL because same object");
+        return true;
     }
-    for (var i = 0; i < arr1.size(); i++) {
-        if (!arr1[i].equals(arr2[i])) {
+    if (obj1 has :size && obj2 has :size) {
+        if (obj1.size() != obj2.size()) {
+            // If objects have a size but they are different, return false
+            //System.println("UNEQUAL because different size");
+            return false;
+        }
+        if (obj1 instanceof Array && obj2 instanceof Array) {
+            for (var i = 0; i < obj1.size(); i++) {
+                if (!eq(obj1[i], obj2[i])) {
+                    //System.println("UNEQUAL because different item");
+                    return false;
+                }
+            }
+            //System.println("EQUAL arrays");
+            return true;
+
+        } else if (obj1 instanceof Dictionary && obj2 instanceof Dictionary) {
+            var keys = obj1.keys();
+            for (var i = 0; i < keys.size(); i++) {
+                var k = keys[i];
+                if (!eq(obj1[k], obj2[k])) {
+                    //System.println("UNEQUAL because different item");
+                    return false;
+                } 
+            }
+            //System.println("EQUAL dicts");
+            return true;
+
+        } 
+    } else if (obj1 instanceof String && obj2 instanceof String) {
+        
+        if (obj1.compareTo(obj2) == 0) {
+            //System.println("EQUAL strings");
+            return true;
+        } else {
+            //System.println("UNEQUAL strings");
             return false;
         }
     }
-    return true;
+    //System.println("UNEQUAL residually");
+    return false;
 }
 
 function copyArray(array as Array) as Array {

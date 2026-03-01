@@ -4,6 +4,10 @@
     <string id="ApiKeyLabel">TFL API Key</string>
 
     <string id="LineStatusMenuLabel">Line Statuses</string>
-    <string id="StopPointArrivalsMenuLabel">Stop Arrivals</string>
+    <string id="LineStatusMenuSubLabel">Tube, Overground, Elizabeth Line, DLR, River Bus, Cable Car, Tram</string>
+    <string id="ArrivalsMenuLabel">Arrivals</string>
+    <string id="ArrivalsMenuSubLabel">Bus, Tube, River Bus, Tram</string>
+    <string id="DeparturesMenuLabel">Departures</string>
+    <string id="DeparturesMenuSubLabel">Overground, Elizabeth Line, Thameslink</string>
     <string id="BikePointsMenuLabel">Bike Points</string>
 </strings>

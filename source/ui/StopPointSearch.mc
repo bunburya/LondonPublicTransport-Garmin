@@ -2,9 +2,11 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 
 class StopPointSearchDelegate extends WatchUi.TextPickerDelegate {
+    private var _modes as Array<String>;
     
-    function initialize() {
+    function initialize(modes as Array<String>) {
         WatchUi.TextPickerDelegate.initialize();
+        _modes = modes;
     }
 
     function onTextEntered(text as String, changed as Boolean) as Boolean {
@@ -13,7 +15,7 @@ class StopPointSearchDelegate extends WatchUi.TextPickerDelegate {
         }
         System.println("Text: " + text);
         System.println("Changed: " + changed);
-        var view = new StopPointSearchLoadingView(text);
+        var view = new StopPointSearchLoadingView(text, _modes);
         WatchUi.switchToView(view, null, SLIDE_IMMEDIATE);
         // It seems that when we return from this function, Garmin pops
         // the top view (regrdless of whether we return true or false).

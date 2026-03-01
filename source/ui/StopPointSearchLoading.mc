@@ -2,10 +2,12 @@ import Toybox.Lang;
 
 class StopPointSearchLoadingView extends BaseLoadingView {
     private var _query as String;
+    private var _modes as Array<String>; 
     
-    function initialize(query as String) {
+    function initialize(query as String, modes as Array<String>) {
         BaseLoadingView.initialize();
         _query = query;
+        _modes = modes;
     }
 
     function onShow() as Void {
@@ -24,12 +26,16 @@ class StopPointSearchLoadingView extends BaseLoadingView {
             WatchUi.showToast("No results", null);
             return;
         }
-        System.println("array: " + array.toString());
+        //System.println("array: " + array.toString());
         var stopPoints = [];
         for (var i = 0; i < array.size(); i++) {
-            stopPoints.add(StopPoint.fromDict(array[i]));
+            var sp = StopPoint.fromDict(array[i]);
+            if (sp.hasAnyMode(_modes)) {
+                stopPoints.add(sp);
+            }
         }
-        WatchUi.switchToView(new BaseStopPointListView("Search Results", stopPoints), null, SLIDE_IMMEDIATE);
+        var delegate = new StopPointSearchResultsDelegate(stopPoints, false, _modes);
+        WatchUi.switchToView(new BaseStopPointListView("Search Results", stopPoints), delegate, SLIDE_IMMEDIATE);
         
     }
 }

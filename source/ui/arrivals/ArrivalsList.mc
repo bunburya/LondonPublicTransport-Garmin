@@ -2,7 +2,7 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 
 // List the predicted arrivals for a single stop.
-class StopPointArrivalListView extends WatchUi.Menu2 {
+class ArrivalsListView extends WatchUi.Menu2 {
 
     function initialize(data as StopPointArrivals) {
         Menu2.initialize({ :title => data.stopPoint.name});

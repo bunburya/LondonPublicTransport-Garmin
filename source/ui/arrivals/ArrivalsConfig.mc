@@ -9,12 +9,12 @@ class ArrivalsConfigView extends DynamicMenuView {
         System.println("ArrivalsConfigView initialized");
     }
 
-    function getMenuItem(key) as WatchUi.MenuItem {
-        var stopPoint = StopPoint.fromDict(key);
+    function getMenuItem(idx as Number) as WatchUi.MenuItem {
+        var stopPointDict = _selection[idx] as Dictionary;
         return new MenuItem(
-            stopPoint.name,
-            stopPoint.indicator,
-            stopPoint.id,
+            stopPointDict["name"],
+            stopPointDict["indicator"],
+            stopPointDict, // Dict itself is the id.
             null
         );
     }
@@ -35,12 +35,14 @@ class ArrivalsConfigDelegate extends DynamicMenuDelegate {
 
     function goToAddItemView(selection as Array) as Void {
         var view = new WatchUi.TextPicker("Tooting");
-        var delegate = new StopPointSearchDelegate();
+        var delegate = new StopPointSearchDelegate(["bus", "tube", "river-bus", "tram"]);
         WatchUi.pushView(view, delegate, SLIDE_IMMEDIATE);
     }
-    
-    function getMoveOrDeleteLabelById(id as String) as String {
-        return getStopPointById(id, ARRIVALS_STOPPOINTS).name;
+
+    function getMoveOrDeleteTitleById(id) as String {
+        System.println("Checking id " + id);
+        return (id as Dictionary)["name"];
+
     }
 
 }

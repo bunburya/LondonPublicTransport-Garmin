@@ -8,50 +8,54 @@ enum Action {
     DELETE
 }
 
-const ADD_NEW = 1;
+const ADD_NEW = -1;
 
 class MoveOrDeleteMenuDelegate extends WatchUi.Menu2InputDelegate {
-    private var _id as String;
-    private var _selection as Array<String>;
+    private var _referenceItem; // The item we are trying to move
+    private var _selection as Array; // The currently configured items
     private var _storageKey as StorageKey;
 
-    function initialize(id as String, selection as Array<String>, storageKey as StorageKey) {
+    function initialize(item, selection as Array, storageKey as StorageKey) {
         WatchUi.Menu2InputDelegate.initialize();
-        _id = id;
+        _referenceItem = item;
         _selection = selection;
         _storageKey = storageKey;
     }
 
     function onSelect(item as MenuItem) as Void {
         var itemId = item.getId() as Action;
-        var idx = _selection.indexOf(_id);
+        var idx = _selection.indexOf(_referenceItem);
         if (itemId == MOVE_UP) {
-            if (idx <= 0) {
+            if (_selection.size() <= 1) {
+                return;
+            } else if (idx <= 0) {
                 // Move item to end of list
                 _selection = _selection.slice(1, null);
-                _selection.add(_id);
+                _selection.add(_referenceItem);
             } else {
                 // Switch item with previous item
                 var prevIdx = idx - 1;
                 var prev = _selection[prevIdx];
-                _selection[prevIdx] = _id;
+                _selection[prevIdx] = _referenceItem;
                 _selection[idx] = prev;
             }
         } else if (itemId == MOVE_DOWN) {
-            if (idx >= _selection.size() - 1) {
+            if (_selection.size() <= 1) {
+                return;
+            } else if (idx >= _selection.size() - 1) {
                 // Move item to start of list
                 var toAdd = _selection.slice(0, -1);
-                _selection = [_id];
+                _selection = [_referenceItem];
                 _selection.addAll(toAdd);
             } else {
                 // Switch item with next item
                 var nextIdx = idx + 1;
                 var next = _selection[nextIdx];
-                _selection[nextIdx] = _id;
+                _selection[nextIdx] = _referenceItem;
                 _selection[idx] = next;
             }
         } else if (itemId == DELETE) {
-            _selection.remove(_id);
+            _selection.remove(_referenceItem);
         }
         Application.Storage.setValue(_storageKey, _selection);
         WatchUi.popView(SLIDE_LEFT);
@@ -60,7 +64,7 @@ class MoveOrDeleteMenuDelegate extends WatchUi.Menu2InputDelegate {
 
 class DynamicMenuView extends WatchUi.Menu2 {
 
-    private var _selection as Array<String or Dictionary>;
+    var _selection as Array;
     private var _storageKey as StorageKey;
 
     function initialize(title as String, selection as Array, storageKey as StorageKey) {
@@ -69,28 +73,29 @@ class DynamicMenuView extends WatchUi.Menu2 {
         _storageKey = storageKey;
 
         for (var i = 0; i < _selection.size(); i++) {
-            var menuItem = getMenuItem(_selection[i]);
+            var menuItem = getMenuItem(i);
             addItem(menuItem);
         }
-        System.println("Adding Add menu");
+        //System.println("Adding Add menu");
         addItem(new MenuItem("Add", null, ADD_NEW, null));
     }
 
     function onShow() {
-        System.println("DynamicMenuView onShow called");
-        System.println("storageKey: " + _storageKey.toString());
+        //System.println("DynamicMenuView onShow called");
+        //System.println("storageKey: " + _storageKey.toString());
         var sel = Application.Storage.getValue(_storageKey);
-        System.println("new selection: " + sel);
-        System.println("previous selection: " + _selection.toString());
-        if (sel != null && !arrayEq(sel, _selection)) {
+        //System.println("new selection: " + sel);
+        //System.println("previous selection: " + _selection.toString());
+        if (sel != null && !eq(sel, _selection)) {
             // If the selection has changed, reload the menu
-            System.println("calling reloadWithSelection");
+            //System.println("calling reloadWithSelection");
             reloadWithSelection(sel);
         }
     }
 
-    // Function to generate a `MenuItem` from a key. This should be overridden by subclasses.
-    function getMenuItem(key) as WatchUi.MenuItem {
+    // Function to generate a `MenuItem` from the index of the relevant item in `_selection`.
+    // This should be overridden by subclasses.
+    function getMenuItem(idx as Number) as WatchUi.MenuItem {
         throw new NotImplementedException();
     }
 
@@ -115,14 +120,14 @@ class DynamicMenuDelegate extends WatchUi.Menu2InputDelegate {
     // Function to switch to a view (or push a view) to add a new item to the
     // selection (ie, when the user clicks the "Add" button). This should be
     // overridden by subclasses. It should construct the relevant view and
-    // delegate and call `WatchUi.switchToView` or `WatchUi.pushView` if apt).
+    // delegate and call `WatchUi.switchToView` (or `WatchUi.pushView` if apt).
     function goToAddItemView(selection as Array) as Void {
         throw new NotImplementedException();
     }
     
     // Function to get the string to be used as the title of the sub-menu to
     // move or delete the item. This should be overridden by subclasses.
-    function getMoveOrDeleteTitleById(id as String) as String {
+    function getMoveOrDeleteTitleById(id) as String {
         throw new NotImplementedException();
     }
 

@@ -3,70 +3,42 @@ import Toybox.Time;
 import Toybox.System;
 import Toybox.Application;
 
-class ArrivalTtsComparator {
-    function compare(arr1 as Lang.Object, arr2 as Lang.Object) as Lang.Number {
-        var a = arr1 as Arrival;
-        var b = arr2 as Arrival;
-        return (a.timeToStation - b.timeToStation);
-    }
-}
-
-class Arrival {
-    var platform as String;
-    var direction as String;
-    var lineId as String;
-    var lineName as String;
-    var modeName as String;
-    var destinationId as String;
-    var destinationName as String;
-    var towards as String;
-    var timeToStation as Number;
-    var expectedArrival as Moment;
-
-
-    function initialize(data as Dictionary) {
-        platform = data["platformName"];
-        direction = data["direction"];
-        lineId = data["lineId"];
-        lineName = data["lineName"];
-        modeName = data["modeName"];
-        destinationId = data["destinationNaptanId"];
-        destinationName = data["destinationName"];
-        towards = data["towards"];
-        timeToStation = data["timeToStation"];
-        expectedArrival = parseDateTime(data["expectedArrival"]);
-    }
-
-    function toString() as String {
-        return lineName + " to " + destinationName + " " + secsToStr(timeToStation);
-    }
-}
-
 class StopPoint {
     var id as String;
     var name as String;
     var indicator as String?;
     var towards as String?;
+    var modes as Array<String>;
 
     function initialize(
         stopId as String,
         stopName as String,
         stopIndicator as String?,
-        stopTowards as String?
+        stopTowards as String?,
+        stopModes as Array<String>
     ) {
         id = stopId;
         name = stopName;
         indicator = stopIndicator;
         towards = stopTowards;
+        modes = stopModes;
     }
 
     static function fromDict(data as Dictionary) as StopPoint {
-        System.println("data: " + data.toString());
+        //System.println("fromDict called on data: " + data.toString());
         var name = data["name"];
         if (name == null) {
             name = data["commonName"];
         }
-        return new StopPoint(data["id"], name, data["indicator"], data["towards"]);
+        return new StopPoint(data["id"], name, data["indicator"], data["towards"], data["modes"]);
+    }
+
+    static function fromDictArray(data as Array<Dictionary>) as Array<StopPoint> {
+        var stopPoints = [];
+        for (var i = 0; i < data.size(); i++) {
+            stopPoints.add(StopPoint.fromDict(data[i]));
+        }
+        return stopPoints;
     }
 
     function toDict() as Dictionary {
@@ -82,6 +54,34 @@ class StopPoint {
         }
         return dict;
     }
+
+    function toString() as String {
+        return "StopPoint(" + toDict() + ")";
+    }
+
+    function hasAnyMode(modesToSearch as Array<String>) as Boolean {
+        //System.println("hasAnyMode called");
+        //System.println("Stop modes: " + modes.toString());
+        //System.println("Searching modes: " + modesToSearch.toString());
+        for (var i = 0; i < modesToSearch.size(); i++) {
+            for (var j = 0; j < modes.size(); j++) {
+                if (eq(modes[j], modesToSearch[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+function filterStopPointsByModes(stopPoints as Array<StopPoint>, modes as Array<String>) as Array<StopPoint> {
+    var filtered = [];
+    for (var i = 0; i < stopPoints.size(); i++) {
+        if (stopPoints[i].hasAnyMode(modes)) {
+            filtered.add(stopPoints[i]);
+        }
+    }
+    return filtered;
 }
 
 class StopPointArrivals {
@@ -104,7 +104,7 @@ function getStopPointById(id as String, storageKey as StorageKey) as StopPoint? 
     }
     for (var i = 0; i < stopPoints.size(); i++) {
         var d = stopPoints[i];
-        if (d["stopId"] == id) {
+        if (eq(d["id"], id)) {
             return StopPoint.fromDict(d);
         }
     }

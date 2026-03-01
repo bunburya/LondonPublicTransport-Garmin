@@ -3,7 +3,7 @@ import Toybox.Lang;
 
 // Display a loading screen and load the list of arrival predictions
 // for a single stop.
-class StopPointArrivalsLoadingView extends BaseLoadingView {
+class ArrivalsListLoadingView extends BaseLoadingView {
     private var _tflApi as TflApi;
     private var _stopPoint as StopPoint;
 
@@ -33,7 +33,7 @@ class StopPointArrivalsLoadingView extends BaseLoadingView {
 
         var stopPointArrivals = new StopPointArrivals(_stopPoint, arrivalsData);
 
-        var listView = new StopPointArrivalListView(stopPointArrivals);
+        var listView = new ArrivalsListView(stopPointArrivals);
         WatchUi.switchToView(listView, new WatchUi.Menu2InputDelegate(), WatchUi.SLIDE_IMMEDIATE);
 
         WatchUi.requestUpdate();

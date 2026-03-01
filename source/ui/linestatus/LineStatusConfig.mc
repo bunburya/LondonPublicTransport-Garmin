@@ -7,8 +7,9 @@ class LineStatusConfigView extends DynamicMenuView {
         DynamicMenuView.initialize("Configure Line Statuses", selectedIds, LINE_STATUS_LINES);
     }
 
-    function getMenuItem(id) as WatchUi.MenuItem {
-        var line = getLineById(id) as Line;
+    function getMenuItem(idx as Number) as WatchUi.MenuItem {
+        var lineId = _selection[idx];
+        var line = getLineById(lineId) as Line;
         return new MenuItem(
             line.name,
             line.modeName,

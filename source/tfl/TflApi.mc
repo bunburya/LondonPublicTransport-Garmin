@@ -2,11 +2,15 @@ import Toybox.Communications;
 import Toybox.Lang;
 import Toybox.Time;
 
+// Line IDs for all lines that support `/ArrivalDeprtures` API endpoint.
+const _DEPARTURE_LINE_IDS = "thameslink,elizabeth,liberty,lioness,mildmay,suffragette,weaver,windrush";
+
 class TflApi {
 
     // Generic function to make a GET request to the TFL API, which is used by the
     // other endpoint-specific methods.
     private function makeRequest(url as String, params as Dictionary, callback as Method) {
+        System.println("Calling url: " + url);
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
             :headers => {
@@ -39,11 +43,16 @@ class TflApi {
 
     // Get arrival predictions for the given stop point.
     // `id`: The NAPTAN ID of the stop point.
-    // `name`: The common name of the stop point.
     // `callback`: Function to be called with the data fetched from the API.
     function getStopPointArrivals(id as String, callback as Method) {
         var url = BASE_URL + "StopPoint/" + id + "/Arrivals";
-        System.println("Calling url: " + url);
+        var params = {};
+        makeRequest(url, params, callback);
+    }
+
+    // Get departure predictions for the given stop point.
+    function getStopPointDepartures(id as String, callback as Method) {
+        var url = BASE_URL + "StopPoint/" + id + "/ArrivalDepartures?lineIds=" + _DEPARTURE_LINE_IDS;
         var params = {};
         makeRequest(url, params, callback);
     }
@@ -51,7 +60,6 @@ class TflApi {
     // Search stop points by common name.
     function searchStopPoints(query as String, callback as Method) {
         var url = BASE_URL + "StopPoint/Search/" + query;
-        System.println("Calling url: " + url);
         var params = {};
         makeRequest(url, params, callback);
     } 
