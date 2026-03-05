@@ -9,11 +9,11 @@ class LineStatusConfigView extends DynamicMenuView {
 
     function getMenuItem(idx as Number) as WatchUi.MenuItem {
         var lineId = _selection[idx];
-        var line = getLineById(lineId) as Line;
+        var lwm = getLwmById(lineId) as LineWithMode;
         return new MenuItem(
-            line.name,
-            line.modeName,
-            line.id,
+            lwm.line.name,
+            lwm.modeName,
+            lwm.line.id,
             null
         );
     }
@@ -39,7 +39,7 @@ class LineStatusConfigDelegate extends DynamicMenuDelegate {
     }
     
     function getMoveOrDeleteTitle(id as String) as String {
-        return getLineById(id).name;
+        return getLwmById(id).line.name;
     }
 
 }

@@ -33,23 +33,24 @@ class AddStopPointConfirmLoadingView extends BaseLoadingView {
         if (!validateResponse(responseCode, data)) {
             return;
         }
+        var stopPoint = StopPoint.fromDict(data);
         var children = data["children"];
-        if ((!_isLeaf) && (children != null) && (children.size() != 0)) {
+        if ((!_isLeaf) && (children != null) && (children.size() != 0) && stopPoint.hasAnyMode(["bus"])) {
             // We have a "parent" StopPoint which is just a grouping of "child"
             // StopPoints, which are the ones we actually want. Show show a new
             // menu to display the children to the user and allow them to choose.
+            // (This is only relevant for buses.)
             var stopPoints = filterStopPointsByModes(StopPoint.fromDictArray(children), _modes);
             var view = new BaseStopPointListView("Choose Stop", stopPoints);
-            var delegate = new StopPointSearchResultsDelegate(stopPoints, true, _modes);
+            var delegate = new StopPointSearchResultsDelegate(stopPoints, _storageKey, true, _modes);
             WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
         } else {
-            var sp = StopPoint.fromDict(data);
-            var text = sp.name;
-            if (sp.indicator != null) {
-                text += "\n" + sp.indicator;
+            var text = stopPoint.name;
+            if (stopPoint.indicator != null) {
+                text += "\n" + stopPoint.indicator;
             }
             var view = new WatchUi.Confirmation(text);
-            var delegate = new AddStopPointConfirmDelegate(_storageKey, sp);
+            var delegate = new AddStopPointConfirmDelegate(_storageKey, stopPoint);
             WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
         }
     }

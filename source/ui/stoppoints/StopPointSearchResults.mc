@@ -3,12 +3,19 @@ import Toybox.WatchUi;
 
 class StopPointSearchResultsDelegate extends WatchUi.Menu2InputDelegate {
     private var _stopPoints as Array<StopPoint>;
+    private var _storageKey as StorageKey;
     private var _isChild as Boolean;
     private var _modes as Array<String>;
 
-    function initialize(stopPoints as Array<StopPoint>, isChild as Boolean, modes as Array<String>) {
+    function initialize(
+        stopPoints as Array<StopPoint>,
+        storageKey as StorageKey,
+        isChild as Boolean,
+        modes as Array<String>
+    ) {
         WatchUi.Menu2InputDelegate.initialize();
         _stopPoints = stopPoints;
+        _storageKey = storageKey;
         _isChild = isChild;
         _modes = modes;
     }
@@ -28,12 +35,12 @@ class StopPointSearchResultsDelegate extends WatchUi.Menu2InputDelegate {
                 text += "\n" + sp.indicator;
             }
             var view = new WatchUi.Confirmation(text);
-            var delegate = new AddStopPointConfirmDelegate(ARRIVALS_STOPPOINTS, sp);
+            var delegate = new AddStopPointConfirmDelegate(_storageKey, sp);
             WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
         } else {
             // If _isChild is false, we need to request further details (eg,
             // indicator) of the relevant StopPoint.
-            var view = new AddStopPointConfirmLoadingView(ARRIVALS_STOPPOINTS, sp, _isChild, _modes);
+            var view = new AddStopPointConfirmLoadingView(_storageKey, sp, _isChild, _modes);
             WatchUi.pushView(view, null, SLIDE_IMMEDIATE);
         }
     }

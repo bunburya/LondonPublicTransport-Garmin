@@ -18,7 +18,7 @@ class LineStatusListView extends WatchUi.Menu2 {
     private var _data as Array<LineStatusData>;
 
     function initialize(data as Array<LineStatusData>) {
-        var updateStr = "Updated " + localTimeToString(localTime());
+        var updateStr = "Updated " + clockTimeToString();
         Menu2.initialize({ :title => "Line Status", :footer => updateStr});
         _data = data;
         for (var i = 0; i < _data.size(); i++) {

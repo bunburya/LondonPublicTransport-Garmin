@@ -3,20 +3,28 @@ import Toybox.Time;
 import Toybox.Graphics;
 
 // Basic information about a line that is supported by the TFL API.
-class Line {
+class TflLine {
     // The line id that is used to identify it in the TFL API.
     public var id as String;
     // The human-readable name of the line.
     public var name as String;
+
+    function initialize(id as String, name as String) {
+        self.id = id;
+        self.name = name;
+    }
+}
+
+class LineWithMode {
+    public var line as TflLine;
     // The human-readable name of the mode served by the line. This can be `null`
     // if the relevant mode only has one line and therefore it doesn't make sense
     // to separately display the mode to the user.
     public var modeName as String?;
 
-    function initialize(lineId as String, lineName as String, mode as String?) {
-        id = lineId;
-        name = lineName;
-        modeName = mode;
+    function initialize(line as TflLine, modeName as String?) {
+        self.line = line;
+        self.modeName = modeName;
     }
 }
 
@@ -26,56 +34,56 @@ class Line {
 // there are hundreds of them which makes configuration difficult, and they
 // typically only show "Good Service" or "Special Service" so a short status
 // report is less useful.
-const SUPPORTED_LINES_ARRAY = [
-    new Line("bakerloo", "Bakerloo", "Tube"),
-    new Line("central", "Central", "Tube"),
-    new Line("circle", "Circle", "Tube"),
-    new Line("hammersmith-city", "Hammersmith & City", "Tube"),
-    new Line("jubilee", "Jubilee", "Tube"),
-    new Line("metropolitan", "Metropolitan", "Tube"),
-    new Line("northern", "Northern", "Tube"),
-    new Line("piccadilly", "Piccadilly", "Tube"),
-    new Line("victoria", "Victoria", "Tube"),
-    new Line("waterloo-city", "Waterloo & City", "Tube"),
-    new Line("dlr", "DLR", null),
-    new Line("elizabeth", "Elizabeth Line", null),
-    new Line("liberty", "Liberty", "Overground"),
-    new Line("lioness", "Lioness", "Overground"),
-    new Line("mildmay", "Mildmay", "Overground"),
-    new Line("suffragette", "Sufragette", "Overground"),
-    new Line("weaver", "Weaver", "Overground"),
-    new Line("windrush", "Windrush", "Overground"),
-    new Line("london-cable-car", "Cable Car", null),
-    new Line("tram", "Tram", null),
-    new Line("rb1", "RB1", "River Bus"),
-    new Line("rb4", "RB4", "River Bus"),
-    new Line("rb6", "RB6", "River Bus"),
-    new Line("woolwich-ferry", "Woolwich Ferry", "River Bus")
+const SUPPORTED_LWMS = [
+    new LineWithMode(new TflLine("bakerloo", "Bakerloo"), "Tube"),
+    new LineWithMode(new TflLine("central", "Central"), "Tube"),
+    new LineWithMode(new TflLine("circle", "Circle"), "Tube"),
+    new LineWithMode(new TflLine("hammersmith-city", "Hammersmith & City"), "Tube"),
+    new LineWithMode(new TflLine("jubilee", "Jubilee"), "Tube"),
+    new LineWithMode(new TflLine("metropolitan", "Metropolitan"), "Tube"),
+    new LineWithMode(new TflLine("northern", "Northern"), "Tube"),
+    new LineWithMode(new TflLine("piccadilly", "Piccadilly"), "Tube"),
+    new LineWithMode(new TflLine("victoria", "Victoria"), "Tube"),
+    new LineWithMode(new TflLine("waterloo-city", "Waterloo & City"), "Tube"),
+    new LineWithMode(new TflLine("dlr", "DLR"), null),
+    new LineWithMode(new TflLine("elizabeth", "Elizabeth Line"), null),
+    new LineWithMode(new TflLine("liberty", "Liberty"), "Overground"),
+    new LineWithMode(new TflLine("lioness", "Lioness"), "Overground"),
+    new LineWithMode(new TflLine("mildmay", "Mildmay"), "Overground"),
+    new LineWithMode(new TflLine("suffragette", "Sufragette"), "Overground"),
+    new LineWithMode(new TflLine("weaver", "Weaver"), "Overground"),
+    new LineWithMode(new TflLine("windrush", "Windrush"), "Overground"),
+    new LineWithMode(new TflLine("london-cable-car", "Cable Car"), null),
+    new LineWithMode(new TflLine("tram", "Tram"), null),
+    new LineWithMode(new TflLine("rb1", "RB1"), "River Bus"),
+    new LineWithMode(new TflLine("rb4", "RB4"), "River Bus"),
+    new LineWithMode(new TflLine("rb6", "RB6"), "River Bus"),
+    new LineWithMode(new TflLine("woolwich-ferry", "Woolwich Ferry"), "River Bus")
 ];
 
-var _supportedLinesDict = null;
-function getSupportedLinesDict() as Dictionary<String, Line> {
-    if (_supportedLinesDict == null) {
-        _supportedLinesDict = {};
-        for (var i = 0; i < SUPPORTED_LINES_ARRAY.size(); i++) {
-            var line = SUPPORTED_LINES_ARRAY[i];
-            _supportedLinesDict[line.id] = line;
+var _supportedLwmDict = null;
+function getSupportedLwmDict() as Dictionary<String, LineWithMode> {
+    if (_supportedLwmDict == null) {
+        _supportedLwmDict = {};
+        for (var i = 0; i < SUPPORTED_LWMS.size(); i++) {
+            var lwm = SUPPORTED_LWMS[i];
+            _supportedLwmDict[lwm.line.id] = lwm;
         }
     }
-    return _supportedLinesDict;
+    return _supportedLwmDict;
 }
 
-function getLineById(id as String) as Line? {
-    return getSupportedLinesDict()[id];
+function getLwmById(id as String) as LineWithMode? {
+    return getSupportedLwmDict()[id];
 }
 
 // Convert a list of line IDs to a dictionary mapping those IDs to the
 // relevant `Line` objects
-function lineIdsToLines(lineIds as Array<String>) as Dictionary<String, Line> {
+function lineIdsToLwms(lineIds as Array<String>) as Dictionary<String, LineWithMode> {
     var dict = {};
     for (var i = 0; i < lineIds.size(); i++) {
         var lineId = lineIds[i];
-        var line = getSupportedLinesDict()[lineId];
+        var line = getSupportedLwmDict()[lineId];
         if (line != null) {
             dict[lineId] = line;
         }
@@ -208,7 +216,7 @@ class LineStatusData {
     }
 }
 
-function lineStatusDataDict(data as Array<Dictionary>) as Dictionary<String, Line> {
+function lineStatusDataDict(data as Array<Dictionary>) as Dictionary<String, TflLine> {
     var dict = {};
     for (var i = 0; i < data.size(); i++) {
         var lineStatusData = new LineStatusData(data[i]);

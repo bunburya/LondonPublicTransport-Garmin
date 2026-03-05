@@ -9,19 +9,22 @@ class StopPoint {
     var indicator as String?;
     var towards as String?;
     var modes as Array<String>;
+    var lines as Array<TflLine>;
 
     function initialize(
-        stopId as String,
-        stopName as String,
-        stopIndicator as String?,
-        stopTowards as String?,
-        stopModes as Array<String>
+        id as String,
+        name as String,
+        indicator as String?,
+        towards as String?,
+        modes as Array<String>?,
+        lines as Array<TflLine>?
     ) {
-        id = stopId;
-        name = stopName;
-        indicator = stopIndicator;
-        towards = stopTowards;
-        modes = stopModes;
+        self.id = id;
+        self.name = name;
+        self.indicator = indicator;
+        self.towards = towards;
+        self.modes = modes;
+        self.lines = lines;
     }
 
     static function fromDict(data as Dictionary) as StopPoint {
@@ -30,7 +33,16 @@ class StopPoint {
         if (name == null) {
             name = data["commonName"];
         }
-        return new StopPoint(data["id"], name, data["indicator"], data["towards"], data["modes"]);
+        var linesData = data["lines"] as Array<Dictionary>?;
+        var lines = null;
+        if (linesData != null) {
+            lines = [];
+            for (var i = 0; i < linesData.size(); i++) {
+                var d = linesData[i];
+                lines.add(new TflLine(d["id"], d["name"]));
+            }
+        }
+        return new StopPoint(data["id"], name, data["indicator"], data["towards"], data["modes"], lines);
     }
 
     static function fromDictArray(data as Array<Dictionary>) as Array<StopPoint> {
@@ -52,6 +64,17 @@ class StopPoint {
         if (towards != null) {
             dict["towards"] = towards;
         }
+        if (modes != null) {
+            dict["modes"] = modes;
+        }
+        if (lines != null) {
+            var lineArray = [];
+            for (var i = 0; i < lines.size(); i++) {
+                var line = lines[i];
+                lineArray.add({"id" => line.id, "name" => line.name});
+            }
+            dict["lines"] = lineArray;
+        }
         return dict;
     }
 
@@ -60,12 +83,23 @@ class StopPoint {
     }
 
     function hasAnyMode(modesToSearch as Array<String>) as Boolean {
-        //System.println("hasAnyMode called");
-        //System.println("Stop modes: " + modes.toString());
-        //System.println("Searching modes: " + modesToSearch.toString());
         for (var i = 0; i < modesToSearch.size(); i++) {
             for (var j = 0; j < modes.size(); j++) {
                 if (eq(modes[j], modesToSearch[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function hasAnyLine(linesToSearch as Array<String>) as Boolean {
+        System.println("hasAnyLine called");
+        System.println("lines: " + lines);
+        System.println("linesToSearch: " + linesToSearch.toString());
+        for (var i = 0; i < linesToSearch.size(); i++) {
+            for (var j = 0; j < lines.size(); j++) {
+                if (eq(lines[j].id, linesToSearch[i])) {
                     return true;
                 }
             }

@@ -28,6 +28,14 @@ function parseDateTime(dt as String) as Moment {
     });
 }
 
+function parseNullableDateTime(dt as String?) as Moment? {
+    if (dt == null) {
+        return null;
+    } else {
+        return parseDateTime(dt);
+    }
+}
+
 // Split a string on a delimiter
 function splitString(str as String, delimiter as String) as Array<String> {
     var result = [];
@@ -116,16 +124,12 @@ function copyArray(array as Array) as Array {
     return copy;
 }
 
-function localTime() as Time.LocalMoment {
-    return Time.Gregorian.localMoment(LONDON, Time.now());
-}
-
-function localTimeToString(t as Time.LocalMoment) as String {
-    var info = Time.Gregorian.info(t, Time.FORMAT_SHORT);
+function clockTimeToString() as String {
+    var t = System.getClockTime();
     return Lang.format("$1$:$2$:$3$", [
-        info.hour.format("%02u"),
-        info.min.format("%02u"),
-        info.sec.format("%02u"),
+        t.hour.format("%02u"),
+        t.min.format("%02u"),
+        t.sec.format("%02u"),
     ]);
 }
 

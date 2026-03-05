@@ -5,11 +5,20 @@ const APP_NAME = "London Public Transport for Garmin";
 const APP_VERSION = "1.0.0";
 const USER_AGENT = APP_NAME + " v" + APP_VERSION;
 const BASE_URL = "https://api.tfl.gov.uk/";
-const LONDON = new Position.Location({
-    :latitude => 51.477979,
-    :longitude => 0,
-    :format => :degrees
-});
+
+const ARRIVALS_MODES = ["bus", "tube", "tram"];
+const ARRIVALS_LINES = null;
+const DEPARTURES_MODES = ["overground", "elizabeth-line", "national-rail"];
+const DEPARTURES_LINES = [
+    "thameslink",
+    "elizabeth",
+    "liberty",
+    "lioness",
+    "mildmay",
+    "suffragette",
+    "weaver",
+    "windrush"
+];
 
 enum StorageKey {
     LINE_STATUS_LINES,

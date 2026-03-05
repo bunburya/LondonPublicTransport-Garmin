@@ -14,8 +14,37 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
             WatchUi.pushView(new StatusListLoadingView(), null, WatchUi.SLIDE_LEFT);
         } else if (id == :arrivals) {
             var stopPoints = loadStopPoints(ARRIVALS_STOPPOINTS);
-            var view = new StopPointListOrConfigView(stopPoints);
-            var delegate = new StopPointListOrConfigDelegate(stopPoints, ARRIVALS_STOPPOINTS);
+            var view = new StopPointListOrConfigView(
+                stopPoints,
+                "Configure Arrivals",
+                ARRIVALS_STOPPOINTS,
+                ARRIVALS_MODES,
+                ARRIVALS_LINES
+            );
+            var delegate = new StopPointListOrConfigDelegate(
+                stopPoints,
+                "Configure Arrivals",
+                ARRIVALS_STOPPOINTS,
+                ARRIVALS_MODES,
+                ARRIVALS_LINES
+            );
+            WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
+        } else if (id == :departures) {
+            var stopPoints = loadStopPoints(DEPARTURES_STOPPOINTS);
+            var view = new StopPointListOrConfigView(
+                stopPoints,
+                "Configure Departures",
+                DEPARTURES_STOPPOINTS,
+                DEPARTURES_MODES,
+                DEPARTURES_LINES
+            );
+            var delegate = new StopPointListOrConfigDelegate(
+                stopPoints,
+                "Configure Departures",
+                DEPARTURES_STOPPOINTS,
+                DEPARTURES_MODES,
+                DEPARTURES_LINES
+            );
             WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
         }
     }

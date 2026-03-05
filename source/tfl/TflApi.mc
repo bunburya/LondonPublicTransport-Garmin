@@ -58,8 +58,19 @@ class TflApi {
     }
 
     // Search stop points by common name.
-    function searchStopPoints(query as String, callback as Method) {
-        var url = BASE_URL + "StopPoint/Search/" + query;
+    function searchStopPoints(
+        query as String,
+        modeIds as Array<String>?,
+        lineIds as Array<String>?,
+        callback as Method
+    ) {
+        var url = BASE_URL + "StopPoint/Search?query=" + query;
+        if (modeIds != null) {
+            url += "&modes=" + joinArray(modeIds, ",");
+        }
+        if (lineIds != null) {
+            url += "&lineIds=" + joinArray(lineIds, ",");
+        }
         var params = {};
         makeRequest(url, params, callback);
     } 
