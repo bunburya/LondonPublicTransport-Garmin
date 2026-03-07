@@ -3,7 +3,7 @@ import Toybox.WatchUi;
 
 // Show a list of stops.
 class BaseStopPointListView extends WatchUi.Menu2 {
-    private var _stopPoints as Array<StopPoint>;
+    var _stopPoints as Array<StopPoint>;
 
     function initialize(title as String, stopPoints as Array<StopPoint>) {
         _stopPoints = stopPoints;

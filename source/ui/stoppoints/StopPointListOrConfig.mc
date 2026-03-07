@@ -32,11 +32,11 @@ class StopPointListOrConfigView extends BaseStopPointListView {
 
 class StopPointListOrConfigDelegate extends WatchUi.Menu2InputDelegate {
 
-    private var _stopPoints as Array<StopPoint>;
-    private var _storageKey as StorageKey;
-    private var _configTitle as String;
-    private var _modes as Array<String>?;
-    private var _lines as Array<String>?;
+    var _stopPoints as Array<StopPoint>;
+    var _storageKey as StorageKey;
+    var _configTitle as String;
+    var _modes as Array<String>?;
+    var _lines as Array<String>?;
 
     function initialize(stopPoints, configTitle, storageKey, modes, lines) {
         Menu2InputDelegate.initialize();
@@ -45,14 +45,6 @@ class StopPointListOrConfigDelegate extends WatchUi.Menu2InputDelegate {
         _storageKey = storageKey;
         _modes = modes;
         _lines = lines;
-    }
-
-    function onSelect(item) {
-        var id = item.getId() as Number;
-        // TODO: Need to generalise this so we call DeparturesListLoadingView when appropriate
-        // (also need to create that)
-        var view = new ArrivalsListLoadingView(_stopPoints[id]);
-        WatchUi.pushView(view, null, WatchUi.SLIDE_LEFT);
     }
 
     function onTitle() as Void {

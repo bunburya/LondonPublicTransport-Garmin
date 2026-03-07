@@ -124,13 +124,33 @@ function copyArray(array as Array) as Array {
     return copy;
 }
 
+function formatTime(t as ClockTime or Moment or LocalMoment, inclSecs as Boolean) as String {
+    var info;
+    if (t instanceof ClockTime) {
+        info = t;
+    } else {
+        info = Gregorian.utcInfo(t, Time.FORMAT_SHORT);
+    }
+    if (!inclSecs) {
+        var min = info.min;
+        if (info.sec >= 30) {
+            min += 1;
+        }
+        return Lang.format("$1$:$2$", [
+            info.hour.format("%02u"),
+            min.format("%02u")
+        ]);
+    } else {
+        return Lang.format("$1$:$2$:$3$", [
+            info.hour.format("%02u"),
+            info.min.format("%02u"),
+            info.sec.format("%02u"),
+        ]);
+    }
+}
+
 function clockTimeToString() as String {
-    var t = System.getClockTime();
-    return Lang.format("$1$:$2$:$3$", [
-        t.hour.format("%02u"),
-        t.min.format("%02u"),
-        t.sec.format("%02u"),
-    ]);
+    return formatTime(System.getClockTime(), true);
 }
 
 class NotImplementedException extends Lang.Exception {

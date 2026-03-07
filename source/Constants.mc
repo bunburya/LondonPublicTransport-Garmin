@@ -1,5 +1,6 @@
 import Toybox.Position;
 import Toybox.Graphics;
+import Toybox.Time;
 
 const APP_NAME = "London Public Transport for Garmin";
 const APP_VERSION = "1.0.0";
@@ -32,3 +33,5 @@ enum TflColor {
     TFL_YELLOW = Graphics.createColor(255, 255, 200, 10),
     TFL_GREEN = Graphics.createColor(255, 0, 125, 50)
 }
+
+const SECOND = new Duration(1);
