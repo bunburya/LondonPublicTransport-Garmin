@@ -36,6 +36,7 @@ class BaseLoadingView extends WatchUi.View {
         if (errorMessage != null) {
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
             WatchUi.showToast(errorMessage, null);
+            System.println("Error: " + errorMessage);
             return false;
         }
         return true;

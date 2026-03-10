@@ -62,7 +62,7 @@ class StopPointsConfigDelegate extends DynamicMenuDelegate {
     }
 
     function goToAddItemView(selection as Array) as Void {
-        var view = new WatchUi.TextPicker("Tooting");
+        var view = new WatchUi.TextPicker("Waterl");
         var delegate = new StopPointSearchDelegate(_storageKey, _modes, _lines);
         WatchUi.pushView(view, delegate, SLIDE_IMMEDIATE);
     }

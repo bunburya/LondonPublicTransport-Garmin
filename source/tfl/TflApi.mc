@@ -19,6 +19,7 @@ class TflApi {
             },
             :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
         };
+        //System.println("Options: " + options.toString());
 
         Communications.makeWebRequest(url, params, options, callback);
     }
@@ -64,12 +65,12 @@ class TflApi {
         lineIds as Array<String>?,
         callback as Method
     ) {
-        var url = BASE_URL + "StopPoint/Search?query=" + query;
+        var url = BASE_URL + "StopPoint/Search/" + query + "?includeHubs=false";
         if (modeIds != null) {
             url += "&modes=" + joinArray(modeIds, ",");
         }
         if (lineIds != null) {
-            url += "&lineIds=" + joinArray(lineIds, ",");
+            url += "&lines=" + joinArray(lineIds, ",");
         }
         var params = {};
         makeRequest(url, params, callback);

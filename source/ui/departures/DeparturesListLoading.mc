@@ -32,7 +32,10 @@ class DeparturesListLoadingView extends BaseLoadingView {
         var departures = [];
 
         for (var i = 0; i < departuresData.size(); i++) {
-            departures.add(Departure.fromDict(departuresData[i]));
+            var d = departuresData[i] as Dictionary;
+            if (d["scheduledTimeOfDeparture"] != null) {
+                departures.add(Departure.fromDict(departuresData[i]));
+            }
         }
 
         departures.sort(new DepartureScheduledComparator());

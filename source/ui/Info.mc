@@ -74,10 +74,10 @@ class InfoView extends WatchUi.View {
     }
 
     function onUpdate(dc) {
-        // TODO: Fix styles. Currently, using COLOR_TRANSPARENT seems to show
-        // the underlying view as well. CHeck if this is a simulator bug.
-        // If not, we may need to explicitly set colours, in which case we
-        // may want to explicitly set them throughout, for consistency. 
+        // Note: Using COLOR_TRANSPARENT for background causes issues in the
+        // simulator, as the previous view does not clear properly and you get
+        // the two views superimposed. But it seems to work fine on the watch
+        // itself (tested on Vivoactive 5). 
 
         //dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
@@ -107,7 +107,7 @@ class InfoView extends WatchUi.View {
         dc.setClip(0, _bodyYStart, screenWidth, _bodyHeight);
         
         // Draw body text lines
-        //dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         var currentY = _bodyYStart - _scrollOffset;
         
         for (var i = 0; i < _wrappedLines.size(); i++) {

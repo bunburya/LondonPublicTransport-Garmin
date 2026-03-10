@@ -4,7 +4,8 @@ import Toybox.Time;
 
 const APP_NAME = "London Public Transport for Garmin";
 const APP_VERSION = "1.0.0";
-const USER_AGENT = APP_NAME + " v" + APP_VERSION;
+//const USER_AGENT = APP_NAME + " v" + APP_VERSION;
+const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0";
 const BASE_URL = "https://api.tfl.gov.uk/";
 
 const ARRIVALS_MODES = ["bus", "tube", "tram"];

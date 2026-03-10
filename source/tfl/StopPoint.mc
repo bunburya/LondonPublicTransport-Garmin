@@ -10,6 +10,7 @@ class StopPoint {
     var towards as String?;
     var modes as Array<String>;
     var lines as Array<TflLine>;
+    var parentId as String?;
 
     function initialize(
         id as String,
@@ -17,7 +18,8 @@ class StopPoint {
         indicator as String?,
         towards as String?,
         modes as Array<String>?,
-        lines as Array<TflLine>?
+        lines as Array<TflLine>?,
+        parentId as String?
     ) {
         self.id = id;
         self.name = name;
@@ -25,6 +27,7 @@ class StopPoint {
         self.towards = towards;
         self.modes = modes;
         self.lines = lines;
+        self.parentId = parentId;
     }
 
     static function fromDict(data as Dictionary) as StopPoint {
@@ -42,7 +45,15 @@ class StopPoint {
                 lines.add(new TflLine(d["id"], d["name"]));
             }
         }
-        return new StopPoint(data["id"], name, data["indicator"], data["towards"], data["modes"], lines);
+        return new StopPoint(
+            data["id"],
+            name,
+            data["indicator"],
+            data["towards"],
+            data["modes"],
+            lines,
+            data["topMostParentId"]
+        );
     }
 
     static function fromDictArray(data as Array<Dictionary>) as Array<StopPoint> {
