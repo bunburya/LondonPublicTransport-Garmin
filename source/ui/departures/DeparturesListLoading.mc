@@ -41,7 +41,7 @@ class DeparturesListLoadingView extends BaseLoadingView {
         departures.sort(new DepartureScheduledComparator());
 
         var view = new DeparturesListView(_stopPoint.name, departures);
-        var delegate = new DeparturesListDelegate(departures);
+        var delegate = new DeparturesListDelegate(departures, _stopPoint);
         WatchUi.switchToView(view, delegate, WatchUi.SLIDE_IMMEDIATE);
 
         WatchUi.requestUpdate();

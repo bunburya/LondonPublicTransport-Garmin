@@ -4,7 +4,7 @@ import Toybox.Lang;
 class DeparturesListView extends WatchUi.Menu2 {
 
     function initialize(stopName as String, departures as Array<Departure>) {
-        Menu2.initialize({ :title => stopName});
+        Menu2.initialize({ :title => stopName, :footer => "Updated " + clockTimeToString()});
         for (var i = 0; i < departures.size(); i++) {
             var departure = departures[i];
             Menu2.addItem(
@@ -21,16 +21,18 @@ class DeparturesListView extends WatchUi.Menu2 {
 
 class DeparturesListDelegate extends WatchUi.Menu2InputDelegate {
     private var _departures as Array<Departure>;
+    private var _stopPoint as StopPoint;
 
-    function initialize(departures as Array<Departure>) {
+    function initialize(departures as Array<Departure>, stopPoint as StopPoint) {
         WatchUi.Menu2InputDelegate.initialize();
         _departures = departures;
+        _stopPoint = stopPoint;
     }
 
     function onSelect(item) {
         var dep = _departures[item.getId() as Number];
         var header;
-        if (dep.status == "OnTime") {
+        if (eq(dep.status,"OnTime")) {
             header = "On Time";
         } else {
             header = dep.status;
@@ -43,12 +45,12 @@ class DeparturesListDelegate extends WatchUi.Menu2InputDelegate {
         } else {
             headerColor = TFL_YELLOW;
         }
-        var body = "Destination: " + dep.destinationName + "\n";
+        var body = "Destination: " + dep.destinationName + "\n\n";
         body += "Scheduled: " + formatTime(dep.scheduled, false) + "\n";
         if (dep.estimated != null) {
             body += "Estimated: " + formatTime(dep.estimated, false) + "\n";
         }
-        body += dep.status + "\n";
+        body += header + "\n";
         if (dep.cause != null) {
             body += dep.cause + "\n";
         }
@@ -56,5 +58,9 @@ class DeparturesListDelegate extends WatchUi.Menu2InputDelegate {
         var delegate = new InfoDelegate(view);
         WatchUi.pushView(view, delegate, SLIDE_LEFT);
         
+    }
+
+    function onFooter() as Void {
+        WatchUi.switchToView(new DeparturesListLoadingView(_stopPoint), null, SLIDE_IMMEDIATE);
     }
 }

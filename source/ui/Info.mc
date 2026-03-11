@@ -154,26 +154,36 @@ class InfoView extends WatchUi.View {
     }
 
     function wrapText(dc, text, maxWidth, font) {
-        var words = splitString(text, " ");
+        var paragraphs = splitString(text, "\n", true);
         var lines = [];
-        var currentLine = "";
-        
-        for (var i = 0; i < words.size(); i++) {
-            var testLine = currentLine.length() > 0 ? currentLine + " " + words[i] : words[i];
-            var testWidth = dc.getTextWidthInPixels(testLine, font);
-            
-            if (testWidth > maxWidth && currentLine.length() > 0) {
+
+        for (var p = 0; p < paragraphs.size(); p++) {
+            var paragraph = paragraphs[p];
+            if (paragraph.length() == 0) {
+                lines.add("");
+                continue;
+            }
+
+            var words = splitString(paragraph, " ", false);
+            var currentLine = "";
+
+            for (var i = 0; i < words.size(); i++) {
+                var testLine = currentLine.length() > 0 ? currentLine + " " + words[i] : words[i];
+                var testWidth = dc.getTextWidthInPixels(testLine, font);
+
+                if (testWidth > maxWidth && currentLine.length() > 0) {
+                    lines.add(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine = testLine;
+                }
+            }
+
+            if (currentLine.length() > 0) {
                 lines.add(currentLine);
-                currentLine = words[i];
-            } else {
-                currentLine = testLine;
             }
         }
-        
-        if (currentLine.length() > 0) {
-            lines.add(currentLine);
-        }
-        
+
         return lines;
     }
 

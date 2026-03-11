@@ -36,24 +36,25 @@ function parseNullableDateTime(dt as String?) as Moment? {
     }
 }
 
-// Split a string on a delimiter
-function splitString(str as String, delimiter as String) as Array<String> {
+// Split a string on a delimiter. By default, empty segments are skipped;
+// pass `keepEmpty: true` to preserve them.
+function splitString(str as String, delimiter as String, keepEmpty as Boolean) as Array<String> {
     var result = [];
     var delimiterPos = str.find(delimiter);
-    
+
     while (delimiterPos != null) {
         var word = str.substring(0, delimiterPos);
-        if (word.length() > 0) {
+        if (keepEmpty || word.length() > 0) {
             result.add(word);
         }
         str = str.substring(delimiterPos+delimiter.length(), str.length());
         delimiterPos = str.find(delimiter);
     }
 
-    if (str.length() > 0) {
+    if (keepEmpty || str.length() > 0) {
         result.add(str);
     }
-    
+
     return result;
 }
 
