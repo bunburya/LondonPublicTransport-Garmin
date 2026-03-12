@@ -1,11 +1,11 @@
 import Toybox.Position;
 import Toybox.Graphics;
 import Toybox.Time;
+import Toybox.Application;
 
-const APP_NAME = "London Public Transport for Garmin";
-const APP_VERSION = "1.0.0";
-//const USER_AGENT = APP_NAME + " v" + APP_VERSION;
-const USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0";
+const APP_NAME = Application.loadResource(Rez.Strings.AppName);
+const APP_VERSION = Application.loadResource(Rez.Strings.AppVersion);
+const USER_AGENT = APP_NAME + " v" + APP_VERSION;
 const BASE_URL = "https://api.tfl.gov.uk/";
 
 const ARRIVALS_MODES = ["bus", "tube", "tram"];
@@ -34,5 +34,3 @@ enum TflColor {
     TFL_YELLOW = Graphics.createColor(255, 255, 200, 10),
     TFL_GREEN = Graphics.createColor(255, 0, 125, 50)
 }
-
-const SECOND = new Duration(1);
