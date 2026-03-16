@@ -25,7 +25,7 @@ class StopPointsConfigView extends DynamicMenuView {
     }
 
     function getMenuItem(idx as Number) as WatchUi.MenuItem {
-        var stopPointDict = _selection[idx] as Dictionary;
+        var stopPointDict = _selection[idx] as Dictionary<String>;
         return new MenuItem(
             stopPointDict["name"],
             stopPointDict["indicator"],
@@ -34,11 +34,10 @@ class StopPointsConfigView extends DynamicMenuView {
         );
     }
 
-    function reloadWithSelection(newSelection as Array<String>) {
+    function reloadWithSelection(newSelection as Array) {
         var view = new StopPointsConfigView(newSelection, _title, _storageKey, _modes, _lines);
         var delegate = new StopPointsConfigDelegate(newSelection, _storageKey, _modes, _lines);
         WatchUi.switchToView(view, delegate, SLIDE_LEFT);
-
     }
 
 }
@@ -68,9 +67,7 @@ class StopPointsConfigDelegate extends DynamicMenuDelegate {
     }
 
     function getMoveOrDeleteTitleById(id) as String {
-        System.println("Checking id " + id);
         return (id as Dictionary)["name"];
-
     }
 
 }

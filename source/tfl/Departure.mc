@@ -62,7 +62,7 @@ class Departure {
     }
 
     function isCancelled() as Boolean {
-        return status == "Cancelled";
+        return eq(status, "Cancelled");
     }
 
     function statusStr() as String {

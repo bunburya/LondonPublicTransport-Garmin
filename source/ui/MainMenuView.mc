@@ -34,6 +34,8 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
                 "Configure Departures"
             );
             WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
+        } else if (id == :settings) {
+            WatchUi.pushView(new Rez.Menus.SettingsMenu(), new SettingsMenuDelegate(), SLIDE_RIGHT);
         }
     }
 }

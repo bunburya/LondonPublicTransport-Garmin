@@ -10,4 +10,17 @@
     <string id="ArrivalsMenuSubLabel">Bus, Tube, Tram</string>
     <string id="DeparturesMenuLabel">Departures</string>
     <string id="DeparturesMenuSubLabel">Overground, Elizabeth Line, Thameslink</string>
+    <string id="SettingsMenuLabel">Settings</string>
+
+    <string id="SearchResultsTitle">Search Results</string>
+
+    <string id="ConfigLineStatus">Configure Line Status</string>
+    <string id="ConfigArrivalStops">Configure Arrival Stops</string>
+    <string id="ConfigDepartureStops">Configure Departure Stops</string>
+
+    <string id="NoStatus">No status available.</string>
+    <string id="NoFurtherInfo">No further information available.</string>
+    <string id="NoArrivals">No arrivals found.</string>
+    <string id="NoDepartures">No departures found.</string>
+    <string id="NoStopPoints">No stop points found.</string>
 </strings>

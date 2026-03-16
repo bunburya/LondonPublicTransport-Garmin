@@ -147,9 +147,9 @@ class InfoView extends WatchUi.View {
         // Thumb
         var scrollPercent = _scrollOffset.toFloat() / _maxScrollOffset.toFloat();
         var thumbHeight = 20;
-        var thumbY = scrollBarY + (scrollPercent * (scrollBarHeight - thumbHeight));
+        var thumbY = (scrollBarY + (scrollPercent * (scrollBarHeight - thumbHeight))).toNumber();
         
-        //dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.fillRectangle(scrollBarX - 1, thumbY, 3, thumbHeight);
     }
 

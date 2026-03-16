@@ -5,16 +5,20 @@ class DeparturesListView extends WatchUi.Menu2 {
 
     function initialize(stopName as String, departures as Array<Departure>) {
         Menu2.initialize({ :title => stopName, :footer => "Updated " + clockTimeToString()});
-        for (var i = 0; i < departures.size(); i++) {
-            var departure = departures[i];
-            Menu2.addItem(
-                new MenuItem(
-                    departure.destinationName, 
-                    departure.statusStr(),
-                    i,
-                    {}
-                )
-            );
+        if (departures.size() == 0) {
+            Menu2.addItem(new MenuItem(WatchUi.loadResource(Rez.Strings.NoDepartures), null, null, {}));
+        } else {
+            for (var i = 0; i < departures.size(); i++) {
+                var departure = departures[i];
+                Menu2.addItem(
+                    new MenuItem(
+                        departure.destinationName, 
+                        departure.statusStr(),
+                        i,
+                        {}
+                    )
+                );
+            }
         }
     }
 }
@@ -30,7 +34,11 @@ class DeparturesListDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item) {
-        var dep = _departures[item.getId() as Number];
+        var id = item.getId() as Number?;
+        if (id == null) {
+            return;
+        }
+        var dep = _departures[id];
         var header;
         if (eq(dep.status,"OnTime")) {
             header = "On Time";

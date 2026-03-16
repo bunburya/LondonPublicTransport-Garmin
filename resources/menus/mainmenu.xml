@@ -2,4 +2,5 @@
     <menu-item id="line_status" label="@Strings.LineStatusMenuLabel" subLabel="@Strings.LineStatusMenuSubLabel" />
     <menu-item id="arrivals" label="@Strings.ArrivalsMenuLabel" subLabel="@Strings.ArrivalsMenuSubLabel" />
     <menu-item id="departures" label="@Strings.DeparturesMenuLabel" subLabel="@Strings.DeparturesMenuSubLabel" />
+    <menu-item id="settings" label="@Strings.SettingsMenuLabel" />
 </menu2>

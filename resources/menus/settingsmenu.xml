@@ -1,0 +1,5 @@
+<menu2 id="SettingsMenu" title="Settings">
+    <menu-item id="config_line_status" label="@Strings.ConfigLineStatus" />
+    <menu-item id="config_arrival_stops" label="@Strings.ConfigArrivalStops" />
+    <menu-item id="config_departure_stops" label="@Strings.ConfigDepartureStops" />
+</menu2>

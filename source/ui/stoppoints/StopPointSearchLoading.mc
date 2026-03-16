@@ -32,7 +32,7 @@ class StopPointSearchLoadingView extends BaseLoadingView {
         var array = data["matches"] as Array<Dictionary>;
         if (array == null || array.size() == 0) {
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
-            WatchUi.showToast("No results", null);
+            WatchUi.showToast(WatchUi.loadResource(Rez.Strings.NoStopPoints), null);
             return;
         }
         //System.println("array: " + array.toString());
@@ -41,7 +41,11 @@ class StopPointSearchLoadingView extends BaseLoadingView {
              stopPoints.add(StopPoint.fromDict(array[i]));
         }
         var delegate = new StopPointSearchResultsDelegate(stopPoints, _storageKey, false, _modes);
-        WatchUi.switchToView(new BaseStopPointListView("Search Results", stopPoints), delegate, SLIDE_IMMEDIATE);
+        WatchUi.switchToView(
+            new BaseStopPointListView(WatchUi.loadResource(Rez.Strings.SearchResultsTitle), stopPoints),
+            delegate,
+            SLIDE_IMMEDIATE
+        );
         
     }
 }

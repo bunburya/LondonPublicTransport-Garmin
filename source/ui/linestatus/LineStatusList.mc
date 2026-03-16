@@ -5,7 +5,7 @@ import Toybox.Lang;
 function lineStatusDescription(lineStatusData as LineStatusData) as String {
     var mostSevere = lineStatusData.mostSevereStatus();
     if (mostSevere == null) {
-        return "No status available";
+        return WatchUi.loadResource(Rez.Strings.NoStatus);
     }
     if (lineStatusData.statuses.size() == 1) {
         return mostSevere.description;
@@ -18,7 +18,7 @@ class LineStatusListView extends WatchUi.Menu2 {
     private var _data as Array<LineStatusData>;
 
     function initialize(data as Array<LineStatusData>) {
-        Menu2.initialize({ :title => "Line Status", :footer => "Updated " + clockTimeToString()});
+        Menu2.initialize({ :title => WatchUi.loadResource(Rez.Strings.LineStatusMenuLabel), :footer => "Updated " + clockTimeToString()});
         _data = data;
         for (var i = 0; i < _data.size(); i++) {
             var item = data[i];
