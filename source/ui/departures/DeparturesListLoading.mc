@@ -1,6 +1,7 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 
+
 // Display a loading screen and load the list of departure predictions
 // for a single stop.
 class DeparturesListLoadingView extends BaseLoadingView {
@@ -13,24 +14,12 @@ class DeparturesListLoadingView extends BaseLoadingView {
     }
 
     function onReceive(responseCode, data) {
+        if (!validateResponse(responseCode, data)) {
+            return;
+        }
+        
         var departuresData = [];
-        var errorMessage = null;
-        if (responseCode == 200) {
-            if (data != null) {
-                departuresData = data as Array<Dictionary>;
-            } else {
-                errorMessage = "No data received.";
-            }
-        } else {
-            errorMessage = "Bad HTTP response: " + responseCode;
-        }
-
-        if (errorMessage != null) {
-            System.println("Error: " + errorMessage);
-        }
-
         var departures = [];
-
         for (var i = 0; i < departuresData.size(); i++) {
             var d = departuresData[i] as Dictionary;
             if (d["scheduledTimeOfDeparture"] != null) {

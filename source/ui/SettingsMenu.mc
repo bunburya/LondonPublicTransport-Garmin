@@ -22,7 +22,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             if (stopPoints == null) { stopPoints = []; }
             view = new StopPointsConfigView(
                 stopPoints,
-                WatchUi.loadResource(Rez.Strings.ConfigArrivalStops),
+                Rez.Strings.ConfigArrivalStops,
                 ARRIVALS_STOPPOINTS,
                 ARRIVALS_MODES,
                 ARRIVALS_LINES

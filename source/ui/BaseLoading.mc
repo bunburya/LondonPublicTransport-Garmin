@@ -28,15 +28,14 @@ class BaseLoadingView extends WatchUi.View {
     function validateResponse(responseCode, data) as Boolean {
         var errorMessage = null;
         if (responseCode != 200) {
-            errorMessage = "Bad HTTP response: " + responseCode;
+            errorMessage = WatchUi.loadResource(Rez.Strings.BadHttpResponse) + ": " + responseCode;
         } else if (data == null) {
-            errorMessage = "No data received.";
+            errorMessage = Rez.Strings.NoDataReceived;
         }
 
         if (errorMessage != null) {
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
             WatchUi.showToast(errorMessage, null);
-            System.println("Error: " + errorMessage);
             return false;
         }
         return true;

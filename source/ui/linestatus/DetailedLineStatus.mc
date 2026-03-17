@@ -23,7 +23,7 @@ class DetailedLineStatusViewFactory extends WatchUi.ViewLoopFactory {
         if (lineStatus.reason != null) {
             body = lineStatus.reason;
         } else {
-            body = "No further information available.";
+            body = Rez.Strings.NoFurtherInfo;
         }
         
         var view = new InfoView(lineStatus.description, lineStatus.color(), body);

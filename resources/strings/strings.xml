@@ -12,7 +12,10 @@
     <string id="DeparturesMenuSubLabel">Overground, Elizabeth Line, Thameslink</string>
     <string id="SettingsMenuLabel">Settings</string>
 
+    <string id="AddLine">Add Line</string>
+    <string id="ChooseStop">Choose Stop</string>
     <string id="SearchResultsTitle">Search Results</string>
+    
 
     <string id="ConfigLineStatus">Configure Line Status</string>
     <string id="ConfigArrivalStops">Configure Arrival Stops</string>
@@ -23,4 +26,29 @@
     <string id="NoArrivals">No arrivals found.</string>
     <string id="NoDepartures">No departures found.</string>
     <string id="NoStopPoints">No stop points found.</string>
+
+    <string id="OnTime">On Time</string>
+    <string id="Delayed">Delayed</string>
+    <string id="Cancelled">Cancelled</string>
+
+    <string id="Destination">Destination</string>
+    <string id="Scheduled">Scheduled</string>
+    <string id="Estimated">Estimated</string>
+    <string id="Status">Status</string>
+
+    <string id="Updated">Updated</string>
+    <string id="Error">Error</string>
+
+    <string id="BadHttpResponse">Bad HTTP response</string>
+    <string id="NoDataReceived">No data received</string>
+
+    <string id="Add">Add</string>
+    <string id="Delete">Delete</string>
+    <string id="MoveUp">Move Up</string>
+    <string id="MoveDown">Move Down</string>
+
+    <string id="To">to</string>
+    <string id="Towards">towards</string>
+    <string id="Sched">sched.</string>
+
 </strings>

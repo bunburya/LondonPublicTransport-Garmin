@@ -22,7 +22,7 @@ class AddLineStatusView extends WatchUi.Menu2 {
     function initialize(selectedIds as Array<String>) {
         var selectedLines = lineIdsToLwms(selectedIds);
         var unselectedLineIds = getOtherLines(selectedLines);
-        WatchUi.Menu2.initialize({:title => "Add Line"});
+        WatchUi.Menu2.initialize({:title => Rez.Strings.AddLine});
         for (var i = 0; i < unselectedLineIds.size(); i++) {
             var id = unselectedLineIds[i];
             var lwm = getLwmById(id) as LineWithMode;

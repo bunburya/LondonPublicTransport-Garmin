@@ -4,7 +4,7 @@ import Toybox.Lang;
 
 class StopPointsConfigView extends DynamicMenuView {
 
-    private var _title as String;
+    private var _title as String or ResourceId;
     private var _storageKey as StorageKey;
     private var _modes as Array<String>?;
     private var _lines as Array<String>?;
@@ -12,7 +12,7 @@ class StopPointsConfigView extends DynamicMenuView {
 
     function initialize(
         stopPoints as Array,
-        title as String,
+        title as String or ResourceId,
         storageKey as StorageKey,
         modes as Array<String>?,
         lines as Array<String>?
@@ -61,7 +61,7 @@ class StopPointsConfigDelegate extends DynamicMenuDelegate {
     }
 
     function goToAddItemView(selection as Array) as Void {
-        var view = new WatchUi.TextPicker("Waterl");
+        var view = new WatchUi.TextPicker("");
         var delegate = new StopPointSearchDelegate(_storageKey, _modes, _lines);
         WatchUi.pushView(view, delegate, SLIDE_IMMEDIATE);
     }

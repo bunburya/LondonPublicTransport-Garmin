@@ -5,7 +5,9 @@ import Toybox.Lang;
 class ArrivalsListView extends WatchUi.Menu2 {
 
     function initialize(data as StopPointArrivals) {
-        Menu2.initialize({ :title => data.stopPoint.name, :footer => "Updated " + clockTimeToString()});
+        Menu2.initialize({
+            :title => data.stopPoint.name,
+            :footer => WatchUi.loadResource(Rez.Strings.Updated) + " " + clockTimeToString()});
         if (data.arrivals.size() == 0) {
             Menu2.addItem(new MenuItem(WatchUi.loadResource(Rez.Strings.NoArrivals), null, null, {}));
         } else {

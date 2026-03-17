@@ -20,12 +20,10 @@ class StopPointSearchLoadingView extends BaseLoadingView {
     }
 
     function onShow() as Void {
-        System.println("StopPointSearchLoadingView onShow called");
         getTflApi().searchStopPoints(_query, _modes, _lines, method(:onReceive));
     }
 
     function onReceive(responseCode as Number, data as Dictionary) {
-        System.println("StopPointSearchLoadingView onReceive called");
         if (!validateResponse(responseCode, data)) {
             return;
         }
@@ -35,7 +33,6 @@ class StopPointSearchLoadingView extends BaseLoadingView {
             WatchUi.showToast(WatchUi.loadResource(Rez.Strings.NoStopPoints), null);
             return;
         }
-        //System.println("array: " + array.toString());
         var stopPoints = [];
         for (var i = 0; i < array.size(); i++) {
              stopPoints.add(StopPoint.fromDict(array[i]));

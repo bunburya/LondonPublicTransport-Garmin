@@ -1,10 +1,39 @@
 import Toybox.WatchUi;
 import Toybox.Lang;
 
+function statusStr(status as String) as String {
+    if (eq(status, "OnTime")) {
+        return WatchUi.loadResource(Rez.Strings.OnTime);
+    } else if (eq(status, "Delayed")) {
+        return WatchUi.loadResource(Rez.Strings.Delayed);
+    } else if (eq(status, "Cancelled")) {
+        return WatchUi.loadResource(Rez.Strings.Cancelled);
+    } else {
+        return status;
+    }
+}
+
+function detailedInfo(dep as Departure, statusStr as String) as String {
+    var s = WatchUi.loadResource(Rez.Strings.Destination) + ": " + dep.destinationName + "\n\n";
+    s += WatchUi.loadResource(Rez.Strings.Scheduled) + ": " + formatTime(dep.scheduled, false) + "\n";
+    if (dep.estimated != null) {
+        s += WatchUi.loadResource(Rez.Strings.Estimated) + ": " + formatTime(dep.estimated, false) + "\n";
+    }
+    s += statusStr + "\n";
+    if (dep.cause != null) {
+        s += dep.cause + "\n";
+    }
+    return s;
+}
+
+
 class DeparturesListView extends WatchUi.Menu2 {
 
-    function initialize(stopName as String, departures as Array<Departure>) {
-        Menu2.initialize({ :title => stopName, :footer => "Updated " + clockTimeToString()});
+    function initialize(stopName as String or ResourceId, departures as Array<Departure>) {
+        Menu2.initialize({
+            :title => stopName,
+            :footer => WatchUi.loadResource(Rez.Strings.Updated) + " " + clockTimeToString()
+        });
         if (departures.size() == 0) {
             Menu2.addItem(new MenuItem(WatchUi.loadResource(Rez.Strings.NoDepartures), null, null, {}));
         } else {
@@ -39,12 +68,7 @@ class DeparturesListDelegate extends WatchUi.Menu2InputDelegate {
             return;
         }
         var dep = _departures[id];
-        var header;
-        if (eq(dep.status,"OnTime")) {
-            header = "On Time";
-        } else {
-            header = dep.status;
-        }
+        var header = statusStr(dep.status);
         var headerColor;
         if (dep.isOnTime() || dep.isAlmostOnTime()) {
             headerColor = TFL_GREEN;
@@ -53,15 +77,7 @@ class DeparturesListDelegate extends WatchUi.Menu2InputDelegate {
         } else {
             headerColor = TFL_YELLOW;
         }
-        var body = "Destination: " + dep.destinationName + "\n\n";
-        body += "Scheduled: " + formatTime(dep.scheduled, false) + "\n";
-        if (dep.estimated != null) {
-            body += "Estimated: " + formatTime(dep.estimated, false) + "\n";
-        }
-        body += header + "\n";
-        if (dep.cause != null) {
-            body += dep.cause + "\n";
-        }
+        var body = detailedInfo(dep, header);
         var view = new InfoView(header, headerColor, body);
         var delegate = new InfoDelegate(view);
         WatchUi.pushView(view, delegate, SLIDE_LEFT);

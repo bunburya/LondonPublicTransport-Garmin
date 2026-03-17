@@ -15,22 +15,11 @@ class ArrivalsListLoadingView extends BaseLoadingView {
     }
 
     function onReceive(responseCode, data) {
-        var arrivalsData = [];
-        var errorMessage = null;
-        if (responseCode == 200) {
-            if (data != null) {
-                arrivalsData = data as Array<Dictionary>;
-            } else {
-                errorMessage = "No data received.";
-            }
-        } else {
-            errorMessage = "Bad HTTP response: " + responseCode;
+        if (!validateResponse(responseCode, data)) {
+            return;
         }
 
-        if (errorMessage != null) {
-            System.println("Error: " + errorMessage);
-        }
-
+        var arrivalsData = data as Array<Dictionary>;
         var stopPointArrivals = new StopPointArrivals(_stopPoint, arrivalsData);
 
         var listView = new ArrivalsListView(stopPointArrivals);

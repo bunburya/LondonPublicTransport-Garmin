@@ -34,11 +34,11 @@ class StopPointListOrConfigDelegate extends WatchUi.Menu2InputDelegate {
 
     var _stopPoints as Array<StopPoint>;
     var _storageKey as StorageKey;
-    var _configTitle as String;
+    var _configTitle as String or ResourceId;
     var _modes as Array<String>?;
     var _lines as Array<String>?;
 
-    function initialize(stopPoints, configTitle, storageKey, modes, lines) {
+    function initialize(stopPoints as Array<StopPoint>, configTitle, storageKey, modes, lines) {
         Menu2InputDelegate.initialize();
         _stopPoints = stopPoints;
         _configTitle = configTitle;

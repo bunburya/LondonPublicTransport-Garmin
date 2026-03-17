@@ -17,8 +17,6 @@ class StopPointSearchDelegate extends WatchUi.TextPickerDelegate {
         if (text.length() == 0) {
             return false;
         }
-        System.println("Text: " + text);
-        System.println("Changed: " + changed);
         var view = new StopPointSearchLoadingView(text, _storageKey, _modes, _lines);
         WatchUi.switchToView(view, null, SLIDE_IMMEDIATE);
         // It seems that when we return from this function, Garmin pops

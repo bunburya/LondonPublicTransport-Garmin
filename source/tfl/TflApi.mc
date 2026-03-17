@@ -2,7 +2,7 @@ import Toybox.Communications;
 import Toybox.Lang;
 import Toybox.Time;
 
-// Line IDs for all lines that support `/ArrivalDeprtures` API endpoint.
+// Line IDs for all lines that support `/ArrivalDepartures` API endpoint.
 const _DEPARTURE_LINE_IDS = "thameslink,elizabeth,liberty,lioness,mildmay,suffragette,weaver,windrush";
 
 class TflApi {

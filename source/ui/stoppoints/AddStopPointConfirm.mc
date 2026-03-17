@@ -29,7 +29,6 @@ class AddStopPointConfirmLoadingView extends BaseLoadingView {
     }
 
     function onReceive(responseCode as Number, data as Dictionary) {
-        System.println("AddStopPointConfirmLoadingView onReceive called");
         if (!validateResponse(responseCode, data)) {
             return;
         }
@@ -41,7 +40,7 @@ class AddStopPointConfirmLoadingView extends BaseLoadingView {
             // menu to display the children to the user and allow them to choose.
             // (This is only relevant for buses.)
             var stopPoints = filterStopPointsByModes(StopPoint.fromDictArray(children), _modes);
-            var view = new BaseStopPointListView("Choose Stop", stopPoints);
+            var view = new BaseStopPointListView(Rez.Strings.ChooseStop, stopPoints);
             var delegate = new StopPointSearchResultsDelegate(stopPoints, _storageKey, true, _modes);
             WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
         } else {

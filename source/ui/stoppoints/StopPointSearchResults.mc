@@ -22,8 +22,6 @@ class StopPointSearchResultsDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item as MenuItem) as Void {
         var sp = _stopPoints[item.getId() as Number];
-        System.println("StopPointSearchResultsDelegate.onSelect called");
-        System.println("id: " + sp.toString());
         if (_isChild || (sp.parentId != null && sp.parentId != sp.id)) {
             // If _isChild is true, then _stopPoints is a list of child stops,
             // which should aready have the relevant details included. So we

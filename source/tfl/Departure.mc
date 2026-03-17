@@ -69,11 +69,13 @@ class Departure {
         var s;
         if (isOnTime() || isAlmostOnTime()) {
             s = formatTime(scheduled, false);
-        } else if (eq(status, "Cancelled")) {
-            s = "Cancelled";
+        } else if (isCancelled()) {
+            s = WatchUi.loadResource(Rez.Strings.Cancelled);
         } else {
             if (estimated != null) {
-                s = formatTime(estimated, false) + " (sched. " + formatTime(scheduled, false) + ")";
+                s = formatTime(estimated, false) 
+                    + " (" + WatchUi.loadResource(Rez.Strings.Sched) 
+                    + " " + formatTime(scheduled, false) + ")";
             } else {
                 s = status + " (sched. " + formatTime(scheduled, false) + ")";
             }

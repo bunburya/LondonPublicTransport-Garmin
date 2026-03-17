@@ -67,7 +67,7 @@ class DynamicMenuView extends WatchUi.Menu2 {
     var _selection as Array;
     private var _storageKey as StorageKey;
 
-    function initialize(title as String, selection as Array, storageKey as StorageKey) {
+    function initialize(title as String or ResourceId, selection as Array, storageKey as StorageKey) {
         WatchUi.Menu2.initialize({:title => title});
         _selection = selection;
         _storageKey = storageKey;
@@ -76,8 +76,7 @@ class DynamicMenuView extends WatchUi.Menu2 {
             var menuItem = getMenuItem(i);
             addItem(menuItem);
         }
-        //System.println("Adding Add menu");
-        addItem(new MenuItem("Add", null, ADD_NEW, null));
+        addItem(new MenuItem(Rez.Strings.Add, null, ADD_NEW, null));
     }
 
     function onShow() {
@@ -139,19 +138,19 @@ class DynamicMenuDelegate extends WatchUi.Menu2InputDelegate {
             var title = getMoveOrDeleteTitleById(id);
             var menu = new WatchUi.Menu2({:title => title});
             menu.addItem(new MenuItem(
-                "Move Up",
+                Rez.Strings.MoveUp,
                 null,
                 MOVE_UP,
                 null
             ));
             menu.addItem(new MenuItem(
-                "Move Down",
+                Rez.Strings.MoveDown,
                 null,
                 MOVE_DOWN,
                 null
             ));
             menu.addItem(new MenuItem(
-                "Delete",
+                Rez.Strings.Delete,
                 null,
                 DELETE,
                 null

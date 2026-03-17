@@ -36,6 +36,6 @@ class Arrival {
     }
 
     function toString() as String {
-        return lineName + " to " + destinationName + " " + secsToStr(timeToStation);
+        return lineName + " " + WatchUi.loadResource(Rez.Strings.To) + " " + destinationName + " " + secsToStr(timeToStation);
     }
 }
