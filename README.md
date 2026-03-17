@@ -19,7 +19,7 @@ Statuses are colour-coded: green = good service, yellow = moderate disruption, r
 
 ## Getting Started
 
-Open the app on your watch. The main menu shows three options: **Line Status**, **Arrivals**, and **Departures**. Each must be configured before it can show data.
+Open the app on your watch. The main menu shows four options: **Line Status**, **Arrivals**, **Departures** and **Settings**. **Line Status**, **Arrivals** and **Departures** must each be configured before it can show data.
 
 ---
 
@@ -27,7 +27,7 @@ Open the app on your watch. The main menu shows three options: **Line Status**, 
 
 ### Configuring lines
 
-1. Select **Line Status** from the main menu.  If no stops are configured, the configuration menu opens automatically.
+1. Select **Line Status** from the main menu.  If no stops are configured, the configuration menu opens automatically. Alternatively you can access the config menu from **Settings** in the main menu.
 2. Select **Add** to see all available lines. Tap a line to add it.
 3. To reorder or remove lines, tap an existing line in the config menu and choose **Move Up**, **Move Down**, or **Delete**.
 4. Once you are satisfied with the configured lines, swipe right (or do whatever action is considered "back" on your device) to go back to the main menu.
@@ -51,7 +51,7 @@ Arrivals shows the next vehicles due at a stop, sorted by arrival time.
 
 ### Configuring stops
 
-1. Select **Arrivals** from the main menu. If no stops are configured, the configuration menu opens automatically.
+1. Select **Arrivals** from the main menu. If no stops are configured, the configuration menu opens automatically. Alternatively you can access the config menu from **Settings** in the main menu.
 2. Select **Add** and type a search query (e.g. a stop name or road name). The app searches the TfL stop point database.
 3. Select a result from the search list. For some stops (e.g. bus stations with multiple stands), you will be shown the individual stands — select the specific one you want.
 4. Confirm the addition when prompted.
@@ -83,7 +83,8 @@ Select a station from the list to load departures. Each departure shows:
 - The ultimate destination of the service
 - A status string, for example:
   - `14:32 @ Platform 1` — on time, departing from Platform 1
-  - `14:35 (sched. 14:32) @ Platform 1` — running late
+  - `14:35 (sched. 14:32) @ Platform 1` — running late (estimated time later than scheduled time)
+  - `Delayed (sched. 14:32) @ Platform 1` — delayed (no estimated departure time)
   - `Cancelled` — service cancelled
 
 Tap the **footer** (which displays the last update time) to refresh.
