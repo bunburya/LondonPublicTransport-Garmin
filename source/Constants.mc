@@ -5,7 +5,7 @@ import Toybox.Application;
 
 const APP_NAME = Application.loadResource(Rez.Strings.AppName);
 const APP_VERSION = Application.loadResource(Rez.Strings.AppVersion);
-const USER_AGENT = APP_NAME + " v" + APP_VERSION;
+const USER_AGENT = APP_NAME + "(" + Application.loadResource(Rez.Strings.AppNameLong) + ") v" + APP_VERSION;
 const BASE_URL = "https://api.tfl.gov.uk/";
 
 const ARRIVALS_MODES = ["bus", "tube", "tram"];
