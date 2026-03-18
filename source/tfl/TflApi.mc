@@ -10,25 +10,27 @@ class TflApi {
     // Generic function to make a GET request to the TFL API, which is used by the
     // other endpoint-specific methods.
     private function makeRequest(url as String, params as Dictionary, callback as Method) {
-        System.println("Calling url: " + url);
+        var headers = {
+            "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON,
+            "User-Agent" => USER_AGENT
+        };
+        var apiKey = Application.Properties.getValue("apiKey");
+        if (apiKey != null && apiKey.length() > 0) {
+            headers["app_key"] = apiKey;
+        }
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
-            :headers => {
-                "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON,
-                "User-Agent" => USER_AGENT
-            },
+            :headers => headers,
             :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
         };
-        //System.println("Options: " + options.toString());
-
+        System.println("Calling url: " + url);
         Communications.makeWebRequest(url, params, options, callback);
     }
 
     // Get the status of the given lines.
     function getLineStatuses(lines as Array<String>, callback as Method) {
         var ids = joinArray(lines, ',');
-        var url = BASE_URL + "/Line/" + ids + "/Status";
-        //var params = { "detail" => true };
+        var url = BASE_URL + "Line/" + ids + "/Status";
         var params = {};
         makeRequest(url, params, callback);
     }
@@ -36,8 +38,7 @@ class TflApi {
     // Get the status of all lines for the given modes.
     function getModeLineStatuses(modes as Array<String>, callback as Method) {
         var modeIds = joinArray(modes, ',');
-        var url = BASE_URL + "/Line/Mode/" + modeIds + "/Status";
-        //var params = { "detail" => true };
+        var url = BASE_URL + "Line/Mode/" + modeIds + "/Status";
         var params = {};
         makeRequest(url, params, callback);
     }
