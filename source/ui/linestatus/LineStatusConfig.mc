@@ -37,7 +37,7 @@ class LineStatusConfigDelegate extends DynamicMenuDelegate {
         WatchUi.pushView(view, delegate, SLIDE_LEFT);
     }
     
-    function getMoveOrDeleteTitle(id as String) as String {
+    function getMoveOrDeleteTitleById(id as String) as String {
         return getLwmById(id).line.name;
     }
 
