@@ -18,7 +18,7 @@ class LondonPublicTransportApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        var view = new Rez.Menus.MainMenu();
+        var view = new MainMenuView();
         var delegate = new MainMenuDelegate();
         return [ view, delegate ];
         //return [view];

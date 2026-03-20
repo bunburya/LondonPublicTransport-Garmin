@@ -2,6 +2,42 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.System;
 
+class MainMenuView extends WatchUi.Menu2 {
+    function initialize() {
+        var footer = WatchUi.loadResource(Rez.Strings.AppName)
+            + " v"
+            + WatchUi.loadResource(Rez.Strings.AppVersion);
+        WatchUi.Menu2.initialize({
+            :title => Rez.Strings.MainMenuHeader,
+            :footer => footer
+        });
+        addItem(new MenuItem(
+            Rez.Strings.LineStatusMenuLabel,
+            Rez.Strings.LineStatusMenuSubLabel,
+            :line_status,
+            {}
+        ));
+        addItem(new MenuItem(
+            Rez.Strings.ArrivalsMenuLabel,
+            Rez.Strings.ArrivalsMenuSubLabel,
+            :arrivals,
+            {}
+        ));
+        addItem(new MenuItem(
+            Rez.Strings.DeparturesMenuLabel,
+            Rez.Strings.DeparturesMenuSubLabel,
+            :departures,
+            {}
+        ));
+        addItem(new MenuItem(
+            Rez.Strings.SettingsMenuLabel,
+            null,
+            :settings,
+            {}
+        ));
+    }
+}
+
 class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     function initialize() {

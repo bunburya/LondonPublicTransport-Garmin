@@ -5,6 +5,8 @@
     <string id="AppVersion">1.0.0</string>
     <string id="ApiKeyLabel">TFL API Key</string>
 
+    <string id="MainMenuHeader">Main Menu</string>
+
     <string id="LineStatusMenuLabel">Line Status</string>
     <string id="LineStatusMenuSubLabel">Tube, Overground, Elizabeth Line, DLR, River Bus, Cable Car, Tram</string>
     <string id="ArrivalsMenuLabel">Arrivals</string>
