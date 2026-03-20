@@ -13,17 +13,16 @@ class DeparturesListLoadingView extends BaseLoadingView {
         getTflApi().getStopPointDepartures(_stopPoint.id, method(:onReceive));
     }
 
-    function onReceive(responseCode, data) {
+    function onReceive(responseCode as Number, data as Array) {
         if (!validateResponse(responseCode, data)) {
             return;
         }
         
-        var departuresData = [];
         var departures = [];
-        for (var i = 0; i < departuresData.size(); i++) {
-            var d = departuresData[i] as Dictionary;
+        for (var i = 0; i < data.size(); i++) {
+            var d = data[i] as Dictionary;
             if (d["scheduledTimeOfDeparture"] != null) {
-                departures.add(Departure.fromDict(departuresData[i]));
+                departures.add(Departure.fromDict(d));
             }
         }
 
