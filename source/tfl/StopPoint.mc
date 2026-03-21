@@ -113,6 +113,18 @@ class StopPoint {
         }
         return false;
     }
+
+    // Return a string that can be used to display this stop in a list.
+    function listDisplay() as String {
+        var text = name;
+        if (indicator != null) {
+            text += "\n" + indicator;
+        }
+        if (lines != null && lines.size() > 0) {
+            text += "\n" + joinArray(lineNameArray(lines), "/");
+        }
+        return text;
+    }
 }
 
 function filterStopPointsByModes(stopPoints as Array<StopPoint>, modes as Array<String>) as Array<StopPoint> {
@@ -185,4 +197,12 @@ function addStopPoint(stopPoint as StopPoint, storageKey as StorageKey) {
     }
     data.add(stopPoint.toDict());
     Application.Storage.setValue(storageKey, data);
+}
+
+function lineNameArray(lines as Array<TflLine>) as Array<String> {
+    var names = [];
+    for (var i = 0; i < lines.size(); i++) {
+        names.add(lines[i].name);
+    }
+    return names;
 }

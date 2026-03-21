@@ -33,7 +33,12 @@ class AddStopPointConfirmLoadingView extends BaseLoadingView {
             return;
         }
         var stopPoint = StopPoint.fromDict(data);
-        var children = data["children"];
+        System.println("stopPoint lines: " + stopPoint.lines.toString());
+        var children = data["children"] as Array<Dictionary>;
+        if (children != null && children.size() == 1) {
+            stopPoint = StopPoint.fromDict(children[0]);
+            _isLeaf = true;
+        }
         if ((!_isLeaf) && (children != null) && (children.size() != 0) && stopPoint.hasAnyMode(["bus"])) {
             // We have a "parent" StopPoint which is just a grouping of "child"
             // StopPoints, which are the ones we actually want. Show show a new
@@ -44,11 +49,7 @@ class AddStopPointConfirmLoadingView extends BaseLoadingView {
             var delegate = new StopPointSearchResultsDelegate(stopPoints, _storageKey, true, _modes);
             WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
         } else {
-            var text = stopPoint.name;
-            if (stopPoint.indicator != null) {
-                text += "\n" + stopPoint.indicator;
-            }
-            var view = new WatchUi.Confirmation(text);
+            var view = new WatchUi.Confirmation(stopPoint.listDisplay());
             var delegate = new AddStopPointConfirmDelegate(_storageKey, stopPoint);
             WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
         }

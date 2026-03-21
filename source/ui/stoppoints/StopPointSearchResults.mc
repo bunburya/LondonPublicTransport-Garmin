@@ -34,11 +34,8 @@ class StopPointSearchResultsDelegate extends WatchUi.Menu2InputDelegate {
             // stops. This means calling `/StopPoint/<id>` will return details
             // of the parent hub, which can sometimes be too large. So instead
             // we just display the data we have. 
-            var text = sp.name;
-            if (sp.indicator != null) {
-                text += "\n" + sp.indicator;
-            }
-            var view = new WatchUi.Confirmation(text);
+            
+            var view = new WatchUi.Confirmation(sp.listDisplay());
             var delegate = new AddStopPointConfirmDelegate(_storageKey, sp);
             WatchUi.switchToView(view, delegate, SLIDE_IMMEDIATE);
         } else {
