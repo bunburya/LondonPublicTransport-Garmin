@@ -14,6 +14,7 @@
     <string id="DeparturesMenuLabel">Departures</string>
     <string id="DeparturesMenuSubLabel">Overground, Elizabeth Line, Thameslink</string>
     <string id="SettingsMenuLabel">Settings</string>
+    <string id="AboutMenuLabel">About</string>
 
     <string id="AddLine">Add Line</string>
     <string id="ChooseStop">Choose Stop</string>
@@ -54,4 +55,6 @@
     <string id="Towards">towards</string>
     <string id="Sched">sched.</string>
 
+    <string id="TflAttr">Powered by TfL Open Data</string>
+    <string id="AboutLicence">Source code published under the MIT licence.</string>
 </strings>
