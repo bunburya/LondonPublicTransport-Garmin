@@ -76,10 +76,11 @@ class InfoView extends WatchUi.View {
     function onUpdate(dc) {
         // Note: Using COLOR_TRANSPARENT for background causes issues in the
         // simulator, as the previous view does not clear properly and you get
-        // the two views superimposed. But it seems to work fine on the watch
-        // itself (tested on Vivoactive 5). 
+        // the two views superimposed. It seems to work fine on the watch
+        // itself (tested on Vivoactive 5), but set a concrete colour just
+        // in case. 
 
-        //dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
         
         var screenWidth = dc.getWidth();
@@ -128,30 +129,7 @@ class InfoView extends WatchUi.View {
         // Clear clipping
         dc.clearClip();
         
-        // Draw scroll indicator if needed
-        //if (_maxScrollOffset > 0) {
-        //    drawScrollIndicator(dc);
-        //}
     }
-
-    // function drawScrollIndicator(dc) {
-        
-    //     var scrollBarX = _screenWidth - 5;
-    //     var scrollBarY = _bodyYStart + 5;
-    //     var scrollBarHeight = _bodyHeight - 10;
-        
-    //     // Background
-    //     dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-    //     dc.drawLine(scrollBarX, scrollBarY, scrollBarX, scrollBarY + scrollBarHeight);
-        
-    //     // Thumb
-    //     var scrollPercent = _scrollOffset.toFloat() / _maxScrollOffset.toFloat();
-    //     var thumbHeight = 20;
-    //     var thumbY = (scrollBarY + (scrollPercent * (scrollBarHeight - thumbHeight))).toNumber();
-        
-    //     dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    //     dc.fillRectangle(scrollBarX - 1, thumbY, 3, thumbHeight);
-    // }
 
     function wrapText(dc, strOrId as String or ResourceId, maxWidth, font) {
         var text;

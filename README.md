@@ -15,11 +15,10 @@ Each feature works with a different set of transport modes (bus, tube, etc). Thi
 
 Statuses are colour-coded: green = good service, yellow = moderate disruption, red = severe disruption or closure.
 
----
-
-## Getting Started
+### Getting Started
 
 Open the app on your watch. The main menu shows four options: **Line Status**, **Arrivals**, **Departures** and **Settings**. **Line Status**, **Arrivals** and **Departures** must each be configured before it can show data.
+
 
 ---
 
@@ -90,3 +89,11 @@ Select a station from the list to load departures. Each departure shows:
 Tap the **footer** (which displays the last update time) to refresh.
 
 Tap a departure to see the full detail: scheduled time, estimated time (if different), status, and the cause of any delay or cancellation where provided. Note that the line/mode of the service (ie, Thameslink, or Elizabeth line or Overground line) is _not_ shown (this information is not returned by the TfL API).
+
+## Configure TfL API Key (optional)
+
+The app works without an API key, but unauthenticated requests are subject to stricter rate limits. If you use the app frequently, it is recommended to register for a free key:
+
+1. Go to the [TfL API portal](https://api-portal.tfl.gov.uk/) and register for an account.
+2. Once logged in, subscribe to the **Unified API** product to obtain an API key.
+3. In the Garmin Connect app on your phone, open the settings for LPTG and paste your key into the **API Key** field.

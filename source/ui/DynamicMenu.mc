@@ -80,14 +80,9 @@ class DynamicMenuView extends WatchUi.Menu2 {
     }
 
     function onShow() {
-        //System.println("DynamicMenuView onShow called");
-        //System.println("storageKey: " + _storageKey.toString());
         var sel = Application.Storage.getValue(_storageKey);
-        //System.println("new selection: " + sel);
-        //System.println("previous selection: " + _selection.toString());
         if (sel != null && !eq(sel, _selection)) {
             // If the selection has changed, reload the menu
-            //System.println("calling reloadWithSelection");
             reloadWithSelection(sel);
         }
     }

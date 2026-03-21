@@ -21,11 +21,6 @@ class LondonPublicTransportApp extends Application.AppBase {
         var view = new MainMenuView();
         var delegate = new MainMenuDelegate();
         return [ view, delegate ];
-        //return [view];
     }
 
-}
-
-function getApp() as LondonPublicTransportApp {
-    return Application.getApp() as LondonPublicTransportApp;
 }

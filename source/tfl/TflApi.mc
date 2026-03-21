@@ -2,10 +2,9 @@ import Toybox.Communications;
 import Toybox.Lang;
 import Toybox.Time;
 
-// Line IDs for all lines that support `/ArrivalDepartures` API endpoint.
-const _DEPARTURE_LINE_IDS = "thameslink,elizabeth,liberty,lioness,mildmay,suffragette,weaver,windrush";
-
 class TflApi {
+
+    private var _DEPARTURE_LINE_IDS = joinArray(DEPARTURES_LINES, ","); 
 
     // Generic function to make a GET request to the TFL API, which is used by the
     // other endpoint-specific methods.
@@ -23,7 +22,6 @@ class TflApi {
             :headers => headers,
             :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
         };
-        System.println("Calling url: " + url);
         Communications.makeWebRequest(url, params, options, callback);
     }
 

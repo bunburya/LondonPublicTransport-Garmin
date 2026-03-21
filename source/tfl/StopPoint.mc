@@ -31,7 +31,6 @@ class StopPoint {
     }
 
     static function fromDict(data as Dictionary) as StopPoint {
-        //System.println("fromDict called on data: " + data.toString());
         var name = data["name"];
         if (name == null) {
             name = data["commonName"];
@@ -105,9 +104,6 @@ class StopPoint {
     }
 
     function hasAnyLine(linesToSearch as Array<String>) as Boolean {
-        System.println("hasAnyLine called");
-        System.println("lines: " + lines);
-        System.println("linesToSearch: " + linesToSearch.toString());
         for (var i = 0; i < linesToSearch.size(); i++) {
             for (var j = 0; j < lines.size(); j++) {
                 if (eq(lines[j].id, linesToSearch[i])) {
