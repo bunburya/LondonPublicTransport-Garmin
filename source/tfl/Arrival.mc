@@ -19,7 +19,6 @@ class Arrival {
     var destinationName as String;
     var towards as String;
     var timeToStation as Number;
-    var expectedArrival as Moment;
 
 
     function initialize(data as Dictionary) {
@@ -32,7 +31,6 @@ class Arrival {
         destinationName = data["destinationName"];
         towards = data["towards"];
         timeToStation = data["timeToStation"];
-        expectedArrival = parseDateTime(data["expectedArrival"]);
     }
 
     function toString() as String {

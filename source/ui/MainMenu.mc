@@ -35,6 +35,12 @@ class MainMenuView extends WatchUi.Menu2 {
             :settings,
             {}
         ));
+        addItem(new MenuItem(
+            Rez.Strings.AboutMenuLabel,
+            null,
+            :about,
+            {}
+        ));
     }
 }
 
@@ -71,7 +77,10 @@ class MainMenuDelegate extends WatchUi.Menu2InputDelegate {
             );
             WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
         } else if (id == :settings) {
-            WatchUi.pushView(new Rez.Menus.SettingsMenu(), new SettingsMenuDelegate(), SLIDE_RIGHT);
+            WatchUi.pushView(new Rez.Menus.SettingsMenu(), new SettingsMenuDelegate(), SLIDE_LEFT);
+        } else if (id == :about) {
+            var view = aboutView();
+            WatchUi.pushView(view, new InfoDelegate(view), SLIDE_LEFT);
         }
     }
 }

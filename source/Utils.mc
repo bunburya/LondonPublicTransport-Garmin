@@ -120,7 +120,7 @@ function formatTime(t as ClockTime or Moment or LocalMoment, inclSecs as Boolean
     if (t instanceof ClockTime) {
         info = t;
     } else {
-        info = Gregorian.utcInfo(t, Time.FORMAT_SHORT);
+        info = Gregorian.info(t, Time.FORMAT_SHORT);
     }
     if (!inclSecs) {
         var min = info.min;

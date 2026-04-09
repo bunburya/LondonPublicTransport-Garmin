@@ -2,7 +2,7 @@
     <string id="AppName">LPTG</string>
     <string id="AppNameLong">London Public Transport for Garmin</string>
     <string id="AppVersionLabel">App Version</string>
-    <string id="AppVersion">1.0.0</string>
+    <string id="AppVersion">1.0.2</string>
     <string id="ApiKeyLabel">TFL API Key</string>
 
     <string id="MainMenuHeader">Main Menu</string>
