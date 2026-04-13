@@ -1,0 +1,5 @@
+LPTG (London Public Transport for Garmin) is a simple widget that shows you current line status and predicted arrivals and departures for certain Transport for London (TfL) stops and routes.
+
+The app is powered by TfL Open Data (but has not been developed by and is not affiliated with TfL).
+
+More information, including configuration and usage instructions, can be found at https://github.com/bunburya/LPTG
